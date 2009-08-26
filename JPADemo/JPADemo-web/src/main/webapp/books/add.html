@@ -1,0 +1,55 @@
+<lift:surround with="default" at="content">
+  <head>
+    <title><lift:loc>Add Book</lift:loc></title>
+    <!-- required plugins -->
+    <script type="text/javascript" src="/scripts/date.js"></script>
+    <!--[if IE]><script type="text/javascript" src="/scripts/jquery.bgiframe.js"></script><![endif]-->
+
+    <!-- jquery.datePicker.js -->
+    <script type="text/javascript" src="/scripts/jquery.datePicker.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/datePicker.css" />
+    <style>
+      a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 5px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(/scripts/calendar.png) no-repeat; 
+      }
+      a.dp-choose-date.dp-disabled {
+        background-position: 0 -20px;
+	cursor: default;
+      }
+      /* makes the input field shorter once the date picker code
+      * has run (to allow space for the calendar icon
+      */
+      input.dp-applied {
+	width: 140px;
+	float: left;
+      }
+    </style>
+  </head>
+
+  <table>
+  <lift:BookOps.add form="post">
+    <book:id />
+    <tr><td><label><lift:loc>Title</lift:loc></label></td><td><book:title /></td></tr>
+    <tr><td><label><lift:loc>Published</lift:loc></label></td><td><book:published /></td></tr>
+    <tr><td><label><lift:loc>Genre</lift:loc></label></td><td><book:genre /></td></tr>
+    <tr><td><label><lift:loc>Author</lift:loc></label></td><td><book:author /></td></tr>
+    <tr><td><book:save /></td></tr>
+  </lift:BookOps.add>
+  </table>
+
+  <script type="text/javascript">
+    Date.format = 'yyyymmdd';
+    jQuery(function () {
+      jQuery('#published').datePicker({startDate:'00010101'});
+    })
+  </script>
+</lift:surround>

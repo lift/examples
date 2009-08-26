@@ -1,0 +1,71 @@
+<lift:surround with="default" at="content">
+<p>The Number Counting Example</p>
+<p><lift:Count name="first">The first value is <count:value/> <count:incr>Increment</count:incr> <count:decr>Decrement</count:decr></lift:Count></p>
+
+<p><lift:Count name="second">The second value is <count:value/> <count:incr>Increment</count:incr> <count:decr>Decrement</count:decr></lift:Count></p>
+
+    <style type="text/css">
+    <![CDATA[
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222 !important;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222 !important;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff !important;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0 !important;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f !important;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22 !important;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b !important;
+      }
+    ]]>
+    </style>
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+  * This session variable holds a set of Names and Integers, with a default value
+  * of 0 (zero)
+  */</span>
+<span class="keyword">object</span> <span class="variable-name">CountHolder</span> <span class="keyword">extends</span> <span class="type">SessionVar</span>[<span class="type">HashMap</span>[<span class="type">String</span>, <span class="type">Int</span>]](<span class="keyword">new</span> HashMap[String, Int] {
+  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">default</span>(<span class="variable-name">key</span>: <span class="type">String</span>): <span class="type">Int </span>= 0
+})
+
+<span class="comment-delimiter">/**</span><span class="comment">
+  * This snippet handles counting
+  */</span>
+<span class="keyword">class</span> <span class="type">Count</span> {
+  
+  <span class="comment-delimiter">/**</span><span class="comment">
+    * This method is invoked by the &amp;lt;lift:Count /&amp;gt; tag
+    */</span>
+  <span class="keyword">def</span> <span class="function-name">render</span>(<span class="variable-name">in</span>: <span class="type">NodeSeq</span>): <span class="type">NodeSeq </span>= {
+    <span class="comment-delimiter">// </span><span class="comment">get the attribute name (the name of the thing to count)
+</span>    <span class="keyword">val</span> <span class="variable-name">attr</span>: <span class="type">String </span>= S.attr(<span class="string">"name"</span>).openOr(<span class="string">"N/A"</span>)
+    
+    <span class="comment-delimiter">// </span><span class="comment">Get the value from the session variable
+</span>    <span class="keyword">val</span> <span class="variable-name">value</span> = CountHolder.is(attr)
+    
+    <span class="comment-delimiter">// </span><span class="comment">Bind the incoming view data and the model data
+</span>    bind(<span class="string">"count"</span>, in, <span class="string">"value"</span> --&gt; value,
+    <span class="string">"incr"</span> --&gt; link(<span class="string">"/count"</span>, () =&gt; CountHolder.is(attr) = value + 1, Text(<span class="string">"++"</span>)),
+    <span class="string">"decr"</span> --&gt; link(<span class="string">"/count"</span>, () =&gt; CountHolder.is(attr) = 0 max (value - 1), Text(<span class="string">"--"</span>)))
+  }
+}
+</pre>
+
+</lift:surround>

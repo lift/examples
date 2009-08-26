@@ -1,0 +1,10 @@
+<lift:surround with="default" at="content">
+    <h1>Hello Form</h1>
+    Hello <lift:HelloForm.who/>
+    <br/>
+    <form>
+        <label for="whoField">Who :</label>
+        <input type="text" name="whoField"/>
+        <input type="submit" value="send"/>
+    </form>
+</lift:surround>

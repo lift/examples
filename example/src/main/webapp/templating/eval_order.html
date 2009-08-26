@@ -1,0 +1,57 @@
+<lift:surround with="default" at="content">
+<style>
+/* <![CDATA[ */
+p + p {
+margin-top: 0em;
+text-indent: 0em;
+}
+
+.dpp_stuff p {
+  padding-left: 15px;
+}
+
+/* ]]> */
+</style>
+
+<p>
+  Lift evaluates the &lt;lift:xxx/&gt; tags from the outside in, otherwise
+knows as lazy evaluation.  This means that the following code will only
+embed a single template:
+    <style type="text/css">
+    /* <![CDATA[ */
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .sgml-namespace {
+        /* sgml-namespace */
+        color: #da70d6;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      /* ]]> */
+    </style>
+    <pre>
+&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedout</span>&gt;
+  &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">embed</span> <span class="variable-name">what</span>=<span class="string">"/templates/_login_panel"</span>/&gt;
+&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedout</span>&gt;
+
+&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedin</span>&gt;
+  &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">embed</span> <span class="variable-name">what</span>=<span class="string">"/templates/_welcome_message"</span>/&gt;
+&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedin</span>&gt;
+</pre>
+
+Depending on if the user is logged in.
+</p>
+
+<p>
+  This also means that a snippet may return XML that
+  contains other snippet tags.
+</p>
+</lift:surround>

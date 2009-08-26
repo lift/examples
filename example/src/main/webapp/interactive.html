@@ -1,0 +1,79 @@
+<lift:surround with="default" at="content">
+<p>
+Lift provides powerful facilities to build highly
+interactive web applications.
+</p>  
+<h3>Ajax</h3>
+<p>
+  Lift has powerful set of Ajax features that all you to 
+  create Ajax controls with as little as 1 line of code:
+<code>
+<pre>
+  ajaxButton("", s => {println("you said: "+s); SetHtml("place", &lt;b&gt;{s}&lt;/b&gt;)})
+</pre>
+</code>
+</p>
+
+<h3>Comet</h3>
+<p>
+  Lift supports Comet-style long polling with very little work on the
+  part of the developer.  Here's the code the implements the clock
+  that you see in this demo:
+
+    <style type="text/css">
+    /* <![CDATA[ */
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+
+      /* ]]> */
+    </style>
+
+    <pre>
+<span class="keyword">class</span> <span class="type">Clock</span> <span class="keyword">extends</span> <span class="type">CometActor</span> {
+  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">defaultPrefix</span> = Full(<span class="string">"clk"</span>)
+  <span class="comment-delimiter">// </span><span class="comment">schedule a ping every 10 seconds so we redraw
+</span>  ActorPing.schedule(<span class="keyword">this</span>, Tick, 10 seconds) 
+
+  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">val</span> <span class="variable-name">spanId</span> = uniqueId+<span class="string">"_timespan"</span>
+
+  <span class="keyword">def</span> <span class="function-name">render</span> = bind(<span class="string">"time"</span> -&gt; timeSpan)
+
+  <span class="keyword">def</span> <span class="function-name">timeSpan</span> = (&lt;span id={spanId}&gt;{timeNow}&lt;/span&gt;)
+
+  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">lowPriority</span> = {
+    <span class="keyword">case</span> <span class="type">Tick</span> =&gt;
+      partialUpdate(SetHtml(spanId, Text(timeNow.toString)))
+    ActorPing.schedule(<span class="keyword">this</span>, Tick, 10 seconds) 
+  }
+}
+</pre>
+
+
+</p>
+</lift:surround>

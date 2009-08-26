@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    
+    <title>Lift Web Framework</title>
+    <link rel="stylesheet" href="/style/style.css" media="screen" />
+    <script id="jquery" src="/classpath/jquery.js" type="text/javascript"/>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+	<h1>HelloLift</h1>
+	<div style='padding: 0px 10px 10px 10px'>Your application</div>
+      </div>
+      <div id="content">
+	<lift:bind name="content" />
+      </div>
+      <div id="sidebar">
+	<lift:Menu.builder />
+	<div><lift:msgs/>
+	</div>
+      </div>
+      <div id="footer">
+	<a href='http://liftweb.net'><i>Lift</i></a> is Copyright 2007-2009 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.
+      </div>
+    </div>
+  </body>
+</html>

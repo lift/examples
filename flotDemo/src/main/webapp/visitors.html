@@ -1,0 +1,33 @@
+<lift:surround with="default" at="content">
+<head>
+<script>
+<![CDATA[
+    function weekendAreas(plotarea) {
+        var areas = [];
+        var d = new Date(plotarea.xmin);
+        d.setDate(d.getDate() - ((d.getDay() + 1) % 7))
+        d.setSeconds(0);
+        d.setMinutes(0);
+        d.setHours(0);
+        var i = d.getTime();
+        do {
+            areas.push({ x1: i, x2: i + 2 * 24 * 60 * 60 * 1000 });
+            i += 7 * 24 * 60 * 60 * 1000;
+        } while (i < plotarea.xmax);
+
+        return areas;
+    }
+]]>
+</script>
+</head>
+
+		<h2>Visitors per day with zooming and weekends</h2>
+		<div id="ph_graph" style="width:600px;height:300px"></div>
+                <div id="ph_overview" style="margin-left:50px;margin-top:20px;width:400px;height:50px"></div>
+
+		  <lift:snippet type="Visitors:render">
+		    <flot:graph>
+		    </flot:graph>
+		  </lift:snippet>
+</lift:surround>
+

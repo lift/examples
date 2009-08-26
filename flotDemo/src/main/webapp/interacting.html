@@ -1,0 +1,17 @@
+<lift:surround with="default" at="content">
+		<h2>Interacting with the data</h2>
+		<div id="ph_graph" style="width:600px;height:300px"></div>
+                <p>Try clicking on the plot above. <span id="result"> </span></p>
+
+		  <lift:snippet type="Interacting:render">
+		    <flot:graph>
+		    <script>
+    $('#ph_graph').bind('plotclick', function (e, pos) {
+        // the values are in pos.x and pos.y
+        $('#result').text('You clicked on (' + pos.x.toFixed(2) +  ', ' + pos.y.toFixed(2) + ')');
+    });
+
+		    </script>
+		    </flot:graph>
+		  </lift:snippet>
+</lift:surround>

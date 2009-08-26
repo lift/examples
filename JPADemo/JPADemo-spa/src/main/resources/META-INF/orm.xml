@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+        http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">
+
+  <package>net.liftweb.jpademo.model</package>
+
+  <entity class="Book">
+    <named-query name="findBooksByAuthor">
+      <query><![CDATA[from Book b where b.author.id = :id order by b.title]]></query>
+    </named-query>
+    <named-query name="findBooksByDate">
+      <query><![CDATA[from Book b where b.published between :startDate and :endDate]]></query>
+    </named-query>
+    <named-query name="findBooksByTitle">
+      <query><![CDATA[from Book b where lower(b.title) like :title order by b.title]]></query>
+    </named-query>
+    <named-query name="findAllBooks">
+      <query><![CDATA[from Book b order by b.title]]></query>
+    </named-query>
+  </entity>
+
+  <entity class="Author">
+    <named-query name="findAllAuthors">
+      <query><![CDATA[from Author a order by a.name]]></query>
+    </named-query>
+  </entity>
+
+</entity-mappings>

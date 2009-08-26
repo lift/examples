@@ -1,0 +1,29 @@
+<lift:surround with="default" at="content">
+
+<p>
+This is the "validation" page.  In order to view any content under /login/*, you
+must be validated (logged in.)  This is achieved with the following code in
+Boot.scala:
+</p>
+
+<p>
+<code><![CDATA[
+    LiftRules.addDispatchBefore {
+         case RequestMatcher(_, ParsePath("login" :: page , _, _),_,_)  if !LoginStuff.is && page.head != "validate" =>
+         ignore => Full(RedirectResponse("/login/validate"))
+      }
+]]>
+</code>
+</p>
+
+<p>
+If the user is not validated/logged in, all pages under /login/* will be directed
+to /login/validate.
+</p>
+
+<p>
+Press the button <lift:ValidateSession /> to validate the session and access
+/login/index.
+</p>
+
+</lift:surround>

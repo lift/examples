@@ -1,0 +1,25 @@
+<lift:surround with="default" at="content">
+  <head>
+    <title><lift:loc>Book Search</lift:loc></title>
+  </head>
+
+  <table>
+    <tr>
+      <th><lift:loc>Title</lift:loc></th>
+      <th><lift:loc>Author</lift:loc></th>
+    </tr>
+    <lift:BookOps.searchResults>
+      <tr>
+	<td><result:title/></td>
+	<td><result:author/></td>
+      </tr>
+    </lift:BookOps.searchResults>
+  </table>
+
+  <lift:BookOps.search form="post">
+    <table>
+      <tr><td><search:title /><search:run /></td></tr>
+    </table>
+  </lift:BookOps.search>
+</lift:surround>
+

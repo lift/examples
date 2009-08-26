@@ -1,0 +1,113 @@
+<lift:surround with="default" at="content">
+  <style>
+    /* <![CDATA[ */
+p + p {
+margin-top: 0em;
+text-indent: 0em;
+}
+
+.dpp_stuff p {
+  padding-left: 15px;
+}
+
+/* ]]> */
+  </style>
+
+  <p>
+    In addition surrounding XHTML with a template, you
+    can also embed a template at the current point in 
+    the page rendering with the &lt;lift:embed/&gt; tag.
+  </p> 
+
+  <lift:embed what="/templating/_sample_embed"/>
+
+  <p>
+    The above paragraph was embedded using this code:
+  </p>
+
+  <style type="text/css">
+    /* <![CDATA[ */
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .sgml-namespace {
+        /* sgml-namespace */
+        color: #da70d6;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      /* ]]> */
+  </style>
+
+  <pre>
+    &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">embed</span> <span class="variable-name">what</span>=<span class="string">"/templating/_sample_embed"</span>/&gt;
+  </pre>
+
+  <p>
+    Templates that start with the underscore ('_') or period ('.')
+    characters will not be served directly by Lift, but may be
+    accessed using the surround and embed tags.
+  </p>
+
+  <p>
+    Lift will select templates based on the current localization
+    setting for the session.  Lift uses the function in 
+    <code>LiftRules.localeCalculator</code> to determine the 
+    current locale for template selection.  By default the 
+    function is:
+    <style type="text/css">
+    /* <![CDATA[ */
+      .constant {
+        /* font-lock-constant-face */
+        color: #5f9ea0;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      /* ]]> */
+    </style>
+    <pre>
+  <span class="keyword">def</span> <span class="function-name">defaultLocaleCalculator</span>(<span class="variable-name">request</span>: <span class="type">Box[HttpServletRequest]</span>) = 
+    request.flatMap(_.getLocale() <span class="keyword">match</span> 
+                    {<span class="keyword">case</span> <span class="constant">null</span> =&gt; Empty 
+                     <span class="keyword">case</span> <span class="variable-name">l</span>: <span class="type">Locale =&gt; Full</span>(<span class="variable-name">l</span>)}).openOr(Locale.getDefault())
+</pre>
+
+But you can customize the function to return the locale of
+the currently logged in user, detect the IP address of the request,
+etc.
+  </p>
+
+<p>
+  Based on the locale, Lift will look for templates based on 
+  the base template name, in this case 
+  <code>'/templating/_sample_embed'</code> and
+  then append an underscore ('_') followed by the complete locale, for
+  example 'en_US'.  So, Lift will look for 
+  <code>'/templating/_sample_embed_en_US.html'</code>.  If that resource
+  is not available, Lift will look for 
+  <code>'/templating/_sample_embed_en.html'</code> and finally
+  <code>'/templating/_sample_embed.html'</code>.
+</p>
+
+</lift:surround>
