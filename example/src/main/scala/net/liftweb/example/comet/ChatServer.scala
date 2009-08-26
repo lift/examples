@@ -30,7 +30,7 @@ import _root_.java.util.Date
  */
 
 object ChatServer extends Actor with ListenerManager {
-  private var chats: List[ChatLine] = Nil
+  private var chats: List[ChatLine] = List(ChatLine("System", Text("Welcome"), now))
 
   override def lowPriority = {
     case ChatServerMsg(user, msg) if msg.length > 0 =>

@@ -1,10 +1,10 @@
 <lift:surround with="default" at="content">
   <lift:ArcChallenge:ask form="post"/>
 
-<p>The Code</p>
-
+  <p>The Code</p>
+  <head>
     <style type="text/css">
-    /* <![CDATA[ */
+      /* <![CDATA[ */
       .comment {
         /* font-lock-comment-face */
         color: #b22222;
@@ -36,8 +36,9 @@
 
       /* ]]> */
     </style>
+  </head>
 
-    <pre>
+  <pre>
 <span class="comment-delimiter">/**</span><span class="comment">
  * The Arc Challenge is Paul Graham's quest for web framework concision.
  *
@@ -75,7 +76,7 @@
 
   <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">phrase</span> = <span class="string">""</span>
 }
-</pre>
+  </pre>
 
 
 </lift:surround>
