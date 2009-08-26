@@ -6,131 +6,128 @@
 
     <title>Lift Web Framework: <lift:Menu.title /></title>
 
-    <lift:CSS.blueprint />
-    <lift:CSS.fancyType />
-    <script id="jquery" src="/classpath/jquery.js" type="text/javascript"/>
-    <script id="json" src="/classpath/json.js" type="text/javascript"/>
+  <lift:CSS.blueprint />
+  <lift:CSS.fancyType />
+  <script id="jquery" src="/classpath/jquery.js" type="text/javascript"/>
+  <script id="json" src="/classpath/json.js" type="text/javascript"/>
 
-    <style>
-      /* <![CDATA[ */
-      .widget {
-        border:1px solid #ccc;
-        background:#f5f5f5;
-        padding:5px;
-        margin:10px 0 0 0;
-        font-size:8pt;
-      }
+  <style type="text/css">
+    /* <![CDATA[ */
+    .widget {
+      border:1px solid #ccc;
+      background:#f5f5f5;
+      padding:5px;
+      margin:10px 0 0 0;
+      font-size:8pt;
+    }
 
-      .sidebar ul {
-        margin: 10px 0 0 0;
-        padding: 5px;
-        border-bottom:1px solid #ccc;
-      }
-
-
-      .sidebar ul li {
-        margin:0;
-        padding:0;
-        list-style:none;
-        border:1px solid #ccc;
-        border-bottom:none;
-      }
-
-      .sidebar ul li ul li {
-        margin:0;
-        padding:0;
-        border-style: none;
-        list-style-type: square;
-        list-style-position: inside;
-        padding-left: 10px;
-
-      }
-
-      .sidebar ul li ul li a {
-        display: inline;
-      }
-
-      .sidebar ul li ul {
-        margin: 0;
-        border-bottom: none;
-      }
-
-      .sidebar ul li ul li span {
-        display:inline;
-        padding:0px;
-      }
+    .sidebar ul {
+      margin: 10px 0 0 0;
+      padding: 5px;
+      border-bottom:1px solid #ccc;
+    }
 
 
-      .sidebar ul li a {
-        display:block;
-        padding:3px;
-        text-indent:10px;
-        text-decoration:none;
-      }
+    .sidebar ul li {
+      margin:0;
+      padding:0;
+      list-style:none;
+      border:1px solid #ccc;
+      border-bottom:none;
+    }
 
-      .sidebar ul li span {
-        display:block;
-        padding:3px;
-        text-indent:10px;
-        text-decoration:none;
-      }
+    .sidebar ul li ul li {
+      margin:0;
+      padding:0;
+      border-style: none;
+      list-style-type: square;
+      list-style-position: inside;
+      padding-left: 10px;
+
+    }
+
+    .sidebar ul li ul li a {
+      display: inline;
+    }
+
+    .sidebar ul li ul {
+      margin: 0;
+      border-bottom: none;
+    }
+
+    .sidebar ul li ul li span {
+      display:inline;
+      padding:0px;
+    }
 
 
-      .sidebar ul li a:hover {
-        background-color: #eee;
-      }
+    .sidebar ul li a {
+      display:block;
+      padding:3px;
+      text-indent:10px;
+      text-decoration:none;
+    }
+
+    .sidebar ul li span {
+      display:block;
+      padding:3px;
+      text-indent:10px;
+      text-decoration:none;
+    }
 
 
-      /* ]]> */
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="column span-10">
-        <img src="/images/lift.png" alt="Lift Web Framework"/>
-        <!--
-    <h1 class="alt"><i>Lift</i> Web Framework</h1>
-    <h3 class="alt">simply functional</h3>
-    -->
-      </div>
-      <div class="column span-1 last" style="float:right"><img id="ajax-loader" style="display:none" src="/images/ajax-loader.gif"/>
-      </div>
-      <hr/>
-      <div class="column span-6 colborder sidebar">
-        <lift:menu.builder/>
+    .sidebar ul li a:hover {
+      background-color: #eee;
+    }
 
-        <div class="widget" style="text-align: center"><lift:comet type="Clock">Current Time: <clk:time>Missing Clock</clk:time></lift:comet></div>
 
-        <div class="widget">
-          <center><b>Group Chat</b></center><br />
-          <lift:comet type="Chat">
-            <chat:body>
-              Hello <chat:name/>
-              <ul chat:id="na">
-                <chat:list>
-                  <li><list:when/> <list:who/>: <list:msg/></li>
-                </chat:list>
-              </ul>
-            </chat:body>
-            <chat:input>
+    /* ]]> */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="column span-10">
+      <img src="/images/lift.png" alt="Lift Web Framework"/>
+
+    </div>
+    <div class="column span-1 last" style="float:right"><img alt="" id="ajax-loader" style="display:none" src="/images/ajax-loader.gif"/>
+    </div>
+    <hr/>
+    <div class="column span-6 colborder sidebar">
+      <lift:menu.builder/>
+
+      <div class="widget" style="text-align: center"><lift:comet type="Clock">Current Time: <clk:time>Missing Clock</clk:time></lift:comet></div>
+
+      <div class="widget">
+        <span style="text-align: center"><b>Group Chat</b></span><br />
+        <lift:comet type="Chat">
+          <chat:body>
+            Hello <chat:name/>
+            <ul chat:id="na">
+              <chat:list>
+                <li><list:when/> <list:who/>: <list:msg/></li>
+              </chat:list>
+            </ul>
+          </chat:body>
+          <chat:input>
             <chat:input/> <input type="submit" value="Chat" />
-            </chat:input>
-          </lift:comet>
-        </div>
+          </chat:input>
+        </lift:comet>
+      </div>
+      <hr class="space" />
+
+      <div><lift:Msgs />
         <hr class="space" />
-
-        <div><lift:Msgs />
-          <hr class="space" />
-        </div>
       </div>
+    </div>
 
-      <div class="column span-17 last">
-        <lift:bind name="content" />
-      </div>
+    <div class="column span-17 last">
+      <lift:bind name="content" />
+    </div>
 
-      <hr />
-      <div class="column span-23 last" style="text-align: center">
-        <h4 class="alt"><a href='http://liftweb.net'><i>Lift</i></a> is Copyright 2007-2009 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.
+    <hr />
+    <div class="column span-23 last" style="text-align: center">
+      <h4 class="alt"><a href='http://liftweb.net'><i>Lift</i></a> is Copyright 2007-2009 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.
         <br/>
         Lift version <lift:version_info.lift/> built on <lift:version_info.date/>.
         <br/>
@@ -138,8 +135,8 @@
         Free Memory: <lift:runtime_stats:free_mem/>
         Open Sessions: <lift:runtime_stats:sessions/>
         Updated At: <lift:runtime_stats:updated_at/>
-        </h4>
-      </div>
+      </h4>
     </div>
-  </body>
+  </div>
+</body>
 </html>

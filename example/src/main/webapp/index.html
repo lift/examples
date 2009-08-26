@@ -1,6 +1,7 @@
 <lift:surround with="default" at="content">
   <h2>Welcome to the <i>Lift</i> Web Framework</h2>
-  <p><i>Lift</i> provides the best features for building interactive
+  <div>
+    <i>Lift</i> provides the best features for building interactive
     web applications:
     <ul>
       <li>
@@ -28,27 +29,29 @@
 	other nasty attacks.
       </li>
     </ul>
-  </p>
-<br/>
-  <p><i>Lift</i> is built on <a href='http://scala-lang.org'>Scala</a>, a hybrid Functional and 
+  </div>
+  <br/>
+  <p><i>Lift</i> is built on <a href='http://scala-lang.org'>Scala</a>, a hybrid Functional and
     O-O language that compiles code down to the Java Virtual Machine.
     Scala code can call any Java code and make use of all Java classes.
-    Java code can call some Scala code. <i>Lift</i> applications are packaged as WAR files and 
+    Java code can call some Scala code. <i>Lift</i> applications are packaged as WAR files and
     can be deployed on any
     Servlet 2.4 engine (e.g., Tomcat 5.5.xx, Jetty 6.0, etc.)</p>
-  
-  <p><i>Lift</i> code is as clean and brief as Rails, yet performs at least 6 
+
+  <div><i>Lift</i> code is as clean and brief as Rails, yet performs at least 6
     times faster and
-    is multithreaded.  Additionally, because Scala is strongly typed, 
+    is multithreaded.  Additionally, because Scala is strongly typed,
     the compiler
     catches type errors.  For example:<br/>
-    <code>
-      <pre>
+
+    <pre>
+<code>
 	User.find(By(User.email, "foo@bar.com")) // legal
 	User.find(By(User.birthday, new Date("Jan 4, 1975"))) // legal
 	User.find(By(User.birthday, "foo@bar.com")) // compiler error
-      </pre>
-    </code>
-  </p>
-  <p><i>Lift</i> is an open source project distributed under an Apache License V2.0</p>  
+  </code>
+    </pre>
+
+  </div>
+  <p><i>Lift</i> is an open source project distributed under an Apache License V2.0</p>
 </lift:surround>
