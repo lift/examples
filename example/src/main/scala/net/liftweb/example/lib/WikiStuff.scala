@@ -17,6 +17,7 @@ package net.liftweb.example.lib
 
 import _root_.net.liftweb._
 import textile._
+import base._
 import util._
 import Helpers._
 import http._

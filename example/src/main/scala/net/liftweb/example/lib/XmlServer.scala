@@ -9,6 +9,7 @@ package net.liftweb.example.lib
 
 import _root_.net.liftweb._
 import http._
+import base._
 import util._
 import Helpers._
 

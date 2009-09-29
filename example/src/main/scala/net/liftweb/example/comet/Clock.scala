@@ -17,6 +17,7 @@ package net.liftweb.example.comet
 
 import _root_.net.liftweb._
 import http._
+import base._
 import util._
 import Helpers._
 import js._
@@ -30,14 +31,16 @@ class Clock extends CometActor {
 
   private lazy val spanId = uniqueId+"_timespan"
 
-  def render = bind("time" -> timeSpan)
+  def render = {
+    bind("time" -> timeSpan)
+  }
 
   def timeSpan = (<span id={spanId}>{timeNow}</span>)
 
   override def lowPriority = {
     case Tick =>
       partialUpdate(SetHtml(spanId, Text(timeNow.toString)))
-    ActorPing.schedule(this, Tick, 10 seconds)
+      ActorPing.schedule(this, Tick, 10 seconds)
   }
 }
 

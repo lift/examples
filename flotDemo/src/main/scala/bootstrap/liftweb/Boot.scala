@@ -1,5 +1,6 @@
 package bootstrap.liftweb
 
+import net.liftweb.base._
 import net.liftweb.util._
 import net.liftweb.http._
 import net.liftweb.sitemap._
@@ -7,7 +8,6 @@ import net.liftweb.sitemap.Loc._
 import Helpers._
 
 import _root_.net.liftweb._
-import util.{Helpers, Box, Full, Empty, Failure, Log}
 import http._
 import sitemap._
 import Helpers._

@@ -1,6 +1,7 @@
 package com.hellolift.model
 
 import _root_.net.liftweb.mapper._
+import _root_.net.liftweb.base._
 import _root_.net.liftweb.util._
 
 /**

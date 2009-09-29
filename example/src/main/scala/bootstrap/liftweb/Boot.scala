@@ -16,8 +16,10 @@
 package bootstrap.liftweb
 
 import _root_.net.liftweb._
-import util.{Helpers, Box, Full, Empty, Failure, Log, NamedPF, Props}
+import base.{Box, Full, Empty, Failure}
+import util.{Helpers, Log, NamedPF, Props}
 import http._
+import actor._
 import provider._
 import sitemap._
 import Helpers._
@@ -31,8 +33,7 @@ import snippet.{definedLocale, Template, AllJson, RuntimeStats}
 import _root_.net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, ConnectionIdentifier}
 
 import _root_.java.sql.{Connection, DriverManager}
-import _root_.scala.actors._
-import Actor._
+
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -92,7 +93,7 @@ class Boot {
     ThingBuilder.boot()
 
     // Dump information about session every 10 minutes
-    SessionMaster.sessionWatchers = SessionInfoDumper :: SessionMaster.sessionWatchers
+    SessionMaster.liftSessionWatchers = SessionInfoDumper :: SessionMaster.liftSessionWatchers
 
     // Dump browser information each time a new connection is made
     LiftSession.onBeginServicing = BrowserLogger.haveSeenYou _ :: LiftSession.onBeginServicing
@@ -255,37 +256,32 @@ object BrowserLogger {
   }
 }
 
-object SessionInfoDumper extends Actor {
+object SessionInfoDumper extends LiftActor {
   private var lastTime = millis
 
   val tenMinutes: Long = 10 minutes
-  def act = {
-    link(ActorWatcher)
-    loop {
-      react {
-        case SessionWatcherInfo(sessions) =>
-          if ((millis - tenMinutes) > lastTime) {
-            lastTime = millis
-            val rt = Runtime.getRuntime
-            rt.gc
-
-            RuntimeStats.lastUpdate = timeNow
+  protected def messageHandler =
+    {
+      case SessionWatcherInfo(sessions) =>
+        if ((millis - tenMinutes) > lastTime) {
+          lastTime = millis
+          val rt = Runtime.getRuntime
+          rt.gc
+	  
+          RuntimeStats.lastUpdate = timeNow
             RuntimeStats.totalMem = rt.totalMemory
-            RuntimeStats.freeMem = rt.freeMemory
-            RuntimeStats.sessions = sessions.size
-
-            val dateStr: String = timeNow.toString
-            Log.info("[MEMDEBUG] At "+dateStr+" Number of open sessions: "+sessions.size)
-            Log.info("[MEMDEBUG] Free Memory: "+pretty(rt.freeMemory))
-            Log.info("[MEMDEBUG] Total Memory: "+pretty(rt.totalMemory))
-          }
-      }
+          RuntimeStats.freeMem = rt.freeMemory
+          RuntimeStats.sessions = sessions.size
+	  
+          val dateStr: String = timeNow.toString
+          Log.info("[MEMDEBUG] At "+dateStr+" Number of open sessions: "+sessions.size)
+          Log.info("[MEMDEBUG] Free Memory: "+pretty(rt.freeMemory))
+          Log.info("[MEMDEBUG] Total Memory: "+pretty(rt.totalMemory))
+        }
     }
-  }
+  
 
   private def pretty(in: Long): String =
   if (in > 1000L) pretty(in / 1000L)+","+(in % 1000L)
   else in.toString
-
-  this.start
 }

@@ -1,6 +1,7 @@
 package net.liftweb.flot_demo.web.snippet
 
 import _root_.net.liftweb.widgets.flot._
+import _root_.net.liftweb.base._
 import _root_.net.liftweb.util._
 
 object Constants

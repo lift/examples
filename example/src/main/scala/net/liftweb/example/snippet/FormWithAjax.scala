@@ -12,6 +12,7 @@ import http._
 import SHtml._
 import js._
 import JsCmds._
+import base._
 import util._
 import Helpers._
 

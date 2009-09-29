@@ -2,6 +2,7 @@ package net.liftweb.flot_demo.web.snippet
 
 import scala.xml.NodeSeq
 
+import net.liftweb.base._
 import net.liftweb.util._
 import Helpers._
 import net.liftweb.http.js.JsCmds._

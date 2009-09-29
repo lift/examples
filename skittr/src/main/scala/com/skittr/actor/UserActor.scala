@@ -1,7 +1,7 @@
 package com.skittr.actor
 
 /*                                                *\
- (c) 2007 WorldWide Conferencing, LLC
+ (c) 2007-2009 WorldWide Conferencing, LLC
  Distributed under an Apache License
  http://www.apache.org/licenses/LICENSE-2.0
 \*                                                 */
@@ -13,6 +13,7 @@ import _root_.scala.collection.mutable.{HashMap}
 import _root_.net.liftweb.mapper._
 import _root_.java.util.concurrent.locks.ReentrantReadWriteLock
 import _root_.net.liftweb.util._
+import _root_.net.liftweb.base._
 import _root_.net.liftweb.util.Helpers._
 
 

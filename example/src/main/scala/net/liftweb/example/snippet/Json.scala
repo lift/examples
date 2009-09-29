@@ -21,6 +21,7 @@ import js._
 import JsCmds._
 import JE._
 import textile._
+import _root_.net.liftweb.base._
 import _root_.net.liftweb.util._
 import Helpers._
 import _root_.scala.xml._

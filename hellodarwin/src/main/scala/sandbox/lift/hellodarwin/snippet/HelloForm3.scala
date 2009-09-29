@@ -5,7 +5,7 @@ import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
 import _root_.net.liftweb.http.RequestVar
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.util.Full
+import _root_.net.liftweb.base.Full
 
 class HelloForm3 {
   object who extends RequestVar(Full("world"))

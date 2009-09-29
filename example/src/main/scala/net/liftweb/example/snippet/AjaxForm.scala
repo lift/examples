@@ -20,6 +20,7 @@ import _root_.net.liftweb._
 import http._
 import S._
 import SHtml._
+import base._
 import util._
 import Helpers._
 import js._

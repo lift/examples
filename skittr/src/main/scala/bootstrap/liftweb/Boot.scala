@@ -1,12 +1,13 @@
 package bootstrap.liftweb
 
 /*                                                *\
-  (c) 2007-2008 WorldWide Conferencing, LLC
+  (c) 2007-2009 WorldWide Conferencing, LLC
   Distributed under an Apache License
   http://www.apache.org/licenses/LICENSE-2.0
 \*                                                 */
 
-import _root_.net.liftweb.util.{Helpers, Box, Empty, Full, Failure, Log, NamedPF}
+import _root_.net.liftweb.util.{Helpers, Log, NamedPF}
+import _root_.net.liftweb.base.{Box, Empty, Full, Failure}
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.mapper._
 import Helpers._

@@ -15,10 +15,10 @@
  */
 package net.liftweb.example.comet
 
-import _root_.scala.actors.Actor
-import Actor._
 import _root_.net.liftweb._
 import http._
+import base._
+import actor._
 import util._
 import Helpers._
 import _root_.scala.xml.{NodeSeq, Text}
@@ -29,7 +29,7 @@ import _root_.java.util.Date
  * A chat server.  It gets messages and returns them
  */
 
-object ChatServer extends Actor with ListenerManager {
+object ChatServer extends LiftActor with ListenerManager {
   private var chats: List[ChatLine] = List(ChatLine("System", Text("Welcome"), now))
 
   override def lowPriority = {
@@ -52,7 +52,6 @@ object ChatServer extends Actor with ListenerManager {
    */
   def toHtml(msg: String): NodeSeq = TextileParser.paraFixer(TextileParser.toHtml(msg, Empty))
 
-  this.start
 }
 
 case class ChatLine(user: String, msg: NodeSeq, when: Date)

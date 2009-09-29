@@ -1,7 +1,7 @@
 package com.skittr.comet
 
 /*                                                *\
- (c) 2007 WorldWide Conferencing, LLC
+ (c) 2007-2009 WorldWide Conferencing, LLC
  Distributed under an Apache License
  http://www.apache.org/licenses/LICENSE-2.0
  \*                                                 */
@@ -10,7 +10,8 @@ import _root_.scala.actors._
 import _root_.scala.actors.Actor._
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.util.{Helpers, Box, Full, Empty, Failure}
+import _root_.net.liftweb.util.{Helpers}
+import _root_.net.liftweb.util.{Box, Full, Empty, Failure}
 import _root_.scala.xml._
 import _root_.com.skittr.actor._
 import S._

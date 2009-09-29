@@ -15,8 +15,7 @@
  */
 package net.liftweb.example.comet
 
-import scala.actors.Actor
-import Actor._
+import net.liftweb.actor._
 import scala.xml.{NodeSeq, Text}
 
 import net.liftweb._
@@ -24,13 +23,14 @@ import http._
 import js._
 import JsCmds._
 
+import base._
 import util._
 import Helpers._
 
 case class BuildStatus(progress: Int, url: Box[String])
 
 // a singleton that builds a "thing"
-object ThingBuilder extends Actor {
+object ThingBuilder extends LiftActor {
   def boot() {
     LiftRules.dispatch.append {
       case Req("getit":: Nil, _, GetRequest) =>
@@ -38,23 +38,21 @@ object ThingBuilder extends Actor {
     }
   }
 
-  def act = loop {
-    react {
-      case a: Actor =>
+  protected def messageHandler =
+    {
+      case a: SimplestActor =>
         this ! (a, 1)
 
-      case (a: Actor, x: Int) if x >= 10 =>
+      case (a: SimplestActor, x: Int) if x >= 10 =>
         a ! BuildStatus(100, Full("/getit"))
 
-      case (a: Actor, i: Int) =>
+      case (a: SimplestActor, i: Int) =>
         a ! BuildStatus(i * 10, Empty)
         ActorPing.schedule(this, (a, i + 1), 2 seconds)
 
       case _ =>
     }
-  }
-
-  this.start
+  
 }
 
 // A CometActor that keeps the user updated

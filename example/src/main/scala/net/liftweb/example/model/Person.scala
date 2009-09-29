@@ -17,6 +17,7 @@ package net.liftweb.example.model
 
 import _root_.net.liftweb._
 import mapper._
+import base._
 import util._
 
 object Person extends Person with LongKeyedMetaMapper[Person]

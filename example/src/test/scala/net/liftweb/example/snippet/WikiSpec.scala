@@ -4,7 +4,7 @@ import org.specs.Sugar._
 import org.specs.runner._
 import net.liftweb.example.model._
 import net.liftweb.http.{ S, Req, LiftSession }
-import net.liftweb.util.{ Full, Empty }
+import net.liftweb.base.{ Full, Empty }
 import org.mockito.Matchers._
 
 /*

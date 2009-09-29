@@ -20,7 +20,8 @@ import _root_.java.text.{ParseException,SimpleDateFormat}
 import _root_.scala.xml.{NodeSeq,Text}
 
 import _root_.net.liftweb.http.{RequestVar,S,SHtml}
-import _root_.net.liftweb.util.{Box,Empty,Full,Helpers,Log}
+import _root_.net.liftweb.util.{Helpers,Log}
+import _root_.net.liftweb.base.{Box,Empty,Full}
 import S._
 import Helpers._
 
