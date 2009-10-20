@@ -11,7 +11,7 @@ import _root_.scala.actors.Actor._
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.util.Helpers._
 import _root_.net.liftweb.util.{Helpers}
-import _root_.net.liftweb.util.{Box, Full, Empty, Failure}
+import _root_.net.liftweb.base.{Box, Full, Empty, Failure}
 import _root_.scala.xml._
 import _root_.com.skittr.actor._
 import S._
@@ -24,7 +24,7 @@ class WatchUser extends CometActor {
   private var messages: List[Message] = Nil
   override def defaultPrefix = Full("sk")
 
-  private def getUser(ua: UserActor) = (ua !? (400L, GetUserIdAndName)) match {case Some(u: UserIdInfo) => Full(u) case _ => Empty}
+  private def getUser(ua: UserActor) = (ua !? (400L, GetUserIdAndName)) match {case Full(u: UserIdInfo) => Full(u) case _ => Empty}
 
   def render = {
     val ret: NodeSeq = (for (ua <- userActor;

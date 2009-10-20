@@ -82,7 +82,7 @@ class UserMgt {
     user.friends.map(f => <li><a href={"/user/"+f}>{f}</a></li>)}</ul> ++ (
       (for (curUser <- S.get("user_name");
             ua <- UserList.find(curUser);
-            userInfo <- (ua !? (400L, GetUserIdAndName)) match {case Some(u: UserIdInfo) => Full(u) ; case _ => Empty}) yield {
+            userInfo <- (ua !? (400L, GetUserIdAndName)) match {case Full(u: UserIdInfo) => Full(u) ; case _ => Empty}) yield {
         if (userInfo.friends.contains(user.name)) <a href={"/unfriend/"+user.name}>Unfriend</a>
         else <a href={"/friend/"+user.name}>Befriend</a>
       }
@@ -91,8 +91,8 @@ class UserMgt {
   def show_user(xhtml: Group): NodeSeq = {
     (for (userName <- S.param("user");
           userActor <- UserList.find(userName);
-          user <- (userActor !? (400L, GetUserIdAndName)) match {case Some(u: UserIdInfo) => Full(u) ; case _ => Empty};
-          messages <- (userActor !? (400L, GetMessages)) match {case Some(m : Messages) => Full(m.messages); case _ => Empty}) yield {
+          user <- (userActor !? (400L, GetUserIdAndName)) match {case Full(u: UserIdInfo) => Full(u) ; case _ => Empty};
+          messages <- (userActor !? (400L, GetMessages)) match {case Full(m : Messages) => Full(m.messages); case _ => Empty}) yield {
       bind("sk", xhtml, "username" -> (user.name+" -> "+user.fullName), "content" -> friendList(user)) ++
         messages.flatMap{
         msg =>

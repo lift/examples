@@ -93,7 +93,8 @@ class Boot {
     ThingBuilder.boot()
 
     // Dump information about session every 10 minutes
-    SessionMaster.liftSessionWatchers = SessionInfoDumper :: SessionMaster.liftSessionWatchers
+    SessionMaster.sessionWatchers = SessionInfoDumper :: 
+    SessionMaster.sessionWatchers
 
     // Dump browser information each time a new connection is made
     LiftSession.onBeginServicing = BrowserLogger.haveSeenYou _ :: LiftSession.onBeginServicing

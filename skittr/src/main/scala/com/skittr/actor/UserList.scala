@@ -34,7 +34,7 @@ object UserList {
   def create {
       def userToUserActor(u: User) = {
         val ua = new UserActor // create a new Actor
-        ua.start // start it up
+        // ua.start // start it up
         ua !? Setup(u.id, u.name, u.wholeName) // tell it to set up
         Full(ua) // return it
       }
@@ -47,7 +47,7 @@ object UserList {
   def startUser(who: User) {
     if (who.shouldStart_?) {
     val ua = new UserActor
-    ua.start
+      // ua.start
     ua ! Setup(who.id, who.name, who.wholeName)
     ua ! ConfigFollowers
     }
