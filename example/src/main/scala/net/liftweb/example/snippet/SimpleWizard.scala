@@ -71,7 +71,7 @@ class SimpleWizard extends StatefulSnippet {
   }
 
     /**
-   * pageOne -- Ask the name
+   * pageThree -- Ask the color
    */
   def pageThree = {
   def validate() {
