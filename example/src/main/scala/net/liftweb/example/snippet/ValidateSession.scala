@@ -25,7 +25,7 @@ import _root_.net.liftweb.http.S._
 import js._
 import JsCmds._
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.base._
+import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 import _root_.scala.collection.mutable.HashMap
 

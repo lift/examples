@@ -7,7 +7,7 @@ import net.liftweb.http._
 import net.liftweb.http.js.JsCmds.Noop
 
 import net.liftweb.widgets.flot._
-import net.liftweb.base._
+import net.liftweb.common._
 import net.liftweb.util._
 
 import net.liftweb.flot_demo.web.model._

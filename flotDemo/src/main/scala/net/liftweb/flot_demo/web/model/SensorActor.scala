@@ -6,7 +6,7 @@ import scala.actors.Actor
 import scala.actors.Actor._
 
 import net.liftweb.widgets.flot._
-import net.liftweb.base._
+import net.liftweb.common._
 import net.liftweb.util._
 
 /*

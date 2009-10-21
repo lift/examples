@@ -2,7 +2,7 @@ package com.hellolift.controller
 
 import _root_.net.liftweb.mapper._
 import _root_.net.liftweb.actor._
-import _root_.net.liftweb.base._
+import _root_.net.liftweb.common._
 import _root_.scala.collection.mutable.Map
 import _root_.com.hellolift.model.Entry
 

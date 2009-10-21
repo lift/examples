@@ -18,7 +18,7 @@ package net.liftweb.example.view
 import _root_.scala.xml.{Text, Node, NodeSeq}
 import _root_.net.liftweb.http._
 import S._
-import _root_.net.liftweb.base._
+import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 
 class XmlFun extends LiftView {

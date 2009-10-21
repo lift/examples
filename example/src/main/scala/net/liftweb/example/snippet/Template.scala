@@ -18,7 +18,7 @@ package net.liftweb.example.snippet
 import _root_.net.liftweb._
 import http._
 import S._
-import base._
+import common._
 import util._
 import Helpers._
 

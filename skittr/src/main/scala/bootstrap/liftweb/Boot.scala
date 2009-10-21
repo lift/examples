@@ -7,7 +7,7 @@ package bootstrap.liftweb
 \*                                                 */
 
 import _root_.net.liftweb.util.{Helpers, Log, NamedPF}
-import _root_.net.liftweb.base.{Box, Empty, Full, Failure}
+import _root_.net.liftweb.common.{Box, Empty, Full, Failure}
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.mapper._
 import Helpers._

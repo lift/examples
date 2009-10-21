@@ -17,7 +17,7 @@ package net.liftweb.example.comet
 
 import _root_.net.liftweb._
 import http._
-import base._
+import common._
 import util._
 import _root_.net.liftweb.example.model._
 

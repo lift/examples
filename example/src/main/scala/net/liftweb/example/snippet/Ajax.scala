@@ -24,7 +24,7 @@ import js.jquery._
 import http.jquery._
 import JqJsCmds._
 import JsCmds._
-import base._
+import common._
 import util._
 import Helpers._
 import _root_.scala.xml.{Text, NodeSeq}

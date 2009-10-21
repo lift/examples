@@ -13,7 +13,7 @@ import _root_.scala.collection.mutable.{HashMap}
 import _root_.net.liftweb.mapper._
 import _root_.java.util.concurrent.locks.ReentrantReadWriteLock
 import _root_.net.liftweb.util._
-import _root_.net.liftweb.base._
+import _root_.net.liftweb.common._
 import _root_.net.liftweb.util.Helpers._
 /**
   * A singleton the holds the map between user names and Actors that service

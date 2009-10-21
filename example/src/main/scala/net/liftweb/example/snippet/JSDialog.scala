@@ -23,7 +23,7 @@ import js._
 import JsCmds._
 import js.jquery._
 import JqJsCmds._
-import base._
+import common._
 import util._
 import Helpers._
 

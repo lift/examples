@@ -1,7 +1,7 @@
 package com.hellolift.comet
 
 import _root_.net.liftweb.http._
-import _root_.net.liftweb.base._
+import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 import _root_.net.liftweb.sitemap._
 import _root_.net.liftweb.sitemap.Loc._

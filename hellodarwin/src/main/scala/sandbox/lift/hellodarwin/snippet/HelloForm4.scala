@@ -5,7 +5,7 @@ import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
 import _root_.net.liftweb.http.StatefulSnippet
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.base.Full
+import _root_.net.liftweb.common.Full
 
 class HelloForm4 extends StatefulSnippet{
 

@@ -11,7 +11,7 @@ import _root_.scala.actors.Actor._
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.util.Helpers._
 import _root_.net.liftweb.util.{Helpers}
-import _root_.net.liftweb.base.{Box, Full, Empty, Failure}
+import _root_.net.liftweb.common.{Box, Full, Empty, Failure}
 import _root_.scala.xml._
 import _root_.com.skittr.actor._
 import S._

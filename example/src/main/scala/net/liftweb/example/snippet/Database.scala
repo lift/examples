@@ -23,7 +23,7 @@ import _root_.net.liftweb.mapper._
 import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.base._
+import _root_.net.liftweb.common._
 
 /**
   * This snippet handles counting

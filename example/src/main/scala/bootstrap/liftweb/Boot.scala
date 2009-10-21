@@ -16,7 +16,7 @@
 package bootstrap.liftweb
 
 import _root_.net.liftweb._
-import base.{Box, Full, Empty, Failure}
+import common.{Box, Full, Empty, Failure}
 import util.{Helpers, Log, NamedPF, Props}
 import http._
 import actor._
