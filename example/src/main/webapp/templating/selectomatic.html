@@ -1,0 +1,94 @@
+<lift:surround with="default" at="content">
+  <style>
+    /* <![CDATA[ */
+p + p {
+margin-top: 0em;
+text-indent: 0em;
+}
+
+.dpp_stuff p {
+  padding-left: 15px;
+}
+
+/* ]]> */
+  </style>
+
+  <p>
+    On this page, we'll allow the user to select a series
+    of &lt;div&gt; tags to display based on the results
+    of a form submission.
+  </p>
+
+  <div>
+    <lift:DivSelector.populate form="post">
+      <div:line>
+	&lt;div&gt; number <div:number/> visible <div:checkbox/><br/>
+      </div:line>
+      <input type="submit" value="Update Page"/>
+    </lift:DivSelector.populate>
+  </div>
+
+  <lift:DivSelector.select>
+    <div id="num_0">This is div 0</div>
+    <div id="num_1">This is div 1</div>
+    <div id="num_2">This is div 2</div>
+    <div id="num_3">This is div 3</div>
+    <div id="num_4">This is div 4</div>
+    <div id="num_5">This is div 5</div>
+  </lift:DivSelector.select>
+<br/>
+<br/>
+<p>
+  The code to store the state of the div tags is:
+    <style type="text/css">
+    /* <![CDATA[ */
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      /* ]]> */
+    </style>
+    <pre>
+<span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">whichDivs</span>: <span class="type">Array[Boolean]</span> = Array(<span class="constant">true</span>, <span class="constant">true</span>, <span class="constant">true</span>, <span class="constant">true</span>, <span class="constant">true</span>, <span class="constant">true</span>)
+</pre>
+
+And to select the div tags:
+<pre>  <span class="keyword">def</span> <span class="function-name">selectDivs</span>(<span class="variable-name">in</span>: <span class="type">NodeSeq</span>): <span class="type">NodeSeq </span>= {
+    <span class="keyword">def</span> <span class="function-name">calcNum</span>(<span class="variable-name">in</span>: <span class="type">String</span>): <span class="type">Box[Int]</span> = 
+      <span class="keyword">if</span> (in.startsWith(<span class="string">"num_"</span>)) asInt(in.substring(4))
+      <span class="keyword">else</span> Empty
+
+    <span class="keyword">for</span> {
+      div &lt;- in \\ <span class="string">"div"</span> <span class="comment-delimiter">// </span><span class="comment">select the div tags
+</span>      id = (div \ <span class="string">"@id"</span>).text <span class="comment-delimiter">// </span><span class="comment">get their id
+</span>      num &lt;- calcNum(id) <span class="keyword">if</span> whichDivs(num) <span class="comment-delimiter">// </span><span class="comment">filter 
+</span>    } <span class="keyword">yield</span> div
+  }
+</pre>
+</p>
+
+</lift:surround>

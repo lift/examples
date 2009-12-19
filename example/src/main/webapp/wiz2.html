@@ -1,0 +1,72 @@
+<lift:surround with="default" at="content">
+  <div>
+    Getting state right in a multi-page wizard is 
+    <a href="http://ev9d9.blogspot.com/2009/11/page-flow-challenge-clarification.html">non-trivial</a>.  This wizard allows you to run Erwin's tests.
+  </div>
+  <lift:WizardChallenge/>
+  <div>
+    <style type="text/css">
+      /* <![CDATA[ */
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #5f9ea0;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+
+    /* ]]> */
+    </style>
+    <pre>
+<span class="keyword">object</span> <span class="variable-name">WizardChallenge</span> <span class="keyword">extends</span> <span class="type">Wizard</span> {
+  <span class="keyword">val</span> <span class="variable-name">page1</span> = <span class="keyword">new</span> Screen {
+    <span class="keyword">val</span> <span class="variable-name">info</span> = <span class="keyword">new</span> Field <span class="keyword">with</span> <span class="type">StringField</span> {
+      <span class="keyword">def</span> <span class="function-name">title</span> = S ?? <span class="string">"Page one entry"</span>
+    }
+  }
+
+  <span class="keyword">val</span> <span class="variable-name">page2</span> = <span class="keyword">new</span> Screen {
+    <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">screenTop</span> = &lt;span&gt;Page one field is {page1.info}&lt;/span&gt;
+
+    <span class="keyword">val</span> <span class="variable-name">info</span> = <span class="keyword">new</span> Field <span class="keyword">with</span> <span class="type">StringField</span> {
+      <span class="keyword">def</span> <span class="function-name">title</span> = S ?? <span class="string">"Page two entry"</span>
+    }
+  }
+
+  <span class="keyword">val</span> <span class="variable-name">page3</span> = <span class="keyword">new</span> Screen {
+    <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">screenTop</span> = &lt;span&gt;Page one field is {page1.info}&lt;br/&gt;Page two field is {page2.info}&lt;/span&gt;
+  }
+}
+</pre>
+  </div>
+</lift:surround>
+

@@ -1,0 +1,41 @@
+<lift:surround with="default" at="content">
+  <h2>Plotting times series</h2>
+  <div id="ph_graph" style="width:500px;height:300px"></div>
+
+  <p>
+  Zoom to: <button id="whole">Whole period</button>
+      <button id="nineties">1990-2000</button>
+      <button id="ninetynine">1999</button>
+  </p>
+
+  <lift:snippet type="Time:render">
+    <flot:graph>
+      <script>
+
+    $('#whole').click(function () {
+        $.plot($('#ph_graph'), datas_ph_graph, options_ph_graph);
+    });
+
+    $('#nineties').click(function () {
+        $.plot($('#ph_graph'), datas_ph_graph, { xaxis: {
+            mode: 'time',
+            min: (new Date('1990/01/01')).getTime(),
+            max: (new Date('2000/01/01')).getTime()
+        } });
+    });
+
+    $('#ninetynine').click(function () {
+        $.plot($('#ph_graph'), datas_ph_graph, { xaxis: {
+            mode: 'time',
+            minTickSize: [1, 'month'],
+            min: (new Date('1999/01/01')).getTime(),
+            max: (new Date('2000/01/01')).getTime()
+        } });
+    });
+
+</script>
+    </flot:graph>
+  </lift:snippet>
+
+
+</lift:surround>

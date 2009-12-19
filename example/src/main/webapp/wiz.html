@@ -1,0 +1,110 @@
+<lift:surround with="default" at="content">
+  <div>
+    An example of a multi-screen input wizard.  The
+    Wizard is defined declaratively.
+  </div>
+  <lift:MyWizard/>
+
+  <div>
+    <style type="text/css">
+      /* <![CDATA[ */
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #5f9ea0;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+
+    /* ]]> */
+    </style>
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * An example of a wizard in Lift
+ */</span>
+<span class="keyword">object</span> <span class="variable-name">MyWizard</span> <span class="keyword">extends</span> <span class="type">Wizard</span> {
+  <span class="keyword">object</span> <span class="variable-name">completeInfo</span> <span class="keyword">extends</span> <span class="type">WizardVar</span>(<span class="constant">false</span>)
+
+  <span class="comment-delimiter">// </span><span class="comment">define the first screen
+</span>  <span class="keyword">val</span> <span class="variable-name">nameAndAge</span> = <span class="keyword">new</span> Screen {
+
+    <span class="comment-delimiter">// </span><span class="comment">it has a name field
+</span>    <span class="keyword">val</span> <span class="variable-name">name</span> = <span class="keyword">new</span> Field <span class="keyword">with</span> <span class="type">StringField</span> {
+      <span class="keyword">def</span> <span class="function-name">title</span> = S ?? <span class="string">"First Name"</span>
+
+      <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">validation</span> = minLen(2, S ?? <span class="string">"Name Too Short"</span>) ::
+          maxLen(40, S ?? <span class="string">"Name Too Long"</span>) :: <span class="keyword">super</span>.validation
+    }
+
+    <span class="comment-delimiter">// </span><span class="comment">and an age field
+</span>    <span class="keyword">val</span> <span class="variable-name">age</span> = <span class="keyword">new</span> Field <span class="keyword">with</span> <span class="type">IntField</span> {
+      <span class="keyword">def</span> <span class="function-name">title</span> = S ?? <span class="string">"Age"</span>
+
+      <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">validation</span> = minVal(5, S ?? <span class="string">"Too young"</span>) ::
+          maxVal(120, S ?? <span class="string">"You should be dead"</span>) :: <span class="keyword">super</span>.validation
+    }
+
+    <span class="comment-delimiter">// </span><span class="comment">choose the next screen based on the age
+</span>    <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">nextScreen</span> = <span class="keyword">if</span> (age.is &lt; 18) parentName <span class="keyword">else</span> favoritePet
+  }
+
+  <span class="comment-delimiter">// </span><span class="comment">We ask the parent's name if the person is under 18
+</span>  <span class="keyword">val</span> <span class="variable-name">parentName</span> = <span class="keyword">new</span> Screen {
+    <span class="keyword">val</span> <span class="variable-name">parentName</span> = <span class="keyword">new</span> Field <span class="keyword">with</span> <span class="type">StringField</span> {
+      <span class="keyword">def</span> <span class="function-name">title</span> = S ?? <span class="string">"Mom or Dad's name"</span>
+
+      <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">validation</span> = minLen(2, S ?? <span class="string">"Name Too Short"</span>) ::
+          maxLen(40, S ?? <span class="string">"Name Too Long"</span>) :: <span class="keyword">super</span>.validation
+    }
+  }
+
+  <span class="comment-delimiter">// </span><span class="comment">we ask for the favorite pet
+</span>  <span class="keyword">val</span> <span class="variable-name">favoritePet</span> = <span class="keyword">new</span> Screen {
+    <span class="keyword">val</span> <span class="variable-name">petName</span> = <span class="keyword">new</span> Field <span class="keyword">with</span> <span class="type">StringField</span> {
+      <span class="keyword">def</span> <span class="function-name">title</span> = S ?? <span class="string">"Pet's name"</span>
+
+      <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">validation</span> = minLen(2, S ?? <span class="string">"Name Too Short"</span>) ::
+          maxLen(40, S ?? <span class="string">"Name Too Long"</span>) :: <span class="keyword">super</span>.validation
+    }
+  }
+
+  <span class="comment-delimiter">// </span><span class="comment">what to do on completion of the wizard
+</span>  <span class="keyword">def</span> <span class="function-name">finish</span>() {
+    S.notice(<span class="string">"Thank you for registering your pet"</span>)
+    completeInfo.set(<span class="constant">true</span>)
+  }
+}
+</pre>
+    
+  </div>
+</lift:surround>
+

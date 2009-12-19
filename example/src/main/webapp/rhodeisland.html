@@ -1,0 +1,68 @@
+<lift:surround with="default" at="content">
+  <head>
+    <script type="text/javascript" src="/scripts/jquery.blockUI.js"></script>
+  </head>
+  <lift:JSDialog.button>
+    Destroy Rhode Island
+  </lift:JSDialog.button>
+
+  <p>The code:</p>
+  
+    <style type="text/css">
+    /* <![CDATA[ */
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      /* ]]> */
+    </style>
+
+    <pre>
+<span class="keyword">class</span> <span class="type">JSDialog</span> {
+  <span class="comment-delimiter">// </span><span class="comment">build the button... when pressed, present
+</span>  <span class="comment-delimiter">// </span><span class="comment">a dialog based on running the _jsdialog_confirm
+</span>  <span class="comment-delimiter">// </span><span class="comment">template
+</span>  <span class="keyword">def</span> <span class="function-name">button</span>(<span class="variable-name">in</span>: <span class="type">NodeSeq</span>) =
+  ajaxButton(in,
+             () =&gt; S.runTemplate(List(<span class="string">"_jsdialog_confirm"</span>)).
+             map(ns =&gt; ModalDialog(ns)) openOr
+             Alert(<span class="string">"Couldn't find _jsdialog_confirm template"</span>))
+
+  <span class="comment-delimiter">// </span><span class="comment">the template needs to bind to either server-side behavior
+</span>  <span class="comment-delimiter">// </span><span class="comment">and unblock the UI
+</span>  <span class="keyword">def</span> <span class="function-name">confirm</span>(<span class="variable-name">in</span>: <span class="type">NodeSeq</span>) =
+  bind(<span class="string">"confirm"</span>, in,
+       <span class="string">"yes"</span> -&gt; ((b: NodeSeq) =&gt; ajaxButton(b, () =&gt;
+        {println(<span class="string">"Rhode Island Destroyed"</span>)
+         Unblock &amp; Alert(<span class="string">"Rhode Island Destroyed"</span>)})),
+       <span class="string">"no"</span> -&gt; ((b: NodeSeq) =&gt; &lt;button onclick={Unblock.toJsCmd}&gt;{b}&lt;/button&gt;))
+}
+</pre>
+
+
+</lift:surround>
+

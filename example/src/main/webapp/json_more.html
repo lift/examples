@@ -1,0 +1,162 @@
+<lift:surround with="default" at="content">
+  <center><b>More JSON Samples</b></center>
+  <br />
+  <lift:AllJson/>
+
+  <div>
+    <script>
+      // <![CDATA[
+        function callNoParam() {
+          noParam("noParamCallback");
+        }
+
+        function noParamCallback() {
+          alert("the server called me back... woo hoo!");
+        }
+      // ]]>
+    </script>
+    This example calls the <code>noParam</code> function which
+    invokes a server-side JSON call that then calls a handler
+    back in the browser.  
+    <button onclick="javascript:callNoParam()">Press Me</button>
+
+    <br/>
+    The client-side JavaScript for looks like:
+    <pre>
+    &lt;<span class="function-name">script</span>&gt;
+      // &lt;![CDATA[
+        function callNoParam() {
+          noParam(<span class="string">"noParamCallback"</span>);
+        }
+
+        function noParamCallback() {
+          alert(<span class="string">"the server called me back... woo hoo!"</span>);
+        }
+      // ]]&gt;
+    &lt;/<span class="function-name">script</span>&gt;
+</pre>
+  </div>
+
+  <hr/>
+  
+  <div>
+    <script>
+      // <![CDATA[
+        function stringSender() {
+          var q = jQuery("#myField")[0];
+          var v = q.value;
+          oneString("stringCallback", v);
+        }
+
+        function stringCallback(what) {
+          jQuery("#dest")[0].innerHTML = "The server said: "+what;
+        }
+      // ]]>
+    </script>
+
+    Let's send the contents of a test field and process it:
+
+    <input id="myField"/>
+    <button onclick="javascript:stringSender()">Press Me</button>
+    <br/>
+    <div id="dest"/>
+    <br/>
+    The Script to do this is:
+        <pre>
+    &lt;<span class="function-name">script</span>&gt;
+      // &lt;![CDATA[
+        function stringSender() {
+          var q = jQuery(<span class="string">"#myField"</span>)[0];
+          var v = q.value;
+          oneString(<span class="string">"stringCallback"</span>, v);
+        }
+
+        function stringCallback(what) {
+          jQuery(<span class="string">"#dest"</span>)[0].innerHTML = <span class="string">"The server said: "</span>+what;
+        }
+      // ]]&gt;
+    &lt;/<span class="function-name">script</span>&gt;
+</pre>
+
+  </div>
+
+  <hr />
+  
+  <div>
+    <script>
+      // <![CDATA[
+        function parseAndSend() {
+          var q = jQuery("#numbers")[0];
+          var v = q.value;
+          var ww = v.split(/,/);
+          for (var i = 0; i < ww.length; i++) {
+            ww[i] = parseInt(ww[i]);
+          }
+          addOne("addOneCallback", ww);
+        }
+
+        function addOneCallback(what) {
+          alert("Server sez: "+what);
+        }
+      // ]]>
+    </script>
+    
+    
+    Let's send some numbers to the server and have the server
+    add 1 to each of the numbers.
+    <br />
+    Enter comma separated numbers:
+    <input id="numbers" style="width: 300px;"/>
+    <button onclick="parseAndSend()">Click Me</button>
+  </div>
+  
+  <hr/>
+
+
+  <div>
+    The server-side code looks like:
+    <style type="text/css">
+    /* <![CDATA[ */
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      /* ]]> */
+    </style>
+    <pre>
+  <span class="keyword">new</span> JsonHandler {
+    <span class="keyword">def</span> <span class="function-name">apply</span>(<span class="variable-name">in</span>: <span class="type">Any</span>): <span class="type">JsCmd </span>= in <span class="keyword">match</span> {
+      <span class="keyword">case</span> <span class="type">JsonCmd</span>(<span class="string">"noParam"</span>, <span class="variable-name">resp</span>, <span class="variable-name">_</span>, <span class="variable-name">_</span>) =&gt;
+        Call(resp)
+        
+      <span class="keyword">case</span> <span class="type">JsonCmd</span>(<span class="string">"oneString"</span>, <span class="variable-name">resp</span>, <span class="type">XString</span>(<span class="variable-name">s</span>), <span class="variable-name">_</span>) =&gt;
+        Call(resp, s)
+        
+      <span class="keyword">case</span> <span class="type">JsonCmd</span>(<span class="string">"addOne"</span>, <span class="variable-name">resp</span>, <span class="type">XArrayNum</span>(<span class="variable-name">an</span>), <span class="variable-name">_</span>) =&gt;
+        Call(resp, JsArray(an.map(n =&gt; Num(n.doubleValue + 1.0)) :_*))
+        
+      <span class="keyword">case</span> <span class="variable-name">_</span> =&gt; Noop
+    }
+  }
+</pre>
+
+
+  </div>
+
+</lift:surround>

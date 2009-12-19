@@ -1,0 +1,23 @@
+<lift:surround with="default" at="content">
+  <head><title><lift:loc>Book List</lift:loc></title></head>
+
+  <table>
+    <tr>
+      <th><lift:loc>Title</lift:loc></th>
+      <th><lift:loc>Published</lift:loc></th>
+      <th><lift:loc>Genre</lift:loc></th>
+      <th><lift:loc>Author</lift:loc></th>
+      <th></th>
+    </tr>
+  <lift:BookOps.list>
+    <tr>
+      <td><book:title /></td>
+      <td><book:published /></td>
+      <td><book:genre /></td>
+      <td><book:author /></td>
+      <td><book:edit /></td>
+    </tr>
+  </lift:BookOps.list>     
+  <a href="add"><lift:loc>Add</lift:loc></a>
+  </table>
+</lift:surround>

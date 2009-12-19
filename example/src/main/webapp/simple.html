@@ -1,0 +1,91 @@
+<lift:surround with="default" at="content">
+  <h2><i>Lift</i>'s approach to dynamic content</h2>
+  <p>
+    <i>Lift</i> has a "view first" rendering strategy.  When a
+    request comes in, an appropriate XHTML page is selected to
+    satisfy the request.  If there is a file in the path
+    that matches the name (e.g., '/foo/bar.html'), that file
+    is used.  If there's no matching file, <i>lift</i>
+    looks for a class named "Bar" in a number of packages.
+    If the class isn't found, <i>Lift</i> looks for foo.Bar
+    in a number of packages.  Once the rendering class is located,
+    an instance is created and the "render" method is called.  This allows
+    HTML designers <b>or</b> programmers to maintain the files.
+  </p>
+
+  <p><i>Lift</i> processes a number of special tags:
+<ul>
+<li><code>&lt;lift:surround&gt;</code> -- surround the XHTML with
+a template.  This allows a site-wide template to be used, but
+individual pages to have different contents.  Multiple <code>surround</code>
+tags can be used within a single document.</li>
+<li><code>&lt;lift:embed&gt;</code> -- embed a template in the XHTML.</li>
+<li><code>&lt;lift:comet&gt;</code> -- Insert the rendered output of
+a long-lived comet widget.  Also, the comet widget can notify a page that
+content has changed and the next time the page services an AJAX request,
+it will update the comet widget's content in the browser.
+Comet widgets are handed "recommended" XHTML that they can "bind"
+to.  This is Wicket's and TurboGears' approach.
+A comet widget may also choose to ignore the recommendation
+and render its own XHTML.</li>
+<li><code>&lt;lift:snippet&gt;</code> -- create a
+short-lived "snippet" (kind of like a Rails controller) and insert
+the output of the snippet into the page.</li>
+
+</ul></p>
+
+<p>Once a page has composed its XHTML by getting renderings from each of
+widgets, links on the page are adjusted to the context page
+of the request.  Additionally, if AJAX is enabled, forms marked
+as AJAX ready are re-written to use AJAX.</p>
+
+<p>The code to embed the AJAX clock on the page is:</p>
+    <style type="text/css">
+    <!--
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #87ceeb;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #32cd32;
+      }
+
+    -->
+    </style>
+    <pre>
+&lt;<span class="function-name">lift:comet</span> type=<span class="string">"Clock"</span>&gt;Current Time: 
+&lt;<span class="function-name">clk:time</span>&gt;Missing Clock&lt;<span class="function-name">/clk:time</span>&gt;&lt;<span class="function-name">/lift:comet</span>&gt;
+</pre>
+
+<p>The Clock comet widget is:</p>
+    <style type="text/css">
+    <!--
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #87ceeb;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #6495ed;
+        font-weight: bold;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #32cd32;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #98fb98;
+      }
+
+    -->
+    </style>
+    <pre>
+  <span class="keyword">def</span> <span class="function-name">render</span> = bind(<span class="string">"time"</span> -&gt; Text(<span class="keyword">timeNow</span>.toString))
+</pre>
+
+<p>Which binds a string containing the current time to the "time" part
+of the XHTML and returns this as XHTML.</p>
+
+</lift:surround>
