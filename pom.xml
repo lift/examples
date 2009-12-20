@@ -1,14 +1,67 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2006-2009 WorldWide Conferencing, LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
+  <!--
+  Shared project model for Lift Examples. Define the settings common to all projects
+  in Lift Examles.
+
+  Dependencies and plugins are also pre-configured with standard settings,
+  these may be overridden by individual projects as well.
+  -->
+
+  <!--
+    ~ The Basics
+  -->
   <parent>
     <groupId>net.liftweb</groupId>
     <artifactId>lift</artifactId>
     <version>2.0-SNAPSHOT</version>
   </parent>
   <artifactId>examples</artifactId>
-  <name>Lift Sites</name>
-  <description>A set of examples site/webapp</description>
   <packaging>pom</packaging>
+
+  <!--
+    ~ More Project Information
+  -->
+  <name>Lift Examples</name>
+  <description>
+    A set of examples site/webapp
+  </description>
+
+  <!--
+    ~ Environment Settings
+  -->
+  <ciManagement>
+    <system>hudson</system>
+    <url>http://hudson.scala-tools.org/job/LiftExamples/</url>
+    <notifiers>
+      <!-- TODO: Configure-->
+      <notifier/>
+    </notifiers>
+  </ciManagement>
+  <!-- <properties/> -->
+
   <modules>
     <module>example</module>
     <module>examples-osgi</module>
