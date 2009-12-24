@@ -64,16 +64,9 @@
   </ciManagement>
   <!-- <properties/> -->
 
-  <modules>
-    <module>example</module>
-    <module>examples-osgi</module>
-    <module>skittr</module>
-    <module>hellolift</module>
-    <module>hellodarwin</module>
-    <module>JPADemo</module>
-    <module>flotDemo</module>
-    <module>http-authentication</module>
-  </modules>
+  <!--
+    ~ Dependency Settings
+  -->
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -115,6 +108,24 @@
       <version>1.3.0</version>
     </dependency>
   </dependencies>
+
+  <!--
+    ~ Module Settings
+  -->
+  <modules>
+    <module>example</module>
+    <module>examples-osgi</module>
+    <module>skittr</module>
+    <module>hellolift</module>
+    <module>hellodarwin</module>
+    <module>JPADemo</module>
+    <module>flotDemo</module>
+    <module>http-authentication</module>
+  </modules>
+
+  <!--
+    ~ Build Settings
+  -->
   <build>
     <plugins>
       <plugin>
@@ -153,4 +164,15 @@
       </plugin>
     </plugins>
   </build>
+
+  <!--
+    ~ Reporting Settings
+  -->
+  <!-- <reporting/> -->
+
+  <!--
+    ~ Profile Settings
+  -->
+  <!-- <profiles/> -->
+
 </project>
