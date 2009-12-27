@@ -56,7 +56,7 @@
   -->
   <ciManagement>
     <system>hudson</system>
-    <url>http://hudson.scala-tools.org/job/LiftExamples/</url>
+    <url>http://hudson.scala-tools.org/job/lift-examples/</url>
     <notifiers>
       <!-- TODO: Configure-->
       <notifier/>
