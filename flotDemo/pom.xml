@@ -13,9 +13,14 @@
 
   <dependencies>
     <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>lift-widgets</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
-      <version>[6.1.6, 6.1.19)</version>
+      <version>[6.1.6,7.0)</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -19,10 +19,6 @@
     <module>JPADemo-spa</module>
   </modules>
 
-  <properties>
-    <scala.version>2.7.7</scala.version>
-  </properties>
-
   <!-- Set up repo for ScalaJPA -->
   <repositories>
     <repository>
@@ -88,7 +84,6 @@
             <arg>-deprecation</arg>
             <arg>-Xno-varargs-conversion</arg>
           </args>
-          <scalaVersion>${scala.version}</scalaVersion>
         </configuration>
       </plugin>
     </plugins>

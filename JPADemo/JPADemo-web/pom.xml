@@ -16,7 +16,7 @@
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
-      <version>[6.1.6,6.1.19)</version>
+      <version>[6.1.6,7.0)</version>
       <scope>test</scope>
     </dependency>
     <!-- for LiftConsole -->
@@ -31,11 +31,11 @@
       <artifactId>JPADemo-spa</artifactId>
       <version>${pom.version}</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>lift-core</artifactId>
       <version>${pom.version}</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>lift-jpa</artifactId>

@@ -10,7 +10,7 @@
 
     <artifactId>lift-example</artifactId>
     <packaging>war</packaging>
-    <name>Lift Example</name>
+    <name>Lift Standard Example</name>
 
     <dependencies>
         <dependency>
@@ -38,13 +38,23 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>lift-textile</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>lift-widgets</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>lift-wizard</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
-            <version>[6.1.6, 6.1.19)</version>
+            <version>[6.1.6,7.0)</version>
             <scope>test</scope>
         </dependency>
         <dependency>
