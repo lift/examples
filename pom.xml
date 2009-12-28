@@ -52,6 +52,20 @@
   </description>
 
   <!--
+    ~ Module Settings
+  -->
+  <modules>
+    <module>example</module>
+    <module>examples-osgi</module>
+    <module>skittr</module>
+    <module>hellolift</module>
+    <module>hellodarwin</module>
+    <module>JPADemo</module>
+    <module>flotDemo</module>
+    <module>http-authentication</module>
+  </modules>
+
+  <!--
     ~ Environment Settings
   -->
   <ciManagement>
@@ -108,20 +122,6 @@
       <version>1.3.0</version>
     </dependency>
   </dependencies>
-
-  <!--
-    ~ Module Settings
-  -->
-  <modules>
-    <module>example</module>
-    <module>examples-osgi</module>
-    <module>skittr</module>
-    <module>hellolift</module>
-    <module>hellodarwin</module>
-    <module>JPADemo</module>
-    <module>flotDemo</module>
-    <module>http-authentication</module>
-  </modules>
 
   <!--
     ~ Build Settings
