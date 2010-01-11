@@ -23,7 +23,7 @@ class Boot {
      * this scheme.
      */
      LiftRules.httpAuthProtectedResource.prepend {
-       case (ParsePath("secure-basic" :: Nil, _, _, _)) => Full(AuthRole("admin"))
+       case (Req("secure-basic" :: Nil, _, _)) => Full(AuthRole("admin"))
      }
 
      LiftRules.authentication = HttpBasicAuthentication("lift") {
