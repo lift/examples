@@ -23,6 +23,8 @@ import _root_.net.liftweb.common._
 import _root_.java.util.Date
 import Helpers._
 
+import model._
+
 /**
  * An example of a wizard in Lift
  */
@@ -34,18 +36,18 @@ object MyWizard extends Wizard {
 
     // it has a name field
     val name = new Field with StringField {
-      def title = S ?? "First Name"
+      def name = S ? "First Name"
 
-      override def validation = minLen(2, S ?? "Name Too Short") ::
-          maxLen(40, S ?? "Name Too Long") :: super.validation
+      override def validations = minLen(2, S ? "Name Too Short") ::
+              maxLen(40, S ? "Name Too Long") :: super.validations
     }
 
     // and an age field
     val age = new Field with IntField {
-      def title = S ?? "Age"
+      def name = S ? "Age"
 
-      override def validation = minVal(5, S ?? "Too young") ::
-          maxVal(120, S ?? "You should be dead") :: super.validation
+      override def validations = minVal(5, S ?? "Too young") ::
+              maxVal(120, S ? "You should be dead") :: super.validations
     }
 
     // choose the next screen based on the age
@@ -55,20 +57,20 @@ object MyWizard extends Wizard {
   // We ask the parent's name if the person is under 18
   val parentName = new Screen {
     val parentName = new Field with StringField {
-      def title = S ?? "Mom or Dad's name"
+      def name = S ? "Mom or Dad's name"
 
-      override def validation = minLen(2, S ?? "Name Too Short") ::
-          maxLen(40, S ?? "Name Too Long") :: super.validation
+      override def validations = minLen(2, S ? "Name Too Short") ::
+              maxLen(40, S ? "Name Too Long") :: super.validations
     }
   }
 
   // we ask for the favorite pet
   val favoritePet = new Screen {
     val petName = new Field with StringField {
-      def title = S ?? "Pet's name"
+      def name = S ? "Pet's name"
 
-      override def validation = minLen(2, S ?? "Name Too Short") ::
-          maxLen(40, S ?? "Name Too Long") :: super.validation
+      override def validations = minLen(2, S ? "Name Too Short") ::
+              maxLen(40, S ? "Name Too Long") :: super.validations
     }
   }
 
@@ -82,23 +84,42 @@ object MyWizard extends Wizard {
 object WizardChallenge extends Wizard {
   val page1 = new Screen {
     val info = new Field with StringField {
-      def title = S ?? "Page one entry"
+      def name = S ? "Page one entry"
     }
   }
 
   val page2 = new Screen {
-    override def screenTop = <span>Page one field is {page1.info}</span>
+    override def screenTop = <span>Page one field is{page1.info}</span>
 
     val info = new Field with StringField {
-      def title = S ?? "Page two entry"
+      def name = S ? "Page two entry"
     }
   }
 
   val page3 = new Screen {
-    override def screenTop = <span>Page one field is {page1.info}<br/>Page two field is {page2.info}</span>
+    override def screenTop = <span>Page one field is{page1.info}<br/>Page two field is{page2.info}</span>
   }
 
   def finish() {
     S.notice("Finished the challenge")
+  }
+}
+
+object PersonScreen extends LiftScreen {
+  object person extends ScreenVar(Person.create)
+
+
+  override def screenTopTextAsHtml = Full(<b>A single screen with some input validation</b>)
+
+  _register(() => person.is)
+
+  val shouldSave = new Field with BooleanField {
+    def name = "Save ?"
+  }
+
+  def finish() {
+    if (shouldSave.is) {
+      person.is.save
+    }
   }
 }

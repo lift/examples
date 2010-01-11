@@ -57,7 +57,7 @@ class Boot {
     XmlServer.init()
 
     LiftRules.statelessDispatchTable.append {
-      case r @ Req("stateless" :: _, "", GetRequest) => StatelessHtml.render(r) _
+      case r@Req("stateless" :: _, "", GetRequest) => StatelessHtml.render(r) _
     }
 
     LiftRules.dispatch.prepend(NamedPF("Login Validation") {
@@ -67,12 +67,13 @@ class Boot {
     })
 
     LiftRules.snippetDispatch.append(NamedPF("Template")
-          (Map("Template" -> Template,
+              (Map("Template" -> Template,
       "AllJson" -> AllJson)))
 
     LiftRules.snippetDispatch.append {
       case "MyWizard" => MyWizard
       case "WizardChallenge" => WizardChallenge
+      case "ScreenForm" => PersonScreen
     }
 
     LiftRules.snippetDispatch.append(Map("runtime_stats" -> RuntimeStats))
@@ -81,21 +82,21 @@ class Boot {
      * Show the spinny image when an Ajax call starts
      */
     LiftRules.ajaxStart =
-        Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
+            Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
 
     /*
      * Make the spinny image go away when it ends
      */
     LiftRules.ajaxEnd =
-        Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
+            Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
 
     LiftRules.early.append(makeUtf8)
 
     LiftSession.onBeginServicing = RequestLogger.beginServicing _ ::
-        LiftSession.onBeginServicing
+            LiftSession.onBeginServicing
 
     LiftSession.onEndServicing = RequestLogger.endServicing _ ::
-        LiftSession.onEndServicing
+            LiftSession.onEndServicing
 
     LiftRules.setSiteMap(SiteMap(MenuInfo.menu: _*))
 
@@ -105,7 +106,7 @@ class Boot {
 
     // Dump information about session every 10 minutes
     SessionMaster.sessionWatchers = SessionInfoDumper ::
-        SessionMaster.sessionWatchers
+            SessionMaster.sessionWatchers
 
     // Dump browser information each time a new connection is made
     LiftSession.onBeginServicing = BrowserLogger.haveSeenYou _ :: LiftSession.onBeginServicing
@@ -126,8 +127,8 @@ object RequestLogger {
                    response: Box[LiftResponse]) {
     val delta = millis - startTime.is
     Log.info("At " + (timeNow) + " Serviced " + req.uri + " in " + (delta) + "ms " + (
-        response.map(r => " Headers: " + r.toResponse.headers) openOr ""
-        ))
+            response.map(r => " Headers: " + r.toResponse.headers) openOr ""
+            ))
   }
 }
 
@@ -135,55 +136,56 @@ object MenuInfo {
   import Loc._
 
   def menu: List[Menu] = Menu(Loc("home", List("index"), "Home")) ::
-      Menu(Loc("Interactive", List("interactive"), "Interactive Stuff"),
-        Menu(Loc("chat", List("chat"), "Comet Chat", Unless(() => Props.inGAE, "Disabled for GAE"))),
-        Menu(Loc("longtime", List("longtime"), "Updater", Unless(() => Props.inGAE, "Disabled for GAE"))),
-        Menu(Loc("ajax", List("ajax"), "AJAX Samples")),
-        Menu(Loc("ajax form", List("ajax-form"), "AJAX Form")),
-        Menu(Loc("js confirm", List("rhodeisland"), "Modal Dialog")),
-        Menu(Loc("json", List("json"), "JSON Messaging")),
-        Menu(Loc("json_more", List("json_more"), "More JSON")),
-        Menu(Loc("form_ajax", List("form_ajax"), "Ajax and Forms"))
-        ) ::
-      Menu(Loc("Persistence", List("persistence"), "Persistence", Unless(() => Props.inGAE, "Disabled for GAE")),
-        Menu(Loc("xml fun", List("xml_fun"), "XML Fun", Unless(() => Props.inGAE, "Disabled for GAE"))),
-        Menu(Loc("database", List("database"), "Database", Unless(() => Props.inGAE, "Disabled for GAE"))),
-        Menu(Loc("simple", Link(List("simple"), true, "/simple/index"),
-          "Simple Forms", Unless(() => Props.inGAE, "Disabled for GAE"))),
-        Menu(Loc("template", List("template"), "Templates", Unless(() => Props.inGAE, "Disabled for GAE")))) ::
-      Menu(Loc("Templating", List("templating", "index"), "Templating"),
-        Menu(Loc("Surround", List("templating", "surround"), "Surround")),
-        Menu(Loc("Embed", List("templating", "embed"), "Embed")),
-        Menu(Loc("eval-order", List("templating", "eval_order"), "Evalutation Order")),
-        Menu(Loc("select-o-matuc", List("templating", "selectomatic"), "Select <div>s")),
-        Menu(Loc("Simple Wizard", List("simple_wizard"), "Simple Wizard")),
-        Menu(Loc("head", List("templating", "head"), "<head/> tag"))) ::
-      Menu(Loc("ws", List("ws"), "Web Services", Unless(() => Props.inGAE, "Disabled for GAE"))) ::
-      Menu(Loc("lang", List("lang"), "Localization")) ::
-      Menu(Loc("menu_top", List("menu", "index"), "Menus"),
-        Menu(Loc("menu_one", List("menu", "one"), "First Submenu")),
-        Menu(Loc("menu_two", List("menu", "two"), "Second Submenu (has more)"),
-          Menu(Loc("menu_two_one", List("menu", "two_one"),
-            "First (2) Submenu")),
-          Menu(Loc("menu_two_two", List("menu", "two_two"),
-            "Second (2) Submenu"))
-          ),
-        Menu(Loc("menu_three", List("menu", "three"), "Third Submenu")),
-        Menu(Loc("menu_four", List("menu", "four"), "Forth Submenu"))
-        ) ::
-      Menu(WikiStuff) ::
-      Menu(Loc("Misc", List("misc"), "Misc code"),
-        Menu(Loc("guess", List("guess"), "Number Guessing")),
-        Menu(Loc("Wiz", List("wiz"), "Wizard")),
-        Menu(Loc("Wiz2", List("wiz2"), "Wizard Challenge")),
-        Menu(Loc("arc", List("arc"), "Arc Challenge #1")),
-        Menu(Loc("file_upload", List("file_upload"), "File Upload")),
-        Menu(Loc("login", Link(List("login"), true, "/login/index"),
-          <xml:group>Requiring Login<strike>SiteMap</strike> </xml:group>)),
-        Menu(Loc("count", List("count"), "Counting"))) ::
-      Menu(Loc("lift", ExtLink("http://liftweb.net"),
-        <xml:group> <i>Lift</i>project home</xml:group>)) ::
-      Nil
+          Menu(Loc("Interactive", List("interactive"), "Interactive Stuff"),
+            Menu(Loc("chat", List("chat"), "Comet Chat", Unless(() => Props.inGAE, "Disabled for GAE"))),
+            Menu(Loc("longtime", List("longtime"), "Updater", Unless(() => Props.inGAE, "Disabled for GAE"))),
+            Menu(Loc("ajax", List("ajax"), "AJAX Samples")),
+            Menu(Loc("ajax form", List("ajax-form"), "AJAX Form")),
+            Menu(Loc("js confirm", List("rhodeisland"), "Modal Dialog")),
+            Menu(Loc("json", List("json"), "JSON Messaging")),
+            Menu(Loc("json_more", List("json_more"), "More JSON")),
+            Menu(Loc("form_ajax", List("form_ajax"), "Ajax and Forms"))
+            ) ::
+          Menu(Loc("Persistence", List("persistence"), "Persistence", Unless(() => Props.inGAE, "Disabled for GAE")),
+            Menu(Loc("xml fun", List("xml_fun"), "XML Fun", Unless(() => Props.inGAE, "Disabled for GAE"))),
+            Menu(Loc("database", List("database"), "Database", Unless(() => Props.inGAE, "Disabled for GAE"))),
+            Menu(Loc("simple", Link(List("simple"), true, "/simple/index"),
+              "Simple Forms", Unless(() => Props.inGAE, "Disabled for GAE"))),
+            Menu(Loc("template", List("template"), "Templates", Unless(() => Props.inGAE, "Disabled for GAE")))) ::
+          Menu(Loc("Templating", List("templating", "index"), "Templating"),
+            Menu(Loc("Surround", List("templating", "surround"), "Surround")),
+            Menu(Loc("Embed", List("templating", "embed"), "Embed")),
+            Menu(Loc("eval-order", List("templating", "eval_order"), "Evalutation Order")),
+            Menu(Loc("select-o-matuc", List("templating", "selectomatic"), "Select <div>s")),
+            Menu(Loc("Simple Wizard", List("simple_wizard"), "Simple Wizard")),
+            Menu(Loc("head", List("templating", "head"), "<head/> tag"))) ::
+          Menu(Loc("ws", List("ws"), "Web Services", Unless(() => Props.inGAE, "Disabled for GAE"))) ::
+          Menu(Loc("lang", List("lang"), "Localization")) ::
+          Menu(Loc("menu_top", List("menu", "index"), "Menus"),
+            Menu(Loc("menu_one", List("menu", "one"), "First Submenu")),
+            Menu(Loc("menu_two", List("menu", "two"), "Second Submenu (has more)"),
+              Menu(Loc("menu_two_one", List("menu", "two_one"),
+                "First (2) Submenu")),
+              Menu(Loc("menu_two_two", List("menu", "two_two"),
+                "Second (2) Submenu"))
+              ),
+            Menu(Loc("menu_three", List("menu", "three"), "Third Submenu")),
+            Menu(Loc("menu_four", List("menu", "four"), "Forth Submenu"))
+            ) ::
+          Menu(WikiStuff) ::
+          Menu(Loc("Misc", List("misc"), "Misc code"),
+            Menu(Loc("guess", List("guess"), "Number Guessing")),
+            Menu(Loc("Wiz", List("wiz"), "Wizard")),
+            Menu(Loc("Wiz2", List("wiz2"), "Wizard Challenge")),
+            Menu(Loc("Simple Screen", List("simple_screen"), "Simple Screen")),
+            Menu(Loc("arc", List("arc"), "Arc Challenge #1")),
+            Menu(Loc("file_upload", List("file_upload"), "File Upload")),
+            Menu(Loc("login", Link(List("login"), true, "/login/index"),
+              <xml:group>Requiring Login<strike>SiteMap</strike> </xml:group>)),
+            Menu(Loc("count", List("count"), "Counting"))) ::
+          Menu(Loc("lift", ExtLink("http://liftweb.net"),
+            <xml:group> <i>Lift</i>project home</xml:group>)) ::
+          Nil
 }
 
 /**

@@ -101,7 +101,7 @@ class UserActor extends LiftActor {
       
       // tell all our friends that we follow them
     case ConfigFollowers =>
-      friends.flatMap(f => UserList.find(f).toList).foreach(_ ! AddFollower)
+      friends.flatMap(f => UserList.find(f).toList).foreach(_ ! AddFollower(this))
       // if the "autogen" property is set, then have each of the actors
       // randomly generate a message
       if (User.shouldAutogen_? || System.getProperty("autogen") != null) autoGen
@@ -114,7 +114,7 @@ class UserActor extends LiftActor {
       // find the user
       UserList.find(name).foreach{
         ua =>
-        ua ! AddFollower // tell him we're a follower
+        ua ! AddFollower(this) // tell him we're a follower
         (ua !? GetUserIdAndName) match { // get the user info
           case UserIdInfo(id, _,_, _) => Friend.create.owner(userId).friend(id).save // and persist a friend connection in the DB
           case _ =>

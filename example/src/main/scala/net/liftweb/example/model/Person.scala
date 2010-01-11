@@ -25,7 +25,9 @@ object Person extends Person with LongKeyedMetaMapper[Person]
 class Person extends LongKeyedMapper[Person] with IdPK {
  def getSingleton = Person
 
- object firstName extends MappedString(this, 100)
+ object firstName extends MappedString(this, 100) {
+   override def validations = valMinLen(2, "First name must be 2 characters long") _ :: super.validations
+ }
  object lastName  extends MappedString(this, 100)
 
  object personalityType extends MappedEnum(this, Personality)
