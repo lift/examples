@@ -35,10 +35,8 @@
   -->
   <parent>
     <groupId>net.liftweb</groupId>
-    <artifactId>lift-parent</artifactId>
+    <artifactId>lift</artifactId>
     <version>2.0-SNAPSHOT</version>
-    <!-- TODO: Interim usage, remove once lift-parent matures to stable version -->
-    <relativePath>../resources/lift-parent/pom.xml</relativePath>
   </parent>
   <artifactId>examples</artifactId>
   <packaging>pom</packaging>
@@ -151,12 +149,12 @@
         <artifactId>maven-jetty-plugin</artifactId>
         <configuration>
 	  <!--
- <connectors>  
-   <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">  
-     <port>8888</port>  
-     <maxIdleTime>30000</maxIdleTime>  
-   </connector>  
-    </connectors>  
+ <connectors>
+   <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+     <port>8888</port>
+     <maxIdleTime>30000</maxIdleTime>
+   </connector>
+    </connectors>
  -->
           <contextPath>/</contextPath>
           <scanIntervalSeconds>0</scanIntervalSeconds>
