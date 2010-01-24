@@ -42,7 +42,7 @@ class DivSelector extends StatefulSnippet {
   def populate(in: NodeSeq): NodeSeq =
   bind("div", in, "line" ->
        (line =>
-      whichDivs.zipWithIndex.flatMap{
+      whichDivs.toList.zipWithIndex.flatMap{
         case (value, num) =>
           bind("div", line,
                "number" -> Text(num.toString),

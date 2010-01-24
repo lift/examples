@@ -38,7 +38,7 @@ class AjaxForm {
     val first = cities.head
     // make the select "untrusted" because we might put new values
     // in the select
-    untrustedSelect(cities.map(s => (s,s)), Full(first), city = _)
+    untrustedSelect(cities.map(s => (s,s)), Full(first), s => city = s)
   }
 
   private def replace(state: String): JsCmd = {
@@ -54,7 +54,7 @@ class AjaxForm {
                               s => After(200, replace(s)))
     bind("select", xhtml,
          "state" -> select(AjaxForm.states.map(s => (s,s)),
-                           Full(state), state = _, "onchange" -> js.toJsCmd) %
+                           Full(state), s => state = s, "onchange" -> js.toJsCmd) %
          (new PrefixedAttribute("lift", "gc", name, Null)),
          "city" -> cityChoice(state) % ("id" -> "city_select"),
          "submit" -> submit(?("Save"),
