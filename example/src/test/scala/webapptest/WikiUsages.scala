@@ -25,7 +25,7 @@ object WikiUsages extends Specification {
 
   "wiki edit HomePage" should {
     setSequential
-
+    /* FIXME: 280
     "not have HomePage content define" >> {
       JettyTestServer.browse(
         "/wiki/HomePage",
@@ -51,6 +51,7 @@ object WikiUsages extends Specification {
         }
       )
     }
+    */
   }
 
   //JettyTestServer.stop()
