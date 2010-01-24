@@ -57,7 +57,7 @@ class SimpleWizard extends StatefulSnippet {
   }
 
   TemplateFinder.findAnyTemplate(List("templating", "pageOne")).map(html =>
-  bind("wizard", html, "name" -> text(name, name = _), "submit" -> submit(S.?("Next"), validate))) openOr NodeSeq.Empty
+  bind("wizard", html, "name" -> text(name, s => name = s), "submit" -> submit(S.?("Next"), validate))) openOr NodeSeq.Empty
   }
 
   /**
@@ -71,7 +71,7 @@ class SimpleWizard extends StatefulSnippet {
   }
 
   TemplateFinder.findAnyTemplate(List("templating", "pageTwo")).map(html =>
-  bind("wizard", html, "quest" -> text(quest, quest = _), "submit" -> submit(S.?("Next"), validate))) openOr NodeSeq.Empty
+  bind("wizard", html, "quest" -> text(quest, s => quest = s), "submit" -> submit(S.?("Next"), validate))) openOr NodeSeq.Empty
   }
 
     /**
@@ -88,7 +88,7 @@ class SimpleWizard extends StatefulSnippet {
   }
 
   TemplateFinder.findAnyTemplate(List("templating", "pageThree")).map(html =>
-  bind("wizard", html, "color" -> text(color, color = _), "submit" -> submit(S.?("Finish"), validate))) openOr NodeSeq.Empty
+  bind("wizard", html, "color" -> text(color, s => color = s), "submit" -> submit(S.?("Finish"), validate))) openOr NodeSeq.Empty
   }
 
 }

@@ -44,8 +44,8 @@ class UserMgt {
         }
       <form method="post" action={S.uri}>
       <table>
-      <tr><td>name:</td><td>{text("", username=_)}</td></tr>
-      <tr><td>pwd:</td><td>{password("", pwd=_)}</td></tr>
+      <tr><td>name:</td><td>{text("", u => username = u)}</td></tr>
+      <tr><td>pwd:</td><td>{password("", p => pwd = p)}</td></tr>
       <tr><td><a href="/new_acct">new acct</a></td><td>{submit("login", testPwd _)}</td></tr>
       </table>
       </form>

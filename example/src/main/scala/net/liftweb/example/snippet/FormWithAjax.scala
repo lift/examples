@@ -40,7 +40,7 @@ class FormWithAjax extends StatefulSnippet {
 
   def render(xhtml: NodeSeq): NodeSeq =
   {
-   
+
 
     def validate() {
       (firstName.length, lastName.length) match {
@@ -52,8 +52,8 @@ class FormWithAjax extends StatefulSnippet {
     }
 
     bind("form", xhtml,
-         "first" -> textAjaxTest(firstName, firstName = _, s => {S.notice("First name "+s); Noop}),
-         "last" -> textAjaxTest(lastName, lastName = _, s => {S.notice("Last name "+s); Noop}),
+         "first" -> textAjaxTest(firstName, s => firstName = s, s => {S.notice("First name "+s); Noop}),
+         "last" -> textAjaxTest(lastName, s => lastName = s, s => {S.notice("Last name "+s); Noop}),
          "submit" -> submit("Send", validate _)
     )
   }
