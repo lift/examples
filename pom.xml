@@ -56,15 +56,14 @@
   -->
   <modules>
     <module>example</module>
-    <!--FIXME: 280-->
-    <!--<module>examples-osgi</module>-->
     <module>skittr</module>
     <module>hellolift</module>
     <module>hellodarwin</module>
-    <!--FIXME: 280-->
-    <!--<module>JPADemo</module>-->
     <module>flotDemo</module>
     <module>http-authentication</module>
+    <!--FIXME: 280-->
+    <!--<module>examples-osgi</module>-->
+    <!--<module>JPADemo</module>-->
   </modules>
 
   <!--
