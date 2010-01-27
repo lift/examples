@@ -37,7 +37,6 @@
     <groupId>net.liftweb</groupId>
     <artifactId>lift-parent</artifactId>
     <version>2.0-scala280-SNAPSHOT</version>
-    <!-- TODO: Interim usage, remove once lift-parent matures to stable version -->
     <relativePath>../resources/lift-parent/pom.xml</relativePath>
   </parent>
   <artifactId>examples</artifactId>
@@ -72,10 +71,7 @@
   <ciManagement>
     <system>hudson</system>
     <url>http://hudson.scala-tools.org/job/lift-examples/</url>
-    <notifiers>
-      <!-- TODO: Configure-->
-      <notifier/>
-    </notifiers>
+    <!-- <notifiers/> -->
   </ciManagement>
   <!-- <properties/> -->
 
@@ -91,31 +87,12 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.3</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-      <version>3.1</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
-      <version>10.4.2.0</version>
-      <!-- use for test and runtime -->
-    </dependency>
-    <dependency>
-      <groupId>com.rabbitmq</groupId>
-      <artifactId>rabbitmq-client</artifactId>
-      <version>1.3.0</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 
@@ -145,18 +122,6 @@
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
-        <configuration>
-	  <!--
- <connectors>
-   <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-     <port>8888</port>
-     <maxIdleTime>30000</maxIdleTime>
-   </connector>
-    </connectors>
- -->
-          <contextPath>/</contextPath>
-          <scanIntervalSeconds>0</scanIntervalSeconds>
-        </configuration>
       </plugin>
     </plugins>
   </build>
