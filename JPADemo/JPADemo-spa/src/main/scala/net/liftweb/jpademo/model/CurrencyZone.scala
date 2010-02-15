@@ -53,7 +53,7 @@ abstract class CurrencyZone {
       var moneyValue = amount
       if (amount == null) moneyValue = 0
 
-      moneyValue = moneyValue.setScale(numberOfFractionDigits, BigDecimal.RoundingMode.ROUND_HALF_UP);
+      moneyValue = moneyValue.setScale(numberOfFractionDigits, BigDecimal.RoundingMode.HALF_UP);
       val numberFormat = NumberFormat.getInstance(auLocale);
       numberFormat.setMinimumFractionDigits(numberOfFractionDigits);
       numberFormat.setMaximumFractionDigits(numberOfFractionDigits);

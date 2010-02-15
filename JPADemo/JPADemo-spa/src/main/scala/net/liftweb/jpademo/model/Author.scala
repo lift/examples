@@ -26,13 +26,13 @@ import _root_.javax.persistence._
 @Entity
 class Author {
   @Id
-  @GeneratedValue(){val strategy = GenerationType.AUTO}
+  @GeneratedValue(strategy = GenerationType.AUTO)
   var id : Long = _
 
-  @Column{val unique = true, val nullable = false}
+  @Column(unique = true, nullable = false)
   var name : String = ""
 
-  @OneToMany(){val mappedBy = "author", val targetEntity = classOf[Book]}
+  @OneToMany(mappedBy = "author", targetEntity = classOf[Book])
   var books : _root_.java.util.Set[Book] = new _root_.java.util.HashSet[Book]()
 }
 }

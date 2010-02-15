@@ -30,20 +30,20 @@ import _root_.org.hibernate.annotations.Type
 @Entity
 class Book {
   @Id
-  @GeneratedValue(){val strategy = GenerationType.AUTO}
+  @GeneratedValue(strategy = GenerationType.AUTO)
   var id : Long = _
 
-  @Column{val unique = true, val nullable = false}
+  @Column(unique = true, nullable = false)
   var title : String = ""
 
   @Temporal(TemporalType.DATE)
-  @Column{val nullable = true}
+  @Column(nullable = true)
   var published : Date = new Date()
 
-  @Type{val `type` = "net.liftweb.jpademo.model.GenreType"}
+  @Type(`type` = "net.liftweb.jpademo.model.GenreType")
   var genre : Genre.Value = Genre.unknown
 
-  @ManyToOne{val optional = false}
+  @ManyToOne(optional = false)
   var author : Author = _
 }
 }

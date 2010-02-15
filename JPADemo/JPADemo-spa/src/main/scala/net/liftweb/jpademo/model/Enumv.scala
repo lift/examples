@@ -42,7 +42,7 @@ trait Enumv  {
   }
 
   /* get name description pair list for forms */
-  def getNameDescriptionList =  this.elements.toList.map(v => (v.toString, getDescriptionOrName(v) ) ).toList
+  def getNameDescriptionList =  this.map(v => (v.toString, getDescriptionOrName(v))).toList
 }
 }
 }
