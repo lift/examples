@@ -1,0 +1,17 @@
+<lift:surround with="default" at="content">
+  <h2>Basic FB Login and Connect</h2>
+  
+  <lift:TestCond.loggedout>
+    <lift:ConnectSnippet.fbloginLink/><br/>
+  </lift:TestCond.loggedout>
+  <lift:TestCond.loggedin>
+    <lift:ConnectSnippet.fbconnectLink>
+        Hello, <fb:name useyou="false" f:uid="" ></fb:name> <f:unlink/><br/>
+    </lift:ConnectSnippet.fbconnectLink><br/>
+    <a href="#" onclick="FB.Connect.logout(function() { window.location='/user_mgt/logout'; }); return false;">Logout</a>
+  </lift:TestCond.loggedin>
+  
+  <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
+  <lift:ConnectSnippet.initfb />
+</lift:surround>
+

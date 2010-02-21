@@ -37,7 +37,6 @@
     <groupId>net.liftweb</groupId>
     <artifactId>lift-parent</artifactId>
     <version>2.0-scala280-SNAPSHOT</version>
-    <!-- TODO: Interim usage, remove once lift-parent matures to stable version -->
     <relativePath>../resources/lift-parent/pom.xml</relativePath>
   </parent>
   <artifactId>examples</artifactId>
@@ -64,6 +63,7 @@
     <!--FIXME: 280-->
     <!--<module>examples-osgi</module>-->
     <module>JPADemo</module>
+    <module>hellofbc</module>
   </modules>
 
   <!--
