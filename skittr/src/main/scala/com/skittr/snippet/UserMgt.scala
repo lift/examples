@@ -15,7 +15,7 @@
  */
 
 package com.skittr {
-package model {
+package snippet {
 
 import _root_.scala.xml._
 import _root_.net.liftweb.http._
