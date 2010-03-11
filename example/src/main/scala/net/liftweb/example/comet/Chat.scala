@@ -30,7 +30,7 @@ import SHtml._
 import js._
 import JsCmds._
 import JE._
-import net.liftweb.http.js.jquery.JqJsCmds._
+import net.liftweb.http.js.jquery.JqJsCmds.{AppendHtml}
 
 class Chat extends CometActor with CometListener {
   private var userName = ""
