@@ -92,6 +92,17 @@ class Boot {
 
     LiftRules.early.append(makeUtf8)
 
+    LiftRules.cometCreation.append {
+      case CometCreationInfo("Clock",
+                             name,
+                             defaultXml,
+                             attributes,
+			     session) =>
+			       new ExampleClock(session, Full("Clock"),
+						name, defaultXml, attributes)
+				
+    }
+
     LiftSession.onBeginServicing = RequestLogger.beginServicing _ ::
             LiftSession.onBeginServicing
 

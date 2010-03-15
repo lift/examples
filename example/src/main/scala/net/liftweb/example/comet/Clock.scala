@@ -25,9 +25,13 @@ import util._
 import Helpers._
 import js._
 import JsCmds._
-import _root_.scala.xml.Text
+import _root_.scala.xml.{Text, NodeSeq}
 
-class Clock extends CometActor {
+class ExampleClock(initSession: LiftSession,
+                   initType: Box[String],
+                   initName: Box[String],
+                   initDefaultXml: NodeSeq,
+                   initAttributes: Map[String, String]) extends CometActor {
   override def defaultPrefix = Full("clk")
   // schedule a ping every 10 seconds so we redraw
   ActorPing.schedule(this, Tick, 10 seconds)
@@ -45,6 +49,8 @@ class Clock extends CometActor {
       partialUpdate(SetHtml(spanId, Text(timeNow.toString)))
       ActorPing.schedule(this, Tick, 10 seconds)
   }
+
+  initCometActor(initSession, initType, initName, initDefaultXml, initAttributes)
 }
 
 case object Tick
