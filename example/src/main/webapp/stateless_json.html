@@ -1,0 +1,81 @@
+<lift:surround with="default" at="content">
+  <center><b>Stateless JSON Sample</b></center>
+  <br />
+    <textarea id="json_question" rows="8" cols="50"></textarea>
+    <br />
+    <select id="json_select">
+      <option value="show">Show</option>
+      <option value="textile">Show in Textile</option>
+      <option value="count">Count Characters</option>
+      <option value="error">Show an error</option>
+    </select>
+    <br />
+    <button onclick="jQuery.ajax({ url : 'stateless_json_call', data : JSON.stringify({'command': document.getElementById('json_select').value, 'params':document.getElementById('json_question').value}), type : 'POST', dataType : 'script', contentType: 'text/json', timeout : 5000, cache : false});">Click Me</button>
+    <div id="json_result"></div>
+
+  <p>Here's the code:</p>
+
+
+    <style type="text/css">
+    <![CDATA[
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+      ]]>
+    </style>
+
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * Respond to JSON requests in a stateless dispatch
+ */</span>
+<span class="keyword">object</span> <span class="variable-name">StatelessJson</span> {
+  <span class="keyword">def</span> <span class="function-name">init</span>() {
+    <span class="comment-delimiter">// </span><span class="comment">register the JSON handler
+</span>    LiftRules.statelessDispatchTable.append {
+      <span class="keyword">case</span> <span class="variable-name">r</span> <span class="variable-name">@</span> <span class="type">Req</span>(<span class="string">"stateless_json_call"</span> <span class="variable-name">::</span> <span class="type">Nil</span>, <span class="variable-name">_</span>, <span class="type">PostRequest</span>) =&gt; () =&gt; handleJson(r)
+    }
+  }
+
+  <span class="keyword">implicit</span> <span class="keyword">def</span> <span class="function-name">iterableToBox</span>[<span class="type">X</span>](<span class="variable-name">in</span>: <span class="type">Iterable[X]</span>): <span class="type">Box[X]</span> = in.toList.headOption
+
+  <span class="keyword">def</span> <span class="function-name">handleJson</span>(<span class="variable-name">req</span>: <span class="type">Req</span>): <span class="type">Box[LiftResponse]</span> =
+  <span class="keyword">for</span> {
+    json &lt;- req.json <span class="comment-delimiter">// </span><span class="comment">get the JSON
+</span>    JObject(List(JField(<span class="string">"command"</span>, JString(cmd)), JField(<span class="string">"params"</span>, JString(params)))) &lt;- json <span class="comment-delimiter">// </span><span class="comment">extract the command
+</span>  } <span class="keyword">yield</span> JavaScriptResponse(SetHtml(<span class="string">"json_result"</span>,cmd <span class="keyword">match</span> { <span class="comment-delimiter">// </span><span class="comment">build the response
+</span>        <span class="keyword">case</span> <span class="string">"show"</span> =&gt; Text(params)
+        <span class="keyword">case</span> <span class="string">"textile"</span> =&gt;  TextileParser.toHtml(params, Empty)
+        <span class="keyword">case</span> <span class="string">"count"</span> =&gt; Text(params.length+<span class="string">" Characters"</span>)
+        <span class="keyword">case</span> <span class="variable-name">x</span> =&gt; &lt;b&gt;Problem... didn't handle JSON message {x}&lt;/b&gt;
+      }))
+}
+</pre>
+
+
+
+</lift:surround>
