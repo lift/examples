@@ -1,3 +1,4 @@
+scan-bundle:wrap:mvn:com.thoughtworks.paranamer/paranamer/2.0
 scan-bundle:wrap:mvn:javax.mail/mail/1.4
 scan-bundle:wrap:mvn:javax.activation/activation/1.1
 scan-bundle:wrap:mvn:commons-httpclient/commons-httpclient/3.1
@@ -10,13 +11,14 @@ scan-bundle:wrap:mvn:commons-io/commons-io/1.3.2
 scan-bundle:mvn:http://scala-tools.org/repo-releases!org.scalamodules/scalamodules-core/1.5
 scan-bundle:mvn:org.scala-lang-osgi/scala-library/2.7.7
 
-scan-bundle:mvn:net.liftweb/lift-actor/2.0-M1@update
-scan-bundle:mvn:net.liftweb/lift-common/2.0-M1@update
-scan-bundle:mvn:net.liftweb/lift-json/2.0-M1@update
-scan-bundle:mvn:net.liftweb/lift-osgi/2.0-M1@update
-scan-bundle:mvn:net.liftweb/lift-util/2.0-M1@update
-scan-bundle:mvn:net.liftweb/lift-webkit/2.0-M1@update
-scan-bundle:mvn:org.ops4j.pax.swissbox/pax-swissbox-extender/0.2.0
-scan-bundle:mvn:org.ops4j.pax.swissbox/pax-swissbox-lifecycle/0.2.0
-scan-bundle:mvn:org.ops4j.base/ops4j-base-lang/0.5.0
-# scan-bundle:mvn:net.liftweb/examples-osgi-hello/2.0-SNAPSHOT@update
+scan-bundle:mvn:org.ops4j.pax.swissbox/pax-swissbox-extender/1.2.0
+scan-bundle:mvn:org.ops4j.pax.swissbox/pax-swissbox-lifecycle/1.2.0
+scan-bundle:mvn:org.ops4j.base/ops4j-base-lang/1.2.1
+
+scan-bundle:mvn:net.liftweb/lift-actor/2.0-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-common/2.0-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-json/2.0-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-osgi/2.0-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-util/2.0-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-webkit/2.0-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/examples-osgi-hello/2.0-SNAPSHOT@update
