@@ -16,7 +16,7 @@
 package bootstrap.liftweb
 
 import _root_.net.liftweb._
-import common.{Box, Full, Empty, Failure}
+import common.{Box, Full, Empty, Failure, Loggable}
 import util.{Helpers, Log, NamedPF, Props}
 import http._
 import actor._
@@ -49,7 +49,7 @@ class Boot {
 
     if (!Props.inGAE) {
       // No DB stuff in GAE
-      Schemifier.schemify(true, Log.infoF _, User, WikiEntry, Person)
+      Schemifier.schemify(true, Schemifier.infoF _, User, WikiEntry, Person)
     }
 
     WebServices.init()
@@ -129,7 +129,7 @@ class Boot {
   private def makeUtf8(req: HTTPRequest): Unit = {req.setCharacterEncoding("UTF-8")}
 }
 
-object RequestLogger {
+object RequestLogger extends Loggable {
   object startTime extends RequestVar(0L)
 
   def beginServicing(session: LiftSession, req: Req) {
@@ -139,7 +139,7 @@ object RequestLogger {
   def endServicing(session: LiftSession, req: Req,
                    response: Box[LiftResponse]) {
     val delta = millis - startTime.is
-    Log.info("At " + (timeNow) + " Serviced " + req.uri + " in " + (delta) + "ms " + (
+    logger.info("At " + (timeNow) + " Serviced " + req.uri + " in " + (delta) + "ms " + (
             response.map(r => " Headers: " + r.toResponse.headers) openOr ""
             ))
   }
@@ -275,18 +275,18 @@ object DBVendor extends ConnectionManager {
   }
 }
 
-object BrowserLogger {
+object BrowserLogger extends Loggable {
   object HaveSeenYou extends SessionVar(false)
 
   def haveSeenYou(session: LiftSession, request: Req) {
     if (!HaveSeenYou.is) {
-      Log.info("Created session " + session.uniqueId + " IP: {" + request.request.remoteAddress + "} UserAgent: {{" + request.userAgent.openOr("N/A") + "}}")
+      logger.info("Created session " + session.uniqueId + " IP: {" + request.request.remoteAddress + "} UserAgent: {{" + request.userAgent.openOr("N/A") + "}}")
       HaveSeenYou(true)
     }
   }
 }
 
-object SessionInfoDumper extends LiftActor {
+object SessionInfoDumper extends LiftActor with Loggable {
   private var lastTime = millis
 
   val tenMinutes: Long = 10 minutes
@@ -305,9 +305,9 @@ object SessionInfoDumper extends LiftActor {
           RuntimeStats.sessions = sessions.size
 
           val dateStr: String = timeNow.toString
-          Log.info("[MEMDEBUG] At " + dateStr + " Number of open sessions: " + sessions.size)
-          Log.info("[MEMDEBUG] Free Memory: " + pretty(rt.freeMemory))
-          Log.info("[MEMDEBUG] Total Memory: " + pretty(rt.totalMemory))
+          logger.info("[MEMDEBUG] At " + dateStr + " Number of open sessions: " + sessions.size)
+          logger.info("[MEMDEBUG] Free Memory: " + pretty(rt.freeMemory))
+          logger.info("[MEMDEBUG] Total Memory: " + pretty(rt.totalMemory))
         }
     }
 

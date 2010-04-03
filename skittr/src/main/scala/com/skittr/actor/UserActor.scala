@@ -31,7 +31,7 @@ import _root_.net.liftweb.util.Helpers._
 /**
  * All the "current state" and logic necessary to deal with messages between users
  */
-class UserActor extends LiftActor {
+class UserActor extends LiftActor with Loggable {
   // the maximum messages to keep in memory
   private val maxMessages = 20
 
@@ -197,7 +197,7 @@ class UserActor extends LiftActor {
        Log.info("Exitted from actor "+who+" why "+why)
        */
       
-    case s => Log.info("User "+userName+" Got msg "+s)
+    case s => logger.info("User "+userName+" Got msg "+s)
   }
 
   /**

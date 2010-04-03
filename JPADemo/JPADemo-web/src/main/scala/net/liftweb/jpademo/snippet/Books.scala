@@ -23,8 +23,8 @@ import _root_.java.text.{ParseException,SimpleDateFormat}
 import _root_.scala.xml.{NodeSeq,Text}
 
 import _root_.net.liftweb.http.{RequestVar,S,SHtml}
-import _root_.net.liftweb.util.{Helpers,Log}
-import _root_.net.liftweb.common.{Box,Empty,Full}
+import _root_.net.liftweb.util.{Helpers}
+import _root_.net.liftweb.common.{Box,Empty,Full,Loggable}
 import S._
 import Helpers._
 
@@ -39,7 +39,7 @@ object BookOps {
   object resultVar extends RequestVar[List[Book]](Nil)
 }
 
-class BookOps {
+class BookOps extends Loggable {
   val formatter = new _root_.java.text.SimpleDateFormat("yyyyMMdd")
 
   def list (xhtml : NodeSeq) : NodeSeq = {
@@ -82,7 +82,7 @@ class BookOps {
 	  redirectTo("list.html")
 	} catch {
 	  case ee : EntityExistsException => error("That book already exists.")
-	  case pe : PersistenceException => error("Error adding book"); Log.error("Book add failed", pe)
+	  case pe : PersistenceException => error("Error adding book"); logger.error("Book add failed", pe)
 	}
       }
 
