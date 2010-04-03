@@ -41,7 +41,7 @@ class Boot {
 
     // where to search snippet
     LiftRules.addToPackages("fbc.example")
-    Schemifier.schemify(true, Log.infoF _, User)
+    Schemifier.schemify(true, Schemifier.infoF _, User)
 
     // Build SiteMap
     val entries = Menu(Loc("Home", List("index"), "Home")) :: User.sitemap

@@ -32,7 +32,7 @@ import util._
 import Helpers._
 import _root_.scala.xml.{Text, NodeSeq}
 
-class Ajax {
+class Ajax extends Loggable {
 
   def sample(xhtml: NodeSeq): NodeSeq = {
     // local state for the counter
@@ -71,7 +71,7 @@ class Ajax {
   }
 
   private def buildQuery(current: String, limit: Int): Seq[String] = {
-    Log.info("Checking on server side with "+current+" limit "+limit)
+    logger.info("Checking on server side with "+current+" limit "+limit)
     (1 to limit).map(n => current+""+n)
   }
 

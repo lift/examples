@@ -13,7 +13,7 @@ import _root_.net.liftweb.http.auth._
   * A class that's instantiated early and run.  It allows the application
   * to modify lift's environment
   */
-class Boot {
+class Boot extends Loggable {
   def boot {
     LiftRules.addToPackages("net.liftweb.examples.authentication")
 
@@ -28,7 +28,7 @@ class Boot {
 
      LiftRules.authentication = HttpBasicAuthentication("lift") {
        case ("someuser", "1234", req) => {
-         Log.info("You are now authenticated !")
+         logger.info("You are now authenticated !")
          userRoles(AuthRole("admin"))
          true
        }

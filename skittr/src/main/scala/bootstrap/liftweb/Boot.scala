@@ -38,7 +38,7 @@ class Boot {
     LiftRules.addToPackages("com.skittr")
 
     // make sure the database is up to date
-    Schemifier.schemify(true, Log.infoF _, modelList :_*)
+    Schemifier.schemify(true, Schemifier.infoF _, modelList :_*)
 
     if ((System.getProperty("create_users") != null) && User.count < User.createdCount) User.createTestUsers
 

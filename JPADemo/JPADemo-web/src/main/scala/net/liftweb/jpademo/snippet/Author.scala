@@ -21,7 +21,8 @@ package snippet {
 import scala.xml.{NodeSeq,Text}
 
 import net.liftweb.http.{RequestVar,S,SHtml}
-import net.liftweb.util.{Helpers,Log}
+import net.liftweb.util.Helpers
+import net.liftweb.common.Loggable
 import S._
 import Helpers._
 
@@ -30,7 +31,7 @@ import Model._
 
 import javax.persistence.{EntityExistsException,PersistenceException}
 
-class AuthorOps {
+class AuthorOps extends Loggable {
   def list (xhtml : NodeSeq) : NodeSeq = {
     val authors = Model.createNamedQuery[Author]("findAllAuthors").getResultList()
 
@@ -57,7 +58,7 @@ class AuthorOps {
 	  redirectTo("list.html")
 	} catch {
 	  case ee : EntityExistsException => error("That author already exists.")
-	  case pe : PersistenceException => error("Error adding author"); Log.error("Author add failed", pe)
+	  case pe : PersistenceException => error("Error adding author"); logger.error("Author add failed", pe)
 	}
       }
     }

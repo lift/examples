@@ -24,7 +24,7 @@ class Boot {
     LiftRules.addToPackages("com.hellolift")
 
     // Update the database schema to be in sync
-    Schemifier.schemify(true, Log.infoF _, User, Entry)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Entry)
 
     // The locale is either calculated based on the incoming user or
     // based on the http request
