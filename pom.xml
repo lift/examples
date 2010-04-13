@@ -58,6 +58,7 @@
     <module>skittr</module>
     <module>hellolift</module>
     <module>hellodarwin</module>
+    <module>helloscalate</module>
     <module>flotDemo</module>
     <module>http-authentication</module>
     <!--FIXME: 280-->
