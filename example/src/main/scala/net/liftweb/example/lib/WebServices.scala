@@ -61,7 +61,6 @@ object WebServices extends RestHelper {
     case (JsonSelect, u, _) => u.toJson
     case (XmlSelect, u, _) => u.toXml
   }
-
   
   // a couple of helpful conversion rules
   implicit def userToInfo(u: User): UserInfo = 
