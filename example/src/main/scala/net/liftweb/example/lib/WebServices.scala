@@ -20,51 +20,71 @@ package lib {
 
 import _root_.net.liftweb._
 import http._
+import http.rest._
 import common._
+import json._
 import util._
 import _root_.net.liftweb.example.model._
 
-object WebServices {
-  // register the WebServices with the dispatcher
-  def init() {
-    LiftRules.dispatch.append(NamedPF("Web Services Example") {
-        case Req("webservices" :: "all_users" :: Nil, _, GetRequest) =>
-          () => Full(all_users())
+object WebServices extends RestHelper {
+  // a JSON-able class that holds a User
+  case class UserInfo(firstName: String, lastName: String,
+                      email: String) {
+    def toXml = <user firstname={firstName}
+    lastName={lastName} email={email}/>
 
-        case Req("webservices" :: "add_user" :: Nil, _, rt)
-          if rt == GetRequest || rt == PostRequest =>
-          () => Full(add_user())
-      })
+    def toJson = Extraction.decompose(this)
+  }
+  
+  // a JSON-able class that holds all the users
+  case class AllUsers(users: List[UserInfo]) {
+    def toJson = Extraction.decompose(this)
+    def toXml = <users>{users.map(_.toXml)}</users>
   }
 
-  // List the XML for all users
-  def all_users(): XmlResponse =
-  XmlResponse(
-    <all_users>
-      {
-        User.findAll.map(_.toXml)
-      }
-    </all_users>)
+  // define a REST handler for an XML request
+  serve {
+    case "webservices" :: "all_users" :: _ XmlGet _ =>
+      AllUsers(User.findAll()).toXml
+  }
 
+  // define a REST handler for a JSON reqest
+  serve {
+    case "webservices" :: "all_users" :: _ JsonGet _ =>
+      AllUsers(User.findAll()).toJson
+  }
+
+  serveJx {
+    case Req("webservices" :: "add_user" :: _, _, rt) if rt.post_? || rt.get_? =>
+      addUser()
+  } { // How do we convert a UserInfo to either XML or JSON?
+    case (JsonSelect, u, _) => u.toJson
+    case (XmlSelect, u, _) => u.toXml
+  }
+
+  
+  // a couple of helpful conversion rules
+  implicit def userToInfo(u: User): UserInfo = 
+    UserInfo(u.firstName, u.lastName, u.email)
+
+  implicit def uLstToInfo(ul: List[User]): List[UserInfo] =
+    ul.map(userToInfo)
 
   // extract the parameters, create a user
   // return the appropriate response
-  def add_user(): LiftResponse =
-  (for {
-      firstname <- S.param("firstname") ?~ "firstname parameter missing"
+  def addUser(): Box[UserInfo] =
+    for {
+      firstname <- S.param("firstname") ?~ "firstname parameter missing" ~> 400
       lastname <- S.param("lastname") ?~ "lastname parameter missing"
       email <- S.param("email") ?~ "email parameter missing"
     } yield {
-      val u =User.create.firstName(firstname).lastName(lastname).email(email).
-      textArea(S.param("textarea") openOr "")
+      val u = User.create.firstName(firstname).
+      lastName(lastname).email(email)
 
-      S.param("password").map{v => u.password(v)}
-      u.save
-    }) match {
-    case Full(success) => XmlResponse(<add_user success={success.toString}/>)
-    case Failure(msg, _, _) => NotAcceptableResponse(msg)
-    case _ => NotFoundResponse()
-  }
+      S.param("password") foreach u.password.set
+
+      u.saveMe
+    }
 }
 
 }

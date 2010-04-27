@@ -52,7 +52,7 @@ class Boot {
       Schemifier.schemify(true, Schemifier.infoF _, User, WikiEntry, Person)
     }
 
-    WebServices.init()
+    LiftRules.dispatch.append(WebServices)
 
     StatelessJson.init()
 
