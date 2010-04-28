@@ -1,22 +1,6 @@
 <lift:surround with="default" at="content">
-<p>Normally, <i>Lift</i> will look for a "view" that
-satifying an HTTP request.  A view is an XHTML page
-or segment of a page with special &lt;lift:xxx&gt; processing
-instructions in it (e.g., an instruction to embed a controller,
-an instruction to surround the XHTML with another template, etc.)
-However, in certain cases, for example, when you want to
-satisfy a Web Services (REST) request, you can use
-Scala's pattern matching to intercept a request and service
-it with a "short lived" controller (rather than <i>Lift</i>'s
-normal long-lived, Actor-based controllers.)</p>
-
-<p>It's easy to "dispatch" incoming HTTP requests.
-In your "Boot" class create a <code>PartialFunction</code>
-that matches a pattern related to the incoming request and
-then create a short-lived controller to service the request.</p>
-
     <style type="text/css">
-    <!--
+      /* <![CDATA[ */
       .comment {
         /* font-lock-comment-face */
         color: #66cdaa;
@@ -42,65 +26,85 @@ then create a short-lived controller to service the request.</p>
         /* font-lock-variable-name-face */
         color: #98fb98;
       }
-
-    -->
+    /* ]]> */
     </style>
 
-    <pre>
-<span class="comment">/**
-  * A class that's instantiated early and run.  It allows the application
-  * to modify Lift's environment
-  */</span>
-<span class="keyword">class</span> <span class="type">Boot</span> {
-  <span class="keyword">def</span> <span class="function-name">boot</span> {
-    
-    <span class="keyword">val</span> dispatcher: PartialFunction[{RequestState, List[String],
-      (String) =&gt; java.io.InputStream}, 
-      (HttpServletRequest) =&gt; Option[Any]] = {
-    <span class="keyword">case</span> {r, <span class="string">"webservices"</span> :: c :: Nil, _} =&gt; { 
-          (req: HttpServletRequest) =&gt; {
-          <span class="keyword">val</span> <span class="variable-name">rc</span> = <span class="keyword">new</span> WebServices(r, req)
-          <span class="keyword">val</span> <span class="variable-name">invoker</span> = createInvoker(c, rc)
-          invoker <span class="keyword">match</span> {
-            <span class="keyword">case</span> <span class="type">None</span> =&gt; None
-            <span class="keyword">case</span> <span class="type">Some</span>(<span class="variable-name">f</span>) =&gt; f()
-          }
-          }
-        }
-    }
-    Servlet.addBefore(dispatcher)
-  }
-}</pre>
-<p>This code matches all the requests to "/webservices/????" and
-assigns the stuff in '????' to the variable <code>c</code>.  Then
-the code attempts to find a public method with that name on
-the controller.  If the method exists, it's invoked and <i>Lift</i>
-processes the result.</p>
-
-<p>You can see a couple of examples:<br />
-<a href='/webservices/all_users' target='_blank'>All Users in the database</a><br />
-<a href="/webservices/add_user?firstname=Elwood&amp;lastname=Cat&amp;email=elwood@catfood.com" target='_blank'>Add a User to the database</a>
+<p>Normally, <i>Lift</i> will look for a "view" that
+satifying an HTTP request.  A view is an XHTML page
+or segment of a page with special &lt;lift:xxx&gt; processing
+instructions in it (e.g., an instruction to embed a controller,
+an instruction to surround the XHTML with another template, etc.)
+However, in certain cases, for example, when you want to
+satisfy a Web Services (REST) request, you can use
+Scala's pattern matching to intercept a request and service
+it.
 </p>
 
-<pre>
-  <span class="keyword">def</span> <span class="function-name">add_user</span>: <span class="type">XmlResponse </span>= {
-    <span class="keyword">var</span> <span class="variable-name">success</span> = <span class="constant">false</span>
-    <span class="keyword">for</span> (<span class="keyword">val</span> <span class="variable-name">firstname</span> &lt;- params(<span class="string">"firstname"</span>);
-         <span class="keyword">val</span> <span class="variable-name">lastname</span> &lt;- params(<span class="string">"lastname"</span>);
-         <span class="keyword">val</span> <span class="variable-name">email</span> &lt;- params(<span class="string">"email"</span>)) {
-      <span class="keyword">val</span> <span class="variable-name">u</span> = <span class="keyword">new</span> User
-      u.firstName := firstname
-      u.lastName := lastname
-      u.email := email
-      params(<span class="string">"textarea"</span>).map{v =&gt; u.textArea := v}
-      params(<span class="string">"password"</span>).map{v =&gt; u.password := v}
-      success = u.save
-    }
-    
-    XmlResponse(&lt;add_user success={success.toString}/&gt;)
+<p>It's easy to "serve" incoming HTTP requests.
+Using Lift's RestHelper class.  For example, you can 
+serve "/webservices/all_users" as a JSON request as:
+</p>
+
+    <pre>
+  serve {
+    <span class="keyword">case</span> <span class="string">"webservices"</span> <span class="variable-name">::</span> <span class="string">"all_users"</span> <span class="variable-name">::</span> <span class="variable-name">_</span> <span class="type">JsonGet</span> <span class="variable-name">_</span> =&gt;
+      AllUsers(User.findAll()).toJson
   }
 </pre>
-<p>The controller simply validates that the required parameters exist
-(the <code>for</code> block.)  If they do, they are assigned,
-the optional parameters are assigned, and the user is saved.</p>
+
+<p>
+  And we can serve the same request if it's an XML request:
+</p>
+
+    <pre>
+  serve {
+    <span class="keyword">case</span> <span class="string">"webservices"</span> <span class="variable-name">::</span> <span class="string">"all_users"</span> <span class="variable-name">::</span> <span class="variable-name">_</span> <span class="type">XmlGet</span> <span class="variable-name">_</span> =&gt;
+      AllUsers(User.findAll()).toXml
+  }
+</pre>
+
+<p>
+  If you have a request (in the case of this example, servicing
+  both a POST and a GET for /webservices/add_user),
+  then service the request and include a function to convert the 
+  response into either JSON or XML:
+</p>
+
+    <pre>
+  serveJx {
+    <span class="keyword">case</span> <span class="type">Req</span>(<span class="string">"webservices"</span> <span class="variable-name">::</span> <span class="string">"add_user"</span> <span class="variable-name">::</span> <span class="variable-name">_</span>, <span class="variable-name">_</span>, <span class="variable-name">rt</span>) <span class="keyword">if</span> rt.post_? || rt.get_? =&gt;
+      addUser()
+  } { <span class="comment-delimiter">// </span><span class="comment">How do we convert a UserInfo to either XML or JSON?
+</span>    <span class="keyword">case</span> (<span class="type">JsonSelect</span>, <span class="variable-name">u</span>, <span class="variable-name">_</span>) =&gt; u.toJson
+    <span class="keyword">case</span> (<span class="type">XmlSelect</span>, <span class="variable-name">u</span>, <span class="variable-name">_</span>) =&gt; u.toXml
+  }
+</pre>
+
+<p>
+  And the addUser() method looks like:
+</p>
+
+    <pre>
+  <span class="keyword">def</span> <span class="function-name">addUser</span>(): <span class="type">Box[UserInfo]</span> =
+    <span class="keyword">for</span> {
+      firstname &lt;- S.param(<span class="string">"firstname"</span>) ?~ <span class="string">"firstname parameter missing"</span> ~> 400
+      lastname &lt;- S.param(<span class="string">"lastname"</span>) ?~ <span class="string">"lastname parameter missing"</span>
+      email &lt;- S.param(<span class="string">"email"</span>) ?~ <span class="string">"email parameter missing"</span>
+    } <span class="keyword">yield</span> {
+      <span class="keyword">val</span> <span class="variable-name">u</span> = User.create.firstName(firstname).
+      lastName(lastname).email(email)
+
+      S.param(<span class="string">"password"</span>) foreach u.password.set
+
+      u.saveMe
+    }
+</pre>
+
+<p>
+  Note that if the firstname parameter is missing, a 400 response with
+  the message "firstname parameter missing" message in the body will
+  be returned.  If the lastname parameter is missing, a 404 will be
+  returned with "lastname parameter missing" message in the body.
+</p>
+
 </lift:surround>
