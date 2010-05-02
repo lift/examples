@@ -16,7 +16,8 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.2.132</version>
+            <version>1.2.134</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.scala-tools.testing</groupId>
