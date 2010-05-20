@@ -287,7 +287,7 @@ object BrowserLogger extends Loggable {
 object SessionInfoDumper extends LiftActor with Loggable {
   private var lastTime = millis
 
-  val tenMinutes: Long = 10 minutes
+  val tenMinutes: Long = 2 minutes
 
   protected def messageHandler =
     {

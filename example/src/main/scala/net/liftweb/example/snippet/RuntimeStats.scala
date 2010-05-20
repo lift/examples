@@ -39,6 +39,8 @@ object RuntimeStats extends DispatchSnippet {
   @volatile
   var lastUpdate = timeNow
 
+  val startedAt = timeNow
+
   private def nf(in: Long): String = NumberFormat.getInstance.format(in)
 
   def dispatch = {
@@ -46,6 +48,7 @@ object RuntimeStats extends DispatchSnippet {
     case "free_mem" => i => Text(nf(freeMem))
     case "sessions" => i => Text(sessions.toString)
     case "updated_at" => i => Text(lastUpdate.toString)
+    case "started_at" => i => Text(startedAt.toString)
   }
 
 }
