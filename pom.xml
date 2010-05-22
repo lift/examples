@@ -63,7 +63,7 @@
     <module>http-authentication</module>
     <!--FIXME: 280-->
     <!--<module>examples-osgi</module>-->
-    <module>JPADemo</module>
+    <!--<module>JPADemo</module>-->
     <module>hellofbc</module>
   </modules>
 
