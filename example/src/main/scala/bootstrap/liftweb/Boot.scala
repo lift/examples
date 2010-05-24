@@ -78,6 +78,9 @@ class Boot {
       case "ScreenForm" => PersonScreen
     }
 
+    SessionMaster.sessionCheckFuncs = SessionMaster.sessionCheckFuncs :::
+    List(SessionChecker)
+
     LiftRules.snippetDispatch.append(Map("runtime_stats" -> RuntimeStats))
 
     /*
