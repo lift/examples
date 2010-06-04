@@ -289,6 +289,8 @@ object SessionInfoDumper extends LiftActor with Loggable {
 
   val tenMinutes: Long = 2 minutes
 
+  import net.liftweb.example.lib.SessionChecker
+
   protected def messageHandler =
     {
       case SessionWatcherInfo(sessions) =>
@@ -302,10 +304,23 @@ object SessionInfoDumper extends LiftActor with Loggable {
           RuntimeStats.freeMem = rt.freeMemory
           RuntimeStats.sessions = sessions.size
 
+          val percent = (RuntimeStats.freeMem * 100L) / RuntimeStats.totalMem
+
+          if (percent < 25L) {
+            SessionChecker.killWhen /= 2L
+            SessionChecker.killCnt *= 2
+          } else if (SessionChecker.killWhen < 
+                     SessionChecker.defaultKillWhen) {
+            SessionChecker.killWhen *= 2L
+            SessionChecker.killCnt = 1
+          }
+
           val dateStr: String = timeNow.toString
           logger.info("[MEMDEBUG] At " + dateStr + " Number of open sessions: " + sessions.size)
-          logger.info("[MEMDEBUG] Free Memory: " + pretty(rt.freeMemory))
-          logger.info("[MEMDEBUG] Total Memory: " + pretty(rt.totalMemory))
+          logger.info("[MEMDEBUG] Free Memory: " + pretty(RuntimeStats.freeMem))
+          logger.info("[MEMDEBUG] Total Memory: " + pretty(RuntimeStats.totalMem))
+          logger.info("[MEMDEBUG] Kill Interval: " + (SessionChecker.killWhen / 1000L))
+          logger.info("[MEMDEBUG] Kill Count: " + (SessionChecker.killCnt))
         }
     }
 
