@@ -112,7 +112,8 @@ object PersonScreen extends LiftScreen {
   object person extends ScreenVar(Person.create)
 
 
-  override def screenTopTextAsHtml = Full(<b>A single screen with some input validation</b>)
+  override def screenTop = 
+    <b>A single screen with some input validation</b>
 
   _register(() => person.is)
 
