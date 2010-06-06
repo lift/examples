@@ -306,13 +306,18 @@ object SessionInfoDumper extends LiftActor with Loggable {
 
           val percent = (RuntimeStats.freeMem * 100L) / RuntimeStats.totalMem
 
-          if (percent < 25L) {
+          if (percent < 35L) {
             SessionChecker.killWhen /= 2L
+	    if (SessionChecker.killWhen < 5000L) 
+	      SessionChecker.killWhen = 5000L
             SessionChecker.killCnt *= 2
-          } else if (SessionChecker.killWhen < 
-                     SessionChecker.defaultKillWhen) {
+          } else {
             SessionChecker.killWhen *= 2L
-            SessionChecker.killCnt = 1
+	    if (SessionChecker.killWhen >
+                SessionChecker.defaultKillWhen)
+	     SessionChecker.killWhen = SessionChecker.defaultKillWhen
+            val newKillCnt = SessionChecker.killCnt / 2
+	    if (newKillCnt > 0) SessionChecker.killCnt = newKillCnt
           }
 
           val dateStr: String = timeNow.toString
