@@ -38,20 +38,13 @@ object MyWizard extends Wizard {
   val nameAndAge = new Screen {
 
     // it has a name field
-    val name = new Field with StringField {
-      def name = S ? "First Name"
-
-      override def validations = minLen(2, S ? "Name Too Short") ::
-              maxLen(40, S ? "Name Too Long") :: super.validations
-    }
+    val name = field(S ? "First Name", "",
+                     valMinLen(2, S ? "Name Too Short"),
+                     valMaxLen(40, S ? "Name Too Long"))
 
     // and an age field
-    val age = new Field with IntField {
-      def name = S ? "Age"
-
-      override def validations = minVal(5, S ?? "Too young") ::
-              maxVal(120, S ? "You should be dead") :: super.validations
-    }
+    val age = field(S ? "Age", 0, minVal(5, S ?? "Too young"),
+      maxVal(120, S ? "You should be dead"))
 
     // choose the next screen based on the age
     override def nextScreen = if (age.is < 18) parentName else favoritePet
@@ -59,22 +52,16 @@ object MyWizard extends Wizard {
 
   // We ask the parent's name if the person is under 18
   val parentName = new Screen {
-    val parentName = new Field with StringField {
-      def name = S ? "Mom or Dad's name"
-
-      override def validations = minLen(2, S ? "Name Too Short") ::
-              maxLen(40, S ? "Name Too Long") :: super.validations
-    }
+    val parentName = field(S ? "Mom or Dad's name", "",
+                           valMinLen(2, S ? "Name Too Short"),
+      valMaxLen(40, S ? "Name Too Long"))
   }
 
   // we ask for the favorite pet
   val favoritePet = new Screen {
-    val petName = new Field with StringField {
-      def name = S ? "Pet's name"
-
-      override def validations = minLen(2, S ? "Name Too Short") ::
-              maxLen(40, S ? "Name Too Long") :: super.validations
-    }
+    val petName = field(S ? "Pet's name", "",
+                        valMinLen(2, S ? "Name Too Short"),
+                        valMaxLen(40, S ? "Name Too Long"))
   }
 
   // what to do on completion of the wizard
@@ -86,21 +73,17 @@ object MyWizard extends Wizard {
 
 object WizardChallenge extends Wizard {
   val page1 = new Screen {
-    val info = new Field with StringField {
-      def name = S ? "Page one entry"
-    }
+    val info = field(S ? "Page one entry", "")
   }
 
   val page2 = new Screen {
-    override def screenTop = <span>Page one field is{page1.info}</span>
+    override def screenTop = <span>Page one field is {page1.info}</span>
 
-    val info = new Field with StringField {
-      def name = S ? "Page two entry"
-    }
+    val info = field(S ? "Page two entry", "")
   }
 
   val page3 = new Screen {
-    override def screenTop = <span>Page one field is{page1.info}<br/>Page two field is{page2.info}</span>
+    override def screenTop = <span>Page one field is {page1.info}<br/>Page two field is {page2.info}</span>
   }
 
   def finish() {
@@ -111,21 +94,81 @@ object WizardChallenge extends Wizard {
 object PersonScreen extends LiftScreen {
   object person extends ScreenVar(Person.create)
 
-
-  override def screenTop = 
-    <b>A single screen with some input validation</b>
+  override def screenTop =
+  <b>A single screen with some input validation</b>
 
   _register(() => person.is)
 
-  val shouldSave = new Field with BooleanField {
-    def name = "Save ?"
+  val shouldSave = field("Save ?", false)
+
+  val likeCats = builder("Do you like cats?", "") ^/
+  (s => if (Helpers.toBoolean(s)) Nil else "You have to like cats") make
+
+  def finish() {
+    S.notice("Thank you for adding "+person.is)
+    if (shouldSave.is) {
+      person.is.save
+      S.notice(person.is.toString+" Saved in the database")
+    }
+  }
+}
+
+object AskAboutIceCream1 extends LiftScreen {
+  val flavor = field(S ? "What's your favorite Ice cream flavor", "")
+
+  def finish() {
+    S.notice("I like "+flavor.is+" too!")
+  }
+}
+
+object AskAboutIceCream2 extends LiftScreen {
+  val flavor = field(S ? "What's your favorite Ice cream flavor", "",
+                     trim,
+                     valMinLen(2, "Name too short"),
+                     valMaxLen(40, "That's a long name"))
+
+  def finish() {
+    S.notice("I like "+flavor.is+" too!")
+  }
+}
+
+object AskAboutIceCream3 extends LiftScreen {
+  val flavor = field(S ? "What's your favorite Ice cream flavor", "",
+                     trim, valMinLen(2,S ? "Name too short"),
+                     valMaxLen(40,S ? "That's a long name"))
+
+  val sauce = field(S ? "Like chocalate sauce?", false)
+
+  def finish() {
+    if (sauce) {
+      S.notice(flavor.is+" tastes especially good with chocolate sauce!")
+    }
+    else S.notice("I like "+flavor.is+" too!")
+  }
+}
+
+object AskAboutIceCream4 extends LiftScreen {
+  val flavor = field(S ? "What's your favorite Ice cream flavor", "",
+                     trim, valMinLen(2,S ? "Name too short"),
+                     valMaxLen(40,S ? "That's a long name"))
+
+  val sauce = field(S ? "Like chocalate sauce?", false)
+
+  override def validations = notTooMuchChocolate _ :: super.validations
+
+  def notTooMuchChocolate(): Errors = {
+    if (sauce && flavor.toLowerCase.contains("chocolate")) "That's a lot of chocolate"
+    else Nil
   }
 
   def finish() {
-    if (shouldSave.is) {
-      person.is.save
+    if (sauce) {
+      S.notice(flavor.is+" tastes especially good with chocolate sauce!")
     }
+    else S.notice("I like "+flavor.is+" too!")
   }
-}}
+}
+
+}
 }
 }
