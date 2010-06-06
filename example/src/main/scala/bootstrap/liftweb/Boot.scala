@@ -41,7 +41,6 @@ import snippet._
  */
 class Boot {
   def boot {
-
     DB.defineConnectionManager(DefaultConnectionIdentifier, DBVendor)
     LiftRules.addToPackages("net.liftweb.example")
 
@@ -72,11 +71,13 @@ class Boot {
                                      (Map("Template" -> Template,
                                           "AllJson" -> AllJson)))
 
+    /*
     LiftRules.snippetDispatch.append {
       case "MyWizard" => MyWizard
       case "WizardChallenge" => WizardChallenge
       case "ScreenForm" => PersonScreen
     }
+    */
 
     SessionMaster.sessionCheckFuncs = SessionMaster.sessionCheckFuncs :::
     List(SessionChecker)
