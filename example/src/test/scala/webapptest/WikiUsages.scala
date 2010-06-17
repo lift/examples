@@ -20,8 +20,23 @@ import _root_.org.specs.runner._
 import _root_.net.sourceforge.jwebunit.junit.WebTester
 
 class WikiUsagesTest extends Runner(WikiUsages) with JUnit with Console
+
+/**
+ * Specs is doing something whack... so we only run the tests once
+ */
+object Sync {
+  var cnt = 0
+  def bump(f: Int => Unit): Unit = synchronized {
+    cnt += 1
+    f(cnt)
+  }
+}
+
 object WikiUsages extends Specification {
-  JettyTestServer.start()
+  Sync.bump { cnt =>
+    if (cnt == 1) {
+      JettyTestServer.start()
+    }
 
   "wiki edit HomePage" should {
     setSequential
@@ -34,25 +49,28 @@ object WikiUsages extends Specification {
     }
 
     "allow edition of HomePage" >> {
+      if (cnt == 2) {
       JettyTestServer.browse(
         "/wiki/HomePage", wt => {
-          var inputName = wt.getElementAttributByXPath("//textarea", "name")
+          val inputName = wt.getElementAttributByXPath("//textarea", "name")
           wt.setTextField(inputName, "hello test")
           //wt.clickButtonWithText("Add")
           wt.submit(wt.getElementAttributByXPath("//input[@value='Add']", "name"))
+
           wt.assertTextPresent("hello test")
           wt.clickLinkWithText("Edit")
           wt.assertTextPresent("Edit entry named HomePage")
-          inputName = wt.getElementAttributByXPath("//textarea", "name")
-          wt.setTextField(inputName, "bye test")
+          val inputName2 = wt.getElementAttributByXPath("//textarea", "name")
+          wt.setTextField(inputName2, "bye test")
           //wt.clickButtonWithText("Add")
           wt.submit(wt.getElementAttributByXPath("//input[@value='Edit']", "name"))
           wt.assertTextPresent("bye test")
         }
       )
+      }
     }
   }
-
-  //JettyTestServer.stop()
+  }
+  // JettyTestServer.stop()
 }
 
