@@ -4,11 +4,11 @@
 
   <parent>
     <groupId>net.liftweb</groupId>
-    <artifactId>examples</artifactId>
-    <version>2.1-scala280-SNAPSHOT</version>
+    <artifactId>examples_2.8.0.RC7</artifactId>
+    <version>2.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>JPADemo-Master</artifactId>
+  <artifactId>JPADemo-Master_2.8.0.RC7</artifactId>
   <description>JPA tutorial master project</description>
   <name>JPA Demo Master</name>
   <inceptionYear>2007</inceptionYear>
@@ -33,6 +33,11 @@
 
   <!-- Master properties (inherited by modules) -->
   <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>lift-jpa_${scala.version}</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-compiler</artifactId>

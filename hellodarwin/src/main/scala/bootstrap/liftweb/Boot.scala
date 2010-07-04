@@ -15,6 +15,8 @@ class Boot {
   def boot {
     // where to search snippet
     LiftRules.addToPackages("sandbox.lift.hellodarwin")
+    
+    SiteMap.enforceUniqueLinks = false
 
     // Build SiteMap
     val entries = Menu(Loc("Home", List("index"), "Home")) ::
