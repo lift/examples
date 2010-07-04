@@ -4,11 +4,11 @@
 
   <parent>
       <groupId>net.liftweb</groupId>
-      <artifactId>examples</artifactId>
+      <artifactId>examples_2.7.7</artifactId>
       <version>2.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>hellodarwin</artifactId>
+  <artifactId>hellodarwin_2.7.7</artifactId>
   <packaging>war</packaging>
   <name>HelloDarwin tutorial application</name>
   <!--
@@ -42,6 +42,11 @@
   </pluginRepositories>
 
   <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>lift-mapper_${scala.version}</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
