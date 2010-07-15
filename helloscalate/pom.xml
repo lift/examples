@@ -13,9 +13,14 @@
 
   <dependencies>
     <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>lift-scalate_${scala.version}</artifactId>
-        <version>${project.version}</version>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>lift-mapper_${scala.version}</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>lift-scalate_${scala.version}</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
