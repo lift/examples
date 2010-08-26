@@ -1,3 +1,110 @@
 <lift:surround with="default" at="content">
     <lift:SimpleWizard/>
+
+    <div>
+      Code to generate.  It's easier to use Wizard, but
+      here's the "old fashioned" way.
+    </div>
+
+    <style type="text/css">
+    /* <![CDATA[ */
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+
+      /* ]]> */
+    </style>
+
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * The Arc Challenge is Paul Graham's quest for web framework concision.
+ *
+ * http://www.paulgraham.com/arcchallenge.html
+ *
+ * This is one potential lift-based solution to it using StatefulSnippets.
+ * There are doubtless many other ways.
+ *
+ * @author: Steve Jenson
+ */</span>
+<span class="keyword">class</span> <span class="type">SimpleWizard</span> <span class="keyword">extends</span> <span class="type">StatefulSnippet</span> {
+  <span class="keyword">val</span> <span class="variable-name">fromWhence</span> = S.referer openOr <span class="string">"/"</span>
+  <span class="keyword">var</span> <span class="variable-name">dispatch</span>: <span class="type">DispatchIt </span>= {<span class="keyword">case</span> <span class="variable-name">_</span> =&gt; xhtml =&gt; pageOne}
+  <span class="keyword">var</span> <span class="variable-name">name</span> = <span class="string">""</span>
+  <span class="keyword">var</span> <span class="variable-name">quest</span> = <span class="string">""</span>
+  <span class="keyword">var</span> <span class="variable-name">color</span> = <span class="string">""</span>
+
+  <span class="comment-delimiter">/**</span><span class="comment">
+   * pageOne -- Ask the name
+   */</span>
+  <span class="keyword">def</span> <span class="function-name">pageOne</span> = {
+  <span class="keyword">def</span> <span class="function-name">validate</span>() {
+    <span class="keyword">this</span>.registerThisSnippet()
+    <span class="keyword">if</span> (name.length &lt; 2) S.error(S.?(<span class="string">"Name too short"</span>))
+    <span class="keyword">else</span> dispatch = {<span class="keyword">case</span> <span class="variable-name">_</span> =&gt; xhtml =&gt; pageTwo}
+  }
+
+  TemplateFinder.findAnyTemplate(List(<span class="string">"templating"</span>, <span class="string">"pageOne"</span>)).map(html =&gt;
+  bind(<span class="string">"wizard"</span>, html, <span class="string">"name"</span> -&gt; text(name, s =&gt; name = s), <span class="string">"submit"</span> -&gt; submit(S.?(<span class="string">"Next"</span>), validate))) openOr NodeSeq.Empty
+  }
+
+  <span class="comment-delimiter">/**</span><span class="comment">
+   * pageTwo -- Ask the quest
+   */</span>
+  <span class="keyword">def</span> <span class="function-name">pageTwo</span> = {
+  <span class="keyword">def</span> <span class="function-name">validate</span>() {
+    <span class="keyword">this</span>.registerThisSnippet()
+    <span class="keyword">if</span> (quest.length &lt; 2) S.error(S.?(<span class="string">"Quest too short"</span>))
+    <span class="keyword">else</span> dispatch = {<span class="keyword">case</span> <span class="variable-name">_</span> =&gt; xhtml =&gt; pageThree}
+  }
+
+  TemplateFinder.findAnyTemplate(List(<span class="string">"templating"</span>, <span class="string">"pageTwo"</span>)).map(html =&gt;
+  bind(<span class="string">"wizard"</span>, html, <span class="string">"quest"</span> -&gt; text(quest, s =&gt; quest = s), <span class="string">"submit"</span> -&gt; submit(S.?(<span class="string">"Next"</span>), validate))) openOr NodeSeq.Empty
+  }
+
+    <span class="comment-delimiter">/**</span><span class="comment">
+   * pageThree -- Ask the color
+   */</span>
+  <span class="keyword">def</span> <span class="function-name">pageThree</span> = {
+  <span class="keyword">def</span> <span class="function-name">validate</span>() {
+     <span class="keyword">this</span>.registerThisSnippet()
+    <span class="keyword">if</span> (!List(<span class="string">"red"</span>, <span class="string">"yellow"</span>, <span class="string">"blue"</span>).contains(color.toLowerCase)) S.error(S.?(<span class="string">"Color not red, yellow or blue"</span>))
+    <span class="keyword">else</span> {
+      S.notice(<span class="string">"You, "</span>+name+<span class="string">" on the quest "</span>+quest+<span class="string">" may cross the bridge of sorrows"</span>)
+      S.redirectTo(fromWhence)
+    }
+  }
+
+  TemplateFinder.findAnyTemplate(List(<span class="string">"templating"</span>, <span class="string">"pageThree"</span>)).map(html =&gt;
+  bind(<span class="string">"wizard"</span>, html, <span class="string">"color"</span> -&gt; text(color, s =&gt; color = s), <span class="string">"submit"</span> -&gt; submit(S.?(<span class="string">"Finish"</span>), validate))) openOr NodeSeq.Empty
+  }
+
+}
+</pre>
+
+
 </lift:surround>

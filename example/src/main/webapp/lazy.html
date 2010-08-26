@@ -1,0 +1,95 @@
+<lift:surround with="default" at="content">
+  <p>
+    Lift supports lazy loading of a snippet.  This is
+    useful when a snippet may take a long time to render,
+    but you want to return the page to the browser quickly.
+  </p>
+
+  
+  <div>
+    <lift:LazyLoad><lift:LongTime/></lift:LazyLoad>
+  </div>
+
+  <div>
+    <lift:LazyLoad><lift:LongTime/></lift:LazyLoad>
+  </div>
+
+  <div>
+    <lift:LazyLoad><lift:LongTime/></lift:LazyLoad>
+  </div>
+
+  <div>
+    <lift:LazyLoad><lift:LongTime/></lift:LazyLoad>
+  </div>
+
+
+
+    <style type="text/css">
+    /* <![CDATA[ */
+       .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .sgml-namespace {
+        /* sgml-namespace */
+        color: #da70d6;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+
+     .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+
+      /* ]]> */
+    </style>
+
+    <hr/>
+
+    <p>The Markup:</p>
+    <pre>
+  &lt;<span class="function-name">div</span>&gt;
+    &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">LazyLoad</span>&gt;&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">LongTime</span>/&gt;&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">LazyLoad</span>&gt;
+  &lt;/<span class="function-name">div</span>&gt;
+</pre>
+
+    <p>The Scala Code:</p>
+    <pre>
+<span class="keyword">object</span> <span class="variable-name">LongTime</span> {
+  <span class="keyword">def</span> <span class="function-name">render</span> = {
+    <span class="keyword">val</span> <span class="variable-name">delay</span> = 1000L + randomLong(10000)
+
+    Thread.sleep(delay)
+    
+    &lt;div&gt;
+    This thread delayed {delay / 1000L} seconds
+    &lt;/div&gt;
+  }
+}
+</pre>
+
+</lift:surround>

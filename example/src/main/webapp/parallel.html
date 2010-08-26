@@ -1,0 +1,101 @@
+<lift:surround with="default" at="content">
+  <p>
+    Lift allows you to execute multiple snippets in
+    parallel during the rendering of a page.  This allows you
+    to fork off multiple long-running jobs (e.g., talking
+    to an external ad server) and run them in parallel.  All
+    the jobs must complete before the final page render is sent back
+    to the browser.  The lift:parallel="true" attribute
+    designates a snippet as parallel.
+  </p>
+
+  <div>
+    Exec inline:
+    <lift:Parallel/>
+  </div>
+
+  <div>
+    Exec parallel:
+    <lift:Parallel lift:parallel="true"/>
+  </div>
+
+  <div>
+    Exec parallel:
+    <lift:Parallel  lift:parallel="true"/>
+  </div>
+
+  <div>
+    Exec inline:
+    <lift:Parallel/>
+  </div>
+
+
+    <style type="text/css">
+    /* <![CDATA[ */
+       .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .sgml-namespace {
+        /* sgml-namespace */
+        color: #da70d6;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+
+     .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+
+      /* ]]> */
+    </style>
+
+    <hr/>
+
+    <p>The Markup:</p>
+    <pre>
+  &lt;<span class="function-name">div</span>&gt;
+    Exec parallel:
+    &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">Parallel</span>  <span class="sgml-namespace">lift</span>:<span class="variable-name">parallel</span>=<span class="string">"true"</span>/&gt;
+  &lt;/<span class="function-name">div</span>&gt;
+</pre>
+
+    <p>The Scala Code:</p>
+    <pre>
+<span class="keyword">object</span> <span class="variable-name">Parallel</span> {
+  <span class="keyword">def</span> <span class="function-name">render</span> = {
+    &lt;div&gt;This snippet evaluated on 
+    {
+      Thread.currentThread.getName()
+    } 
+    &lt;/div&gt;
+  }
+}
+</pre>
+
+
+</lift:surround>

@@ -176,6 +176,8 @@ object MenuInfo {
       Menu("Evalutation Order") / "templating" / "eval_order",
       Menu("Select <div>s") / "templating" / "selectomatic",
       Menu("Simple Wizard") / "simple_wizard",
+      Menu("Lazy Loading") / "lazy",
+      Menu("Parallel Snippets") / "parallel",
       Menu("<head/> tag") / "templating"/ "head"),
     Menu("Web Services") / "ws" >> noGAE,
     Menu("Localization") / "lang",
