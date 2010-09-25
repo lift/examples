@@ -15,10 +15,10 @@ scan-bundle:mvn:org.ops4j.pax.swissbox/pax-swissbox-extender/1.2.0
 scan-bundle:mvn:org.ops4j.pax.swissbox/pax-swissbox-lifecycle/1.2.0
 scan-bundle:mvn:org.ops4j.base/ops4j-base-lang/1.2.1
 
-scan-bundle:mvn:net.liftweb/lift-actor/2.1-SNAPSHOT@update
-scan-bundle:mvn:net.liftweb/lift-common/2.1-SNAPSHOT@update
-scan-bundle:mvn:net.liftweb/lift-json/2.1-SNAPSHOT@update
-scan-bundle:mvn:net.liftweb/lift-osgi/2.1-SNAPSHOT@update
-scan-bundle:mvn:net.liftweb/lift-util/2.1-SNAPSHOT@update
-scan-bundle:mvn:net.liftweb/lift-webkit/2.1-SNAPSHOT@update
-scan-bundle:mvn:net.liftweb/examples-osgi-hello/2.1-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-actor/2.2-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-common/2.2-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-json/2.2-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-osgi/2.2-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-util/2.2-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/lift-webkit/2.2-SNAPSHOT@update
+scan-bundle:mvn:net.liftweb/examples-osgi-hello/2.2-SNAPSHOT@update
