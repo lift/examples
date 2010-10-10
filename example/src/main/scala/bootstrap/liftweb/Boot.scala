@@ -82,6 +82,12 @@ class Boot {
     SessionMaster.sessionCheckFuncs = SessionMaster.sessionCheckFuncs :::
     List(SessionChecker)
 
+    /*
+    LiftRules.statelessTest.prepend {
+      case _ => true
+    }
+    */
+
     LiftRules.snippetDispatch.append(Map("runtime_stats" -> RuntimeStats))
 
     /*
