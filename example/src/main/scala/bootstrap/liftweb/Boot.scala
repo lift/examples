@@ -82,6 +82,8 @@ class Boot {
     SessionMaster.sessionCheckFuncs = SessionMaster.sessionCheckFuncs :::
     List(SessionChecker)
 
+    // Uncomment the lines below to see how
+    // a Lift app looks when it's stateless
     /*
     LiftRules.statelessTest.prepend {
       case _ => true
