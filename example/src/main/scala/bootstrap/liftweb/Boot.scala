@@ -87,8 +87,7 @@ class Boot {
     /*
     LiftRules.statelessTest.prepend {
       case _ => true
-    }
-    */
+    }*/
 
     LiftRules.snippetDispatch.append(Map("runtime_stats" -> RuntimeStats))
 
