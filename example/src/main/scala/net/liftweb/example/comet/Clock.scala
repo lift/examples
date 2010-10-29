@@ -27,29 +27,21 @@ import js._
 import JsCmds._
 import _root_.scala.xml.{Text, NodeSeq}
 
-class ExampleClock(initSession: LiftSession,
+class ExampleClock (initSession: LiftSession,
                    initType: Box[String],
                    initName: Box[String],
                    initDefaultXml: NodeSeq,
                    initAttributes: Map[String, String]) extends CometActor {
-  override def defaultPrefix = Full("clk")
   // schedule a ping every 10 seconds so we redraw
   ActorPing.schedule(this, Tick, 10 seconds)
 
-  private lazy val spanId = uniqueId+"_timespan"
-
-  def render = {
-    bind("time" -> timeSpan)
-  }
-
-  def timeSpan = (<span id={spanId}>{timeNow}</span>)
+  def render = "#clock_time *" #> timeNow.toString
 
   override def lowPriority = {
     case Tick =>
-      partialUpdate(SetHtml(spanId, Text(timeNow.toString)))
+      partialUpdate(SetHtml("clock_time", Text(timeNow.toString)))
       ActorPing.schedule(this, Tick, 10 seconds)
   }
-
   initCometActor(initSession, initType, initName, initDefaultXml, initAttributes)
 }
 
