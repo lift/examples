@@ -71,7 +71,7 @@ object MyWizard extends Wizard {
   }
 }
 
-object WizardChallenge extends Wizard {
+class WizardChallenge extends Wizard {
   val page1 = new Screen {
     val info = field(S ? "Page one entry", "")
   }
@@ -91,13 +91,13 @@ object WizardChallenge extends Wizard {
   }
 }
 
-object PersonScreen extends LiftScreen {
+class PersonScreen extends LiftScreen {
   object person extends ScreenVar(Person.create)
 
   override def screenTop =
   <b>A single screen with some input validation</b>
 
-  _register(() => person.is)
+  addFields(() => person.is)
 
   val shouldSave = field("Save ?", false)
 
@@ -113,7 +113,122 @@ object PersonScreen extends LiftScreen {
   }
 }
 
-object AskAboutIceCream1 extends LiftScreen {
+object VariableScreenInfo {
+  private trait FEP {
+    self: FieldIdentifier =>
+    implicit def strToListFieldError(msg: String): List[FieldError] =
+      List(FieldError(self, Text(msg)))
+  }
+
+  def name: BaseField = new BaseField with FEP {
+    private var _name = ""
+    def toForm: Box[NodeSeq] = Full(SHtml.text(_name, _name = _))
+
+    def setFilter = Nil
+
+    def validations = Nil
+
+    def set(v: String) = {_name = v; v}
+    def get = _name
+    def is = get
+    type ValueType = String
+
+    def name = "Name"    
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate = if (_name.length >= 4) Nil
+    else "Name must be 4 characters"
+  }
+
+  def address: BaseField = new BaseField with FEP {
+    private var address = ""
+    def toForm: Box[NodeSeq] = Full(SHtml.text(address, address = _))
+
+    def setFilter = Nil
+
+    def validations = Nil
+
+    def set(v: String) = {address = v; v}
+    def get = address
+    def is = get
+    type ValueType = String
+
+    def name = "Address"
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate = if (address.length >= 3) Nil
+    else "Address must be 3 characters"
+  }
+
+  def age: BaseField = new BaseField with FEP {
+    private var age = 0
+    def toForm: Box[NodeSeq] = Full(SHtml.text(age.toString,
+                                               s => Helpers.asInt(s).map(age = _)))
+
+    def set(v: Int) = {age = v; v}
+    def get = age
+    def is = get
+    type ValueType = Int
+
+    def setFilter = Nil
+
+    def validations = Nil
+    def name = "Age"
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate = if (age > 10) Nil
+    else "Age must be greater than 10"
+
+  }
+
+  def selection: BaseField = new BaseField {
+    private val opts = List("A", "B", "C", "Last")
+    private var sel = Full("C")
+    def toForm: Box[NodeSeq] = Full(SHtml.select(opts.map(a => a -> a), sel,
+                                                 x => sel = Full(x)))
+    def set(v: String) = {sel = Full(v); v}
+    def name = "Selection Thing"
+    def get = sel.open_!
+    def is = get
+    type ValueType = String
+
+    def setFilter = Nil
+
+    def validations = Nil
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate = Nil
+  }
+
+  def chooseFields: FieldContainer = 
+    List(name, address, age, selection) filter {
+      ignore => Helpers.randomInt(100) > 50
+    } match {
+      case Nil => chooseFields
+      case xs => new FieldContainer {
+        def allFields = xs
+      }
+    }
+}
+
+class VariableScreen extends LiftScreen {
+  object fields extends ScreenVar(VariableScreenInfo.chooseFields)
+
+  override def screenTop =
+  <b>A single screen with variable fields</b>
+
+  addFields(() => fields.is)
+
+  def finish() {
+    S.notice("You've completed the screen")
+  }
+}
+
+class AskAboutIceCream1 extends LiftScreen {
   val flavor = field(S ? "What's your favorite Ice cream flavor", "")
 
   def finish() {
@@ -121,7 +236,7 @@ object AskAboutIceCream1 extends LiftScreen {
   }
 }
 
-object AskAboutIceCream2 extends LiftScreen {
+class AskAboutIceCream2 extends LiftScreen {
   val flavor = field(S ? "What's your favorite Ice cream flavor", "",
                      trim,
                      valMinLen(2, "Name too short"),
@@ -132,7 +247,7 @@ object AskAboutIceCream2 extends LiftScreen {
   }
 }
 
-object AskAboutIceCream3 extends LiftScreen {
+class AskAboutIceCream3 extends LiftScreen {
   val flavor = field(S ? "What's your favorite Ice cream flavor", "",
                      trim, valMinLen(2,S ? "Name too short"),
                      valMaxLen(40,S ? "That's a long name"))
@@ -147,7 +262,7 @@ object AskAboutIceCream3 extends LiftScreen {
   }
 }
 
-object AskAboutIceCream4 extends LiftScreen {
+class AskAboutIceCream4 extends LiftScreen {
   val flavor = field(S ? "What's your favorite Ice cream flavor", "",
                      trim, valMinLen(2,S ? "Name too short"),
                      valMaxLen(40,S ? "That's a long name"))

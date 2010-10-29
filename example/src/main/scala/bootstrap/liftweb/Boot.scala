@@ -201,6 +201,7 @@ object MenuInfo {
       Menu("Wizard") / "wiz",
       Menu("Wizard Challenge") / "wiz2",
       Menu("Simple Screen") / "simple_screen",
+      Menu("Variable Screen") / "variable_screen",
       Menu("Arc Challenge #1") / "arc",
       Menu("File Upload") / "file_upload",
       Menu(Loc("login", Link(List("login"), true, "/login/index"),
