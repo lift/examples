@@ -1,4 +1,9 @@
-<lift:surround with="default" at="content">
+<html lift:content_id="main">
+  <head>
+    <title>Lift Example</title>
+  </head>
+  <body>
+    <div id="main" class="lift:surround?with=default;at=content">
 <style>
 /* <![CDATA[ */
 p + p {
@@ -106,5 +111,7 @@ template and insert the body of the surround tag at the bind point.
 &lt;/<span class="function-name">html</span>&gt;
 </pre>
 
+    </div>
+  </body>
+</html>
 
-</lift:surround>

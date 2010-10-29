@@ -1,4 +1,9 @@
-<lift:surround with="default" at="content">
+<html lift:content_id="main">
+  <head>
+    <title>Lift Example</title>
+  </head>
+  <body>
+    <div id="main" class="lift:surround?with=default;at=content">
   <style>
     /* <![CDATA[ */
 p + p {
@@ -64,5 +69,7 @@ text-indent: 0em;
 Lift will put a single     &lt;<span class="function-name">script</span> <span class="variable-name">type</span>=<span class="string">"text/javascript"</span> <span class="variable-name">src</span>=<span class="string">"/classpath/jquery.js"</span>/&gt; into the <code>&lt;head/&gt;</code> of the page.
 </p>
 
+    </div>
+  </body>
+</html>
 
-</lift:surround>

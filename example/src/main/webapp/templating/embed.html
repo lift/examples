@@ -1,4 +1,9 @@
-<lift:surround with="default" at="content">
+<html lift:content_id="main">
+  <head>
+    <title>Lift Example</title>
+  </head>
+  <body>
+    <div id="main" class="lift:surround?with=default;at=content">
   <style>
     /* <![CDATA[ */
 p + p {
@@ -19,7 +24,7 @@ text-indent: 0em;
     the page rendering with the &lt;lift:embed/&gt; tag.
   </p> 
 
-  <lift:embed what="/templating/_sample_embed"/>
+  <span class="lift:embed?what=/templating/_sample_embed"/>
 
   <p>
     The above paragraph was embedded using this code:
@@ -109,5 +114,6 @@ etc.
   <code>'/templating/_sample_embed_en.html'</code> and finally
   <code>'/templating/_sample_embed.html'</code>.
 </p>
-
-</lift:surround>
+    </div>
+  </body>
+</html>

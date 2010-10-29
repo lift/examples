@@ -1,3 +1,12 @@
-<lift:surround with="default" at="content">
-  <lift:Misc.tryRedirect />
-</lift:surround>
+<html lift:content_id="main">
+  <head>
+    <title>Lift Example</title>
+  </head>
+  <body>
+    <div id="main" class="lift:surround?with=default;at=content">
+      <div class="lift:Misc.tryRedirect">
+	The Redirect example
+      </div>
+    </div>
+  </body>
+</html>

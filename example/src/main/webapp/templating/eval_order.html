@@ -1,4 +1,9 @@
-<lift:surround with="default" at="content">
+<html lift:content_id="main">
+  <head>
+    <title>Lift Example</title>
+  </head>
+  <body>
+    <div id="main" class="lift:surround?with=default;at=content">
 <style>
 /* <![CDATA[ */
 p + p {
@@ -54,4 +59,7 @@ Depending on if the user is logged in.
   This also means that a snippet may return XML that
   contains other snippet tags.
 </p>
-</lift:surround>
+    </div>
+  </body>
+</html>
+

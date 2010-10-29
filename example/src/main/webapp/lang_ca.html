@@ -1,12 +1,18 @@
-<lift:surround with="default" at="content">
+<html lift:content_id="main">
+  <head>
+    <title>Lift Example</title>
+  </head>
+  <body>
+    <div id="main" class="lift:surround?with=default;at=content">
+      <lift:snippet type="misc:lang" form="post"> 
+	<h1>Hola</h1>
+	<span>La meva llengua: <showLoc:lang/></span>
+	
+	<div>
+	  Canviar de llengua <showLoc:select/> <input type="submit" value="Canviar"/> 
+	</div>
+      </lift:snippet>
+    </div>
+  </body>
+</html>
 
-<lift:snippet type="misc:lang" form="post"> 
-<h1>Hola</h1>
-<span>La meva llengua: <showLoc:lang/></span>
-
-<div>
-Canviar de llengua <showLoc:select/> <input type="submit" value="Canviar"/> 
-</div>
-</lift:snippet>
-
-</lift:surround>

@@ -46,51 +46,59 @@ class SimpleWizard extends StatefulSnippet {
   var quest = ""
   var color = ""
 
+  private def template(name: String, f: NodeSeq => NodeSeq): NodeSeq =
+    TemplateFinder.
+  findAnyTemplate(List("templating") ::: List(name)).map(f) openOr
+  NodeSeq.Empty
+
   /**
    * pageOne -- Ask the name
    */
   def pageOne = {
-  def validate() {
-    this.registerThisSnippet()
-    if (name.length < 2) S.error(S.?("Name too short"))
-    else dispatch = {case _ => xhtml => pageTwo}
+    def validate() {
+      this.registerThisSnippet()
+      if (name.length < 2) S.error(S.?("Name too short"))
+      else dispatch = {case _ => xhtml => pageTwo}
+    }
+    
+    template("pageOne",
+             "#name" #> text(name, name = _) & 
+             "#submit" #> submit(S ? "Next", validate))
   }
-
-  TemplateFinder.findAnyTemplate(List("templating", "pageOne")).map(html =>
-  bind("wizard", html, "name" -> text(name, s => name = s), "submit" -> submit(S.?("Next"), validate))) openOr NodeSeq.Empty
-  }
-
+  
   /**
    * pageTwo -- Ask the quest
    */
   def pageTwo = {
-  def validate() {
-    this.registerThisSnippet()
-    if (quest.length < 2) S.error(S.?("Quest too short"))
-    else dispatch = {case _ => xhtml => pageThree}
-  }
+    def validate() {
+      this.registerThisSnippet()
+      if (quest.length < 2) S.error(S.?("Quest too short"))
+      else dispatch = {case _ => xhtml => pageThree}
+    }
 
-  TemplateFinder.findAnyTemplate(List("templating", "pageTwo")).map(html =>
-  bind("wizard", html, "quest" -> text(quest, s => quest = s), "submit" -> submit(S.?("Next"), validate))) openOr NodeSeq.Empty
+    template("pageTwo", 
+             "#quest" #> text(quest, quest = _) &
+             "#submit" #> submit(S ? "Next", validate))
   }
-
-    /**
+  
+  /**
    * pageThree -- Ask the color
    */
   def pageThree = {
-  def validate() {
-     this.registerThisSnippet()
-    if (!List("red", "yellow", "blue").contains(color.toLowerCase)) S.error(S.?("Color not red, yellow or blue"))
-    else {
-      S.notice("You, "+name+" on the quest "+quest+" may cross the bridge of sorrows")
-      S.redirectTo(fromWhence)
+    def validate() {
+      this.registerThisSnippet()
+      if (!List("red", "yellow", "blue").contains(color.toLowerCase)) S.error(S.?("Color not red, yellow or blue"))
+      else {
+        S.notice("You, "+name+" on the quest "+quest+" may cross the bridge of sorrows")
+        S.redirectTo(fromWhence)
+      }
     }
+    
+    template("pageThree", 
+             "#color" #> text(color, color = _) &
+             "#submit" #> submit(S ? "Finish", validate))
   }
-
-  TemplateFinder.findAnyTemplate(List("templating", "pageThree")).map(html =>
-  bind("wizard", html, "color" -> text(color, s => color = s), "submit" -> submit(S.?("Finish"), validate))) openOr NodeSeq.Empty
-  }
-
+  
 }
 }
 }
