@@ -62,8 +62,8 @@ class SimpleWizard extends StatefulSnippet {
     }
     
     template("pageOne",
-             "#name" #> text(name, name = _) & 
-             "#submit" #> submit(S ? "Next", validate))
+             ("#name" replaceWith text(name, name = _)) & 
+             ("#submit" replaceWith submit(S ? "Next", validate)))
   }
   
   /**
@@ -77,8 +77,8 @@ class SimpleWizard extends StatefulSnippet {
     }
 
     template("pageTwo", 
-             "#quest" #> text(quest, quest = _) &
-             "#submit" #> submit(S ? "Next", validate))
+             ("#quest" replaceWith text(quest, quest = _)) &
+             ("#submit" replaceWith submit(S ? "Next", validate)))
   }
   
   /**
@@ -95,8 +95,8 @@ class SimpleWizard extends StatefulSnippet {
     }
     
     template("pageThree", 
-             "#color" #> text(color, color = _) &
-             "#submit" #> submit(S ? "Finish", validate))
+             ("#color" replaceWith text(color, color = _)) &
+             ("#submit" replaceWith submit(S ? "Finish", validate)))
   }
   
 }

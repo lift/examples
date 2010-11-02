@@ -35,7 +35,7 @@ class ExampleClock (initSession: LiftSession,
   // schedule a ping every 10 seconds so we redraw
   ActorPing.schedule(this, Tick, 10 seconds)
 
-  def render = "#clock_time *" #> timeNow.toString
+  def render = "#clock_time *" replaceWith timeNow.toString
 
   override def lowPriority = {
     case Tick =>
