@@ -3,11 +3,11 @@
 
   <parent>
     <groupId>net.liftweb</groupId>
-    <artifactId>examples_2.8.0</artifactId>
+    <artifactId>examples_2.8.1</artifactId>
     <version>2.2-SNAPSHOT</version>
   </parent>
 
-  <artifactId>lift-hello-scalate_2.8.0</artifactId>
+  <artifactId>lift-hello-scalate_2.8.1</artifactId>
   <packaging>war</packaging>
   <name>Scalate Example Application</name>
 

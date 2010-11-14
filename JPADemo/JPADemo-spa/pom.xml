@@ -4,11 +4,11 @@
 
   <parent>
     <groupId>net.liftweb</groupId>
-    <artifactId>JPADemo-Master_2.8.0</artifactId>
+    <artifactId>JPADemo-Master_2.8.1</artifactId>
     <version>2.2-SNAPSHOT</version>
   </parent>
 
-  <artifactId>JPADemo-spa_2.8.0</artifactId>
+  <artifactId>JPADemo-spa_2.8.1</artifactId>
   <packaging>jar</packaging>
   <name>JPADemo-spa</name>
 

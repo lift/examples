@@ -3,11 +3,11 @@
 
   <parent>
     <groupId>net.liftweb</groupId>
-    <artifactId>examples_2.8.0</artifactId>
+    <artifactId>examples_2.8.1</artifactId>
     <version>2.2-SNAPSHOT</version>
   </parent>
 
-  <artifactId>http-authentication_2.8.0</artifactId>
+  <artifactId>http-authentication_2.8.1</artifactId>
   <packaging>war</packaging>
   <name>HTTP Authentication example</name>
 

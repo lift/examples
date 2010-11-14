@@ -5,11 +5,11 @@
 
   <parent>
     <groupId>net.liftweb</groupId>
-    <artifactId>examples-osgi_2.8.0</artifactId>
+    <artifactId>examples-osgi_2.8.1</artifactId>
     <version>2.2-SNAPSHOT</version>
   </parent>
 
-  <artifactId>examples-osgi-hello_2.8.0</artifactId>
+  <artifactId>examples-osgi-hello_2.8.1</artifactId>
   <name>OSGi Examples for Lift - Hello</name>
   <description>OSGi Examples for Lift - Hello</description>
   <packaging>jar</packaging>
