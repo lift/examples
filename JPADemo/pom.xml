@@ -23,11 +23,11 @@
   <repositories>
     <repository>
       <id>scala-tools</id>
-      <url>http://scala-tools.org/repo-snapshots</url>
+      <url>http://scala-tools.org/repo-releases</url>
     </repository>
     <repository>
-      <id>scala-tools</id>
-      <url>http://scala-tools.org/repo-releases</url>
+      <id>scala-tools.snapshot</id>
+      <url>http://scala-tools.org/repo-snapshots</url>
     </repository>
   </repositories>
 
