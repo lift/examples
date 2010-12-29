@@ -24,7 +24,6 @@ import js._
 import JsCmds._
 import common._
 import json._
-import JsonAST._
 import textile._
 
 import scala.xml._
