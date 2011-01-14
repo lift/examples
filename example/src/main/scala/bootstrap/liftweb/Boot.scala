@@ -15,7 +15,7 @@
  */
 package bootstrap.liftweb
 
-import _root_.net.liftweb._
+import net.liftweb._
 import common.{Box, Full, Empty, Failure, Loggable}
 import util.{Helpers, Log, NamedPF, Props}
 import http._
@@ -29,7 +29,7 @@ import widgets.autocomplete._
 import comet._
 import model._
 import lib._
-import _root_.net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, ConnectionIdentifier}
+import net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, ConnectionIdentifier}
 
 import _root_.java.sql.{Connection, DriverManager}
 import snippet._
@@ -57,6 +57,8 @@ class Boot {
     }
 
     LiftRules.dispatch.append(WebServices)
+
+    LiftRules.dispatch.append(AsyncRest)
 
     StatelessJson.init()
 
@@ -212,6 +214,7 @@ object MenuInfo {
       Menu("Simple Wiring") / "simple_wiring",
       Menu("Wiring Invoice") / "invoice_wiring",
       Menu("File Upload") / "file_upload",
+      Menu("Async REST") / "async_rest",
       Menu(Loc("login", Link(List("login"), true, "/login/index"),
                <xml:group>Requiring Login<strike>SiteMap</strike> </xml:group>)),
       Menu("Counting") / "count"),

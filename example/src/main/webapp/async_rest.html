@@ -1,0 +1,75 @@
+<lift:surround with="default" at="content">
+  <div>
+    This example demonstrates how to use the container's
+    Asynchronous (continuation) response capabilities such
+    that no I/O threads are consumed during the calculation
+    of the REST response value.
+    <a href="/async/yep_it_works">Click</a> to see the response
+    after a 2 second delay.
+  </div>
+
+  <div>
+    <style type="text/css">
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #bc8f8f;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #b8860b;
+      }
+    </style>
+
+    <pre>
+<span class="comment-delimiter">/**</span><span class="comment">
+ * An example of Lift's RestHelper and RestContinuation
+ */</span>
+<span class="keyword">object</span> <span class="variable-name">AsyncRest</span> <span class="keyword">extends</span> <span class="type">RestHelper</span> {
+
+  <span class="comment-delimiter">// </span><span class="comment">serve the URL /async/:id
+</span>  serve {
+    <span class="keyword">case</span> <span class="string">"async"</span> <span class="variable-name">::</span> <span class="variable-name">id</span> <span class="variable-name">::</span> <span class="variable-name">_</span> <span class="type">Get</span> <span class="variable-name">_</span> =&gt; 
+
+      <span class="comment-delimiter">// </span><span class="comment">move the calculation to another thread
+</span>      RestContinuation.async(
+        reply =&gt; {
+          Thread.sleep(2000) <span class="comment-delimiter">// </span><span class="comment">sleep for 2 seconds
+</span>          <span class="keyword">val</span> <span class="variable-name">name1</span> = Thread.currentThread.getName
+          <span class="keyword">val</span> <span class="variable-name">outerSesStr</span> = S.session.toString <span class="comment-delimiter">// </span><span class="comment">this should be Empty
+</span>          
+          <span class="comment-delimiter">// </span><span class="comment">the code block for reply will be executed in the
+</span>          <span class="comment-delimiter">// </span><span class="comment">scope of the original request and that may mean
+</span>          <span class="comment-delimiter">// </span><span class="comment">that JDBC connections are consumed, etc.
+</span>          reply{
+            <span class="keyword">val</span> <span class="variable-name">name2</span> = Thread.currentThread.getName
+            <span class="keyword">val</span> <span class="variable-name">innerSesStr</span> = S.session.toString <span class="comment-delimiter">// </span><span class="comment">this should be Full()
+</span>            &lt;i id={id}&gt;name1: {name1} outer: {outerSesStr} name2: {name2}
+            inner: {innerSesStr}&lt;/i&gt;
+          }
+        })
+  }
+}
+</pre>
+
+  </div>
+</lift:surround>
