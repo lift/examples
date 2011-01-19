@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 WorldWide Conferencing, LLC
+ * Copyright 2010-2011 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb 
+package example 
+package snippet
 
-import _root_.net.liftweb._
+import net.liftweb._
 import http._
 import util._
 import js._
 import JsCmds._
 import JE._
 
-import _root_.scala.xml._
+import scala.xml._
 
 /**
  * A demo of the LiftSession.addPostPageJavaScript feature.
@@ -53,7 +53,4 @@ object Timely {
 
     in
   }
-}
-}
-}
 }
