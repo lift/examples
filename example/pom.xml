@@ -52,7 +52,14 @@
             <artifactId>lift-wizard_${scala.version}</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>lift-mapper_${scala.version}</artifactId>
+            <version>${project.version}</version>
+        </dependency> 
+
+       <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>0.9.26</version>
