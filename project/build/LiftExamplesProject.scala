@@ -83,10 +83,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
     import TestScope._
 
-    // TODO: specs, scalacheck, junit should be available via LiftDefaultWebProject
-    override def libraryDependencies = super.libraryDependencies ++ libs ++ 
-      Seq(jetty6, jwebunit, "org.mockito" % "mockito-all" % "1.7" % "test") ++ 
-      Seq(specs, scalacheck, junit)
+    override def libraryDependencies = super.libraryDependencies ++ libs ++ Seq(jetty6, jwebunit, mockito_all)
 
     // TODO: Remove these and resort to LiftDefaultProject settings
     override def compileOptions = Seq("-Xwarninit", "-encoding", "utf8").map(CompileOption)
@@ -100,7 +97,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
         None
       }
 
-    // // FIXME: breaks with SBT
+    // FIXME: breaks with SBT
     override def testOptions =
       ExcludeTests(
         // example wiki
