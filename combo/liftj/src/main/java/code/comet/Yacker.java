@@ -4,7 +4,7 @@ import net.liftweb.util.*;
 import net.liftweb.http.*;
 import java.util.Date;
 
-public class Yacker extends JavaCometActor {
+public class Yacker extends CometActorJ {
     public void localSetup() {
 	ping();
 	super.localSetup();
