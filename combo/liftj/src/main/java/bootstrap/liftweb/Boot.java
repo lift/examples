@@ -1,7 +1,9 @@
 package bootstrap.liftweb;
 
+import net.liftweb.common.Func;
+import net.liftweb.common.Func0;
+import net.liftweb.common.Func1;
 import net.liftweb.util.*;
-import net.liftweb.common.*;
 import net.liftweb.http.*;
 import net.liftweb.http.js.JsCmd;
 import net.liftweb.http.provider.HTTPRequest;
@@ -82,9 +84,9 @@ public class Boot {
 	LiftRulesJ.j().
 	    htmlProperties().
 	    theDefault().
-	    set(Func.vendor(Func.lift(new Func1<Req, HtmlProperties>() {
+	    set(VendorJ.vendor(new Func1<Req, HtmlProperties>() {
 		    public HtmlProperties apply(Req r) {
 			return new Html5Properties(r.userAgent());
-		    }})));
+		    }}));
     }
 }
