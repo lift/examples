@@ -83,7 +83,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
     import TestScope._
 
-    override def libraryDependencies = super.libraryDependencies ++ libs ++ Seq(jetty6, jwebunit, mockito_all)
+    override def libraryDependencies = super.libraryDependencies ++ libs ++ Seq(jetty6, junit, jwebunit, mockito_all)
 
     // TODO: Remove these and resort to LiftDefaultProject settings
     override def compileOptions = Seq("-Xwarninit", "-encoding", "utf8").map(CompileOption)
