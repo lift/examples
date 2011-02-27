@@ -220,7 +220,7 @@ object MenuInfo {
       Menu("Counting") / "count"),
     Menu(Loc("lift", ExtLink("http://liftweb.net"),
              <xml:group> <i>Lift</i> project home</xml:group>)),
-    Menu(Loc("src", ExtLink("https://github.com/lift/lift/tree/master/examples/example"),
+    Menu(Loc("src", ExtLink("https://github.com/lift/examples/tree/master/combo/example"),
              "Source code for this site")))
 }
 
