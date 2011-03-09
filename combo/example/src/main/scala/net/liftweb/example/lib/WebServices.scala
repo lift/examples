@@ -69,7 +69,7 @@ object WebServices extends RestHelper {
    * of using Scala's guards
    */
 
-  serveJx {
+  serveJx[UserInfo] {
     case Req("webservices" :: "add_user" :: _, _, rt) if rt.post_? || rt.get_? =>
       addUser()
   } { // How do we convert a UserInfo to either XML or JSON?
