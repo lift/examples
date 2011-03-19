@@ -49,7 +49,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
   // Combo projects
   // --------------
-  lazy val example = comboProject("example", lift_wizard, lift_mapper, lift_textile, lift_widgets, RuntimeScope.h2database)()
+  lazy val example = comboProject("example", lift_wizard, lift_mapper, lift_textile, lift_widgets)()
   lazy val liftj   = comboProject("liftj", lift_wizard)()
 
 
@@ -83,7 +83,9 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
     import TestScope._
 
-    override def libraryDependencies = super.libraryDependencies ++ libs ++ Seq(jetty6, junit, jwebunit, mockito_all)
+    override def libraryDependencies =
+      super.libraryDependencies ++ libs ++
+      Seq(jetty6, junit, jwebunit, mockito_all, RuntimeScope.h2database, RuntimeScope.derby)
 
     // TODO: Remove these and resort to LiftDefaultProject settings
     override def compileOptions = Seq("-Xwarninit", "-encoding", "utf8").map(CompileOption)
