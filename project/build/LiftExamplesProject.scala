@@ -87,9 +87,6 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
       super.libraryDependencies ++ libs ++
       Seq(jetty6, junit, jwebunit, mockito_all, RuntimeScope.h2database, RuntimeScope.derby)
 
-    // TODO: Remove these and resort to LiftDefaultProject settings
-    override def compileOptions = Seq("-Xwarninit", "-encoding", "utf8").map(CompileOption)
-
     // System property hack for derby.log, webapptests
     override def testAction =
       super.testAction dependsOn
