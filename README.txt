@@ -6,5 +6,5 @@ nuggets/skittr: twitter clone in lift
 nuggets/JPADemo: Basic JPA integration demo project
 
 Getting started: 
-See the Geting Started - Sample Applications section on the scala wiki 
+See the Geting Started - Sample Applications section on the Lift wiki 
 http://www.assembla.com/spaces/liftweb/wiki/Getting_Started
