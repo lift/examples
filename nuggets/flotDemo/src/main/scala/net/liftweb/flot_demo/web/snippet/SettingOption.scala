@@ -43,11 +43,11 @@ class SettingOption {
       var d3 : List [Pair [Double, Double]] = Nil
 
       var i = 0.0
-      while (i < Math.Pi * 2.0)
+      while (i < math.Pi * 2.0)
       {
-        d1 = (i, Math.sin(i)) :: d1
-        d2 = (i, Math.cos(i)) :: d2
-        d3 = (i, Math.tan(i)) :: d3
+        d1 = (i, math.sin(i)) :: d1
+        d2 = (i, math.cos(i)) :: d2
+        d3 = (i, math.tan(i)) :: d3
 
         i += 0.25
       }

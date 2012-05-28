@@ -40,21 +40,21 @@ class GraphTypes {
       var d1 : List [Pair [Double, Double]] = Nil
 
       for (i <- List.range (0, 140, 5))
-        d1 = Pair (i / 10.0, Math.sin(i / 10.0)) :: d1
+        d1 = Pair (i / 10.0, math.sin(i / 10.0)) :: d1
 
       val d2 : List [Pair [Double, Double]] = (0.0, 3.0) :: (4.0, 8.0) :: (8.0, 5.0) :: (9.0, 13.0) :: Nil
 
       var d3 : List [Pair [Double, Double]] = Nil
       for (i <- List.range (0, 140, 5))
-        d3 = (i / 10.0, Math.cos(i / 10.0)) :: d3
+        d3 = (i / 10.0, math.cos(i / 10.0)) :: d3
 
       var d4 : List [Pair [Double, Double]] = Nil
       for (i <- List.range (0, 140, 5))
-        d4 = (i / 10.0, Math.sqrt(i * 1.0)) :: d4
+        d4 = (i / 10.0, math.sqrt(i * 1.0)) :: d4
 
       var d5 : List [Pair [Double, Double]] = Nil
       for (i <- List.range (0, 140, 5))
-        d5 = (i / 10.0, Math.sqrt(i / 10.0)) :: d5
+        d5 = (i / 10.0, math.sqrt(i / 10.0)) :: d5
 
       val s1 = new FlotSerie () {
         override val data = d1

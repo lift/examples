@@ -107,7 +107,7 @@ class UserActor extends LiftActor with Loggable {
       // get friends
       friends = User.findAllByInsecureSql("SELECT users.* FROM users, friends WHERE users.id = friends.friend AND friends.owner = "+userId,
                                           IHaveValidatedThisSQL("dpp",
-                                                                "08/23/08")).map(_.name.is).sort(_ < _)
+                                                                "08/23/08")).map(_.name.is).sortWith(_ < _)
       reply("Done")
       
       // tell all our friends that we follow them
@@ -121,7 +121,7 @@ class UserActor extends LiftActor with Loggable {
       
       // if we add a friend,
     case AddFriend(name) =>
-      friends = (name :: friends).sort(_ < _)
+      friends = (name :: friends).sortWith(_ < _)
       // find the user
       UserList.find(name).foreach{
         ua =>
@@ -134,7 +134,7 @@ class UserActor extends LiftActor with Loggable {
       
       // We are removing a friend
     case RemoveFriend(name) =>
-      friends = friends.remove(_ == name)
+      friends = friends.filterNot(_ == name)
       // find the user
       UserList.find(name).foreach{
         ua =>
@@ -161,7 +161,7 @@ class UserActor extends LiftActor with Loggable {
       
       // remove the timeline viewer
     case RemoveTimelineViewer(who) =>
-      timelineViewers = timelineViewers.remove(_ == who)
+      timelineViewers = timelineViewers.filterNot(_ == who)
       // this.unlink(sender.receiver)
       
       // Add an Actor to the list of folks who want to see when we get a message
@@ -172,7 +172,7 @@ class UserActor extends LiftActor with Loggable {
       
       // removes the message viewer
     case RemoveMessageViewer(who) =>
-      messageViewers = messageViewers.remove(_ == who)
+      messageViewers = messageViewers.filterNot(_ == who)
       // this.unlink(sender.receiver)
       
       // add someone who is following us
@@ -181,7 +181,7 @@ class UserActor extends LiftActor with Loggable {
       who ! MergeIntoTimeline(latestMsgs) // give the follower our messages to merge into his timeline
       
       // remove the follower
-    case RemoveFollower(who) =>  followers = followers.remove(_ == who) // filter out the sender of the message
+    case RemoveFollower(who) =>  followers = followers.filterNot(_ == who) // filter out the sender of the message
       
       // We get a message
     case msg : Message =>
@@ -203,12 +203,12 @@ class UserActor extends LiftActor with Loggable {
   /**
    * Sort the list in reverse chronological order and take the first maxMessages elements
    */
-  private def merge(bigList: List[Message]) = bigList.sort((a,b) => b.when < a.when).take(maxMessages)
+  private def merge(bigList: List[Message]) = bigList.sortWith((a,b) => b.when < a.when).take(maxMessages)
 
   /**
    * Autogenerate and schedule a message
    */
-  def autoGen = ActorPing.schedule(this, SendMessage("This is a random message @ "+timeNow+" for "+userName, "autogen"), User.randomPeriod)
+  def autoGen = Schedule.schedule(this, SendMessage("This is a random message @ "+timeNow+" for "+userName, "autogen"), User.randomPeriod)
 }
 
 /**

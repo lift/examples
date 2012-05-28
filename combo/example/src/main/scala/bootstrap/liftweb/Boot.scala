@@ -17,7 +17,7 @@ package bootstrap.liftweb
 
 import net.liftweb._
 import common.{Box, Full, Empty, Failure, Loggable}
-import util.{Helpers, Log, NamedPF, Props}
+import util.{Helpers, NamedPF, Props}
 import http._
 import actor._
 import provider._
@@ -64,7 +64,7 @@ class Boot {
 
     XmlServer.init()
 
-    LiftRules.statelessDispatchTable.append {
+    LiftRules.statelessDispatch.append {
       case r@Req("stateless" :: _, "", GetRequest) => StatelessHtml.render(r) _
     }
 

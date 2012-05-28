@@ -44,7 +44,7 @@ class Chat extends CometActor with CometListener {
   private val liId = S.attr("li_id")
 
   private lazy val li = liId.
-  flatMap{ Helpers.findId(defaultXml, _) } openOr NodeSeq.Empty
+  flatMap{ Helpers.findId(defaultHtml, _) } openOr NodeSeq.Empty
 
   private val inputId = Helpers.nextFuncName
 
@@ -53,7 +53,7 @@ class Chat extends CometActor with CometListener {
   // to the browser
   override def lowPriority = {
     case ChatServerUpdate(value) => {
-      val update = (value -- chats).reverse.
+      val update = (value filterNot (chats contains)).reverse.
       map(b => AppendHtml(ulId, line(b)))
 
       partialUpdate(update)

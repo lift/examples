@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package comet {
+package net.liftweb
+package example
+package comet
 
 import net.liftweb.actor._
 import scala.xml.{NodeSeq, Text}
@@ -51,7 +51,7 @@ object ThingBuilder extends LiftActor {
 
       case (a: LiftActor, i: Int) =>
         a ! BuildStatus(i * 10, Empty)
-        ActorPing.schedule(this, (a, i + 1), 2 seconds)
+        Schedule.schedule(this, (a, i + 1), 2 seconds)
 
       case _ =>
     }
@@ -95,7 +95,5 @@ class LongTime extends CometActor {
       <span>We're working on your job... it's {progress}% complete</span>
   }
 }
-}
-}
-}
+
 

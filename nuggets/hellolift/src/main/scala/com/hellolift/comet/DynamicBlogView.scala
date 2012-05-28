@@ -50,8 +50,8 @@ class DynamicBlogView extends CometActor {
   // localSetup is the first thing run, we use it to setup the blogid or
   // redirect them to / if no blogid was given.
   override def localSetup {
-    name match {
-      case Full(t) => this.blogid = Helpers.toLong(t)
+    name map{
+      t => this.blogid = Helpers.toLong(t)
     }
 
     // Let the BlogCache know that we are watching for updates for this blog.
@@ -62,7 +62,7 @@ class DynamicBlogView extends CometActor {
 
   // lowPriority will receive messages sent from the BlogCache
   override def lowPriority : PartialFunction[Any, Unit] = {
-    case BlogUpdate(entries : List[Entry]) => this.blog = entries; reRender(false)
+    case BlogUpdate(entries : List[_]) => this.blog = entries; reRender(false)
   }
 }
 }

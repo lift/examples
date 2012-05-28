@@ -14,7 +14,7 @@
  * limitations under the License.
  */
  
-package bootstrap.liftweb {
+package bootstrap.liftweb
 
 import _root_.net.liftweb.util._
 import _root_.net.liftweb.http._
@@ -72,6 +72,7 @@ class Boot {
           c <- FacebookConnect.client
           user <- User.findByFbId(c.session.uid)
         } User.logUserIn(user)
+      case Failure(_,_,_) | Empty =>
     }
     
     //this is really important for fb connect
@@ -95,4 +96,3 @@ object DBVendor extends StandardDBVendor("org.h2.Driver",
                                         Empty)
 
 
-}

@@ -38,11 +38,11 @@ class Basic {
       var d1 : List [Pair [Double, Double]] = Nil
 
       for (i <- List.range (0, 140, 5))
-        d1 = Pair (i / 10.0, Math.sin(i / 10.0)) :: d1
+        d1 = Pair (i / 10.0, math.sin(i / 10.0)) :: d1
 
       val d2 : List [Pair [Double, Double]] = (0.0, 3.0) :: (4.0, 8.0) :: (8.0, 5.0) :: (9.0, 13.0) :: Nil
 
-      var d3 : List [Pair [Double, Double]] = (0.0, 12.0) :: (7.0, 12.0) :: (Math.NaN_DOUBLE, Math.NaN_DOUBLE) ::
+      var d3 : List [Pair [Double, Double]] = (0.0, 12.0) :: (7.0, 12.0) :: (Double.NaN, Double.NaN) ::
                                               (7.0, 2.5) :: (12.0, 2.5) :: Nil
 
       val s1 = new FlotSerie () {

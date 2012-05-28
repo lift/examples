@@ -40,7 +40,7 @@ class Interacting {
       var d : List [Pair [Double, Double]] = Nil
 
       for (i <- List.range (0, 140, 5))
-        d = (i / 10.0, Math.sin(i / 10.0)) :: d
+        d = (i / 10.0, math.sin(i / 10.0)) :: d
 
       val s = new FlotSerie () {
         override val data = d

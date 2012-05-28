@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb
+package example
+package snippet
 
 import model._
 
@@ -141,14 +141,9 @@ class Misc {
   }
 
   private def locales =
-  Locale.getAvailableLocales.toList.sort(_.getDisplayName < _.getDisplayName)
+  Locale.getAvailableLocales.toList.sortWith(_.getDisplayName < _.getDisplayName)
 
   private def setLocale(loc: Locale) = definedLocale(Full(loc))
 }
 
 object definedLocale extends SessionVar[Box[Locale]](Empty)
-
-
-}
-}
-}

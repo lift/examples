@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package flot_demo {
-package web {
-package model {
+package net.liftweb
+package flot_demo
+package web
+package model
 
 import scala.collection.mutable.{HashMap, HashSet}
 
@@ -111,7 +111,7 @@ class AcumSamplesActor (max : Int) extends LiftActor {
     
     
       case RemoveListener(listener: LiftActor) =>
-        listeners = listeners.remove(listener.eq)
+        listeners = listeners.filterNot(listener.eq)
   }
 }
 
@@ -127,10 +127,10 @@ object Sensor extends _root_.java.lang.Runnable {
   override def run () : Unit = {
     while (true)
     {
-      val time = new _root_.java.util.Date ().getTime ()
+      val time = new java.util.Date ().getTime ()
 
-      val sinus = Math.sin (time)
-      val cosinus = Math.cos (time)
+      val sinus = math.sin (time)
+      val cosinus = math.cos (time)
       val both = sinus + 2.0 * cosinus
 
       acum ! Sample (time, List (sinus, cosinus, both))
@@ -138,8 +138,4 @@ object Sensor extends _root_.java.lang.Runnable {
       Thread.sleep (2000)
     }
   }
-}
-}
-}
-}
 }

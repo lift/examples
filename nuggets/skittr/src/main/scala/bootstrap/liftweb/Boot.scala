@@ -16,7 +16,7 @@ package bootstrap.liftweb
  * and limitations under the License.
  */
 
-import _root_.net.liftweb.util.{Helpers, Log, NamedPF}
+import _root_.net.liftweb.util.{Helpers, NamedPF}
 import _root_.net.liftweb.common.{Box, Empty, Full, Failure}
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.mapper._
@@ -52,7 +52,7 @@ class Boot {
        RewriteResponse("unfriend" :: Nil, Map("user" -> user))
   }
 
-  LiftRules.rewrite.prepend(rewriter)
+  LiftRules.statelessRewrite.prepend(rewriter)
 
   // load up the list of user actors
   UserList.create
