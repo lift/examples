@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-package com.hellolift {
-package controller {
+package com.hellolift
+package controller
 
 import _root_.net.liftweb.mapper._
 import _root_.net.liftweb.actor._
@@ -50,7 +50,7 @@ class BlogCache extends LiftActor {
 	
       case DeleteEntry(e, id) =>
 	// When an Entry is deleted
-	cache += (id -> cache.getOrElse(id, getEntries(id)).remove(_ == e))
+	cache += (id -> cache.getOrElse(id, getEntries(id)).filterNot(_ == e))
         sessions.getOrElse(id, Nil).foreach(_ ! BlogUpdate(cache.getOrElse(id, Nil)))
 
       case EditEntry(e, id) =>
@@ -71,6 +71,4 @@ case class BlogUpdate(xs : List[Entry])
 
 object BlogCache {
   lazy val cache = new BlogCache // {val ret = new BlogCache; ret.start; ret}
-}
-}
 }

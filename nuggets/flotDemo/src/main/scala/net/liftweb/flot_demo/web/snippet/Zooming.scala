@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package flot_demo {
-package web {
-package snippet {
+package net.liftweb
+package flot_demo
+package web
+package snippet
 
 import scala.xml.NodeSeq
-
 import net.liftweb.common._
 import net.liftweb.util._
 import Helpers._
@@ -39,7 +38,7 @@ class Zooming {
 
     var i = x1
     while (i < x2) {
-      ret = (i, Math.sin (i * Math.sin(i))) :: ret
+      ret = (i, math.sin (i * math.sin(i))) :: ret
       i += (x2 - x1) / 100
     }
 
@@ -54,7 +53,7 @@ class Zooming {
     def graph () = {
       val data = new FlotSerie () {
         override val label = Full ("sin(x sin(x))")
-        override val data = getData (0.0, 3 * Math.Pi)
+        override val data = getData (0.0, 3 * math.Pi)
       }
 
       val options = new FlotOptions () {
@@ -106,8 +105,4 @@ class Zooming {
 
     bind ("flot", xhtml, "graph" -> graph)
   }
-}
-}
-}
-}
 }

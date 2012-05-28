@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb
+package example
+package snippet
 
 import _root_.scala.xml._
 import _root_.net.liftweb._
@@ -50,7 +50,7 @@ class AjaxForm {
 
   // bind the view to the dynamic HTML
   def show(xhtml: Group): NodeSeq = {
-    val (name, js) = ajaxCall(JE.JsRaw("this.value"),
+    val (name: String, js): (String, JsExp) = ajaxCall(JE.JsRaw("this.value"),
                               s => After(200, replace(s)))
     bind("select", xhtml,
          "state" -> select(AjaxForm.states.map(s => (s,s)),
@@ -324,12 +324,9 @@ object AjaxForm {
                              "Wisconsin" -> "Madison",
                              "Wisconsin" -> "Milwaukee")
 
-  val states = citiesAndStates.map(_._1).removeDuplicates
+  val states = citiesAndStates.map(_._1).distinct
 
   val state: String = states.head
 
   def citiesFor(state: String): List[String] = citiesAndStates.filter(_._1 == state).map(_._2)
-}
-}
-}
 }

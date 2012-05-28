@@ -34,7 +34,7 @@ import scala.xml._
 object StatelessJson {
   def init() {
     // register the JSON handler
-    LiftRules.statelessDispatchTable.append {
+    LiftRules.statelessDispatch.append{
       case r @ Req("stateless_json_call" :: Nil, _, PostRequest) => () => handleJson(r)
     }
   }

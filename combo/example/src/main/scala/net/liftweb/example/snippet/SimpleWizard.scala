@@ -47,8 +47,7 @@ class SimpleWizard extends StatefulSnippet {
   var color = ""
 
   private def template(name: String, f: NodeSeq => NodeSeq): NodeSeq =
-    TemplateFinder.
-  findAnyTemplate(List("templating") ::: List(name)).map(f) openOr
+    Templates(List("templating") ::: List(name)).map(f) openOr
   NodeSeq.Empty
 
   /**

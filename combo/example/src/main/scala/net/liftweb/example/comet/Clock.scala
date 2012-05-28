@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2010 WorldWide Conferencing, LLC
+ * Copyright 2007-2012 WorldWide Conferencing, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package comet {
+package net.liftweb
+package example
+package comet
 
 import _root_.net.liftweb._
 import http._
@@ -33,19 +33,16 @@ class ExampleClock (initSession: LiftSession,
                    initDefaultXml: NodeSeq,
                    initAttributes: Map[String, String]) extends CometActor {
   // schedule a ping every 10 seconds so we redraw
-  ActorPing.schedule(this, Tick, 10 seconds)
+  Schedule.schedule(this, Tick, 10 seconds)
 
   def render = "#clock_time *" replaceWith timeNow.toString
 
   override def lowPriority = {
     case Tick =>
       partialUpdate(SetHtml("clock_time", Text(timeNow.toString)))
-      ActorPing.schedule(this, Tick, 10 seconds)
+      Schedule.schedule(this, Tick, 10 seconds)
   }
   initCometActor(initSession, initType, initName, initDefaultXml, initAttributes)
 }
 
 case object Tick
-}
-}
-}
