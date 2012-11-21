@@ -20,6 +20,10 @@ import sbt._
 
 class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with LiftParentProject {
 
+
+  val SonatypeRep = "Sonatype scala-tools repo" at "https://oss.sonatype.org/content/groups/scala-tools/"
+  val SonatypeSnapshot = "Sonatype Snapshot repo" at "https://oss.sonatype.org/content/repositories/snapshots/"
+
   // TODO: consider cross-lift build, for now set it to current project version
   val liftVersion = version.toString
   
@@ -50,7 +54,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
   // Combo projects
   // --------------
   lazy val example = comboProject("example", lift_wizard, lift_mapper, lift_textile, lift_widgets)()
-  lazy val liftj   = comboProject("liftj", lift_wizard)()
+  // lazy val liftj   = comboProject("liftj", lift_wizard)()
 
 
   // Nuggets projects
