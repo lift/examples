@@ -34,7 +34,7 @@ class Boot {
     LiftRules.setSiteMap(SiteMap(entries:_*))
 
     // register treetable resources (javascript and gifs)
-    net.liftweb.widgets.flot.Flot.init ()
+    net.liftmodules.widgets.flot.Flot.init ()
 
     // used to test the comet actor
     net.liftweb.flot_demo.web.model.Sensor.start
