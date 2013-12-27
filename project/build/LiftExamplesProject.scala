@@ -42,8 +42,8 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
     lazy val lift_facebook = "net.liftweb" %% "lift-facebook" % liftVersion
     lazy val lift_scalate  = "net.liftweb" %% "lift-scalate" % liftVersion
-    lazy val lift_textile  = "net.liftweb" %% "lift-textile" % liftVersion
-    lazy val lift_widgets  = "net.liftweb" %% "lift-widgets" % liftVersion
+    lazy val lift_textile  = "net.liftweb" %% "lift-textile" % "2.4"
+    lazy val lift_widgets  = "net.liftweb" %% "lift-widgets" % "2.4"
   }
 
   import CompileScope._
