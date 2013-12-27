@@ -23,7 +23,7 @@ import scala.xml.NodeSeq
 
 import net.liftweb.util.Helpers._
 import net.liftweb.http.js.JsCmds._
-import net.liftweb.widgets.flot._
+import net.liftmodules.widgets.flot._
 
 /*
  *

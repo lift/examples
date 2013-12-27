@@ -60,14 +60,14 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
   // Nuggets projects
   // ----------------
-  lazy val flot         = nuggetsProject("flotDemo", lift_widgets)()
-  lazy val hellodarwin  = nuggetsProject("hellodarwin", lift_mapper)()
-  lazy val hellofbc     = nuggetsProject("hellofbc", lift_mapper, lift_widgets, lift_facebook, servlet_api)()
-  lazy val hellolift    = nuggetsProject("hellolift", lift_mapper)()
-  lazy val helloscalate = nuggetsProject("helloscalate", lift_mapper, lift_scalate)()
+  lazy val flot         = nuggetsProject("flotDemo", lift_webkit, lift_widgets)()
+  lazy val hellodarwin  = nuggetsProject("hellodarwin", lift_webkit, lift_mapper)()
+  lazy val hellofbc     = nuggetsProject("hellofbc", lift_webkit, lift_mapper, lift_widgets, lift_facebook, servlet_api)()
+  lazy val hellolift    = nuggetsProject("hellolift", lift_webkit, lift_mapper)()
+  lazy val helloscalate = nuggetsProject("helloscalate", lift_webkit, lift_mapper, lift_scalate)()
   lazy val httpauth     = nuggetsProject("http-authentication", lift_webkit)()
   // lazy val jpademo      = nuggetsProject("JPADemo", lift_mapper, lift_scalate)()
-  lazy val skittr       = nuggetsProject("skittr", lift_mapper)()
+  lazy val skittr       = nuggetsProject("skittr", lift_webkit, lift_mapper)()
 
 
   // Examples apidocs

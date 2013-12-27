@@ -19,7 +19,7 @@ package flot_demo {
 package web {
 package snippet {
 
-import _root_.net.liftweb.widgets.flot._
+import _root_.net.liftmodules.widgets.flot._
 import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 
