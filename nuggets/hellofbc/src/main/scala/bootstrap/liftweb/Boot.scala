@@ -28,7 +28,7 @@ import _root_.fbc.example.model._
 import _root_.javax.servlet.http.{HttpServletRequest}
 import _root_.net.liftweb.common._
 
-import net.liftweb.ext_api.facebook.FacebookConnect
+import net.liftmodules.ext_api.facebook.FacebookConnect
 
 /**
   * A class that's instantiated early and run.  It allows the application

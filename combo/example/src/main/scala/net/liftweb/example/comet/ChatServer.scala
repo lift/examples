@@ -25,7 +25,7 @@ import actor._
 import util._
 import Helpers._
 import _root_.scala.xml.{NodeSeq, Text}
-import textile.TextileParser
+import net.liftmodules.textile.TextileParser
 import _root_.java.util.Date
 
 /**

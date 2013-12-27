@@ -23,7 +23,7 @@ import S._
 import js._
 import JsCmds._
 import JE._
-import textile._
+import net.liftmodules.textile._
 import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 import Helpers._

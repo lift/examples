@@ -25,7 +25,7 @@ import sitemap._
 import Helpers._
 
 import example._
-import widgets.autocomplete._
+import net.liftmodules.widgets.autocomplete._
 import comet._
 import model._
 import lib._

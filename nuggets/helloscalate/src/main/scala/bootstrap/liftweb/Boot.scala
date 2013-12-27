@@ -9,7 +9,7 @@ import Helpers._
 import _root_.net.liftweb.mapper._
 import _root_.java.sql.{Connection, DriverManager}
 import _root_.com.helloscalate.model._
-import net.liftweb.scalate.ScalateView
+import net.liftmodules.scalate.ScalateView
 
 /**
   * A class that's instantiated early and run.  It allows the application

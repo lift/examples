@@ -23,6 +23,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
   val SonatypeRep = "Sonatype scala-tools repo" at "https://oss.sonatype.org/content/groups/scala-tools/"
   val SonatypeSnapshot = "Sonatype Snapshot repo" at "https://oss.sonatype.org/content/repositories/snapshots/"
+  val SonatypeReleases = "Sonatype Releases repo" at "https://oss.sonatype.org/content/repositories/releases/"
 
   // TODO: consider cross-lift build, for now set it to current project version
   val liftVersion = version.toString
@@ -40,10 +41,10 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
     lazy val lift_db     = "net.liftweb" %% "lift-db" % liftVersion
     lazy val lift_mapper = "net.liftweb" %% "lift-mapper" % liftVersion
 
-    lazy val lift_facebook = "net.liftweb" %% "lift-facebook" % liftVersion
-    lazy val lift_scalate  = "net.liftweb" %% "lift-scalate" % liftVersion
-    lazy val lift_textile  = "net.liftweb" %% "lift-textile" % "2.4"
-    lazy val lift_widgets  = "net.liftweb" %% "lift-widgets" % "2.4"
+    lazy val lift_facebook = "net.liftmodules" %% "facebook_2.5" % "1.2"
+    lazy val lift_scalate  = "net.liftmodules" %% "scalate" % "1.3"
+    lazy val lift_textile  = "net.liftmodules" %% "textile_2.5" % "1.3"
+    lazy val lift_widgets  = "net.liftmodules" %% "widgets_2.5" % "1.3"
   }
 
   import CompileScope._

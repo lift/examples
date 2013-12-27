@@ -19,7 +19,7 @@ package example {
 package lib {
 
 import _root_.net.liftweb._
-import textile._
+import net.liftmodules.textile._
 import common._
 import util._
 import Helpers._
