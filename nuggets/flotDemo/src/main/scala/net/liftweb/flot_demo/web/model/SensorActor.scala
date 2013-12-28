@@ -21,7 +21,7 @@ package model
 
 import scala.collection.mutable.{HashMap, HashSet}
 
-import net.liftweb.widgets.flot._
+import net.liftmodules.widgets.flot._
 import net.liftweb.common._
 import net.liftweb.util._
 import net.liftweb.actor._

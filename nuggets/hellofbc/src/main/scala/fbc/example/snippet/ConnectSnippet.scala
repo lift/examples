@@ -23,7 +23,7 @@ import _root_.scala.xml.{NodeSeq, Text}
 import _root_.net.liftweb.util._
 import _root_.net.liftweb.common._
 
-import net.liftweb.ext_api.facebook.{FacebookRestApi,FacebookClient, FacebookConnect, FacebookSession}
+import net.liftmodules.ext_api.facebook.{FacebookRestApi,FacebookClient, FacebookConnect, FacebookSession}
 
 import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.JE

@@ -19,7 +19,7 @@ package example {
 package snippet {
 
 import _root_.net.liftweb.http._
-import _root_.net.liftweb.widgets.autocomplete._
+import _root_.net.liftmodules.widgets.autocomplete._
 import S._
 import SHtml._
 import js._

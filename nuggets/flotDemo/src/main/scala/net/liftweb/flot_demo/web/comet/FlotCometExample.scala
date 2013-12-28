@@ -24,7 +24,7 @@ import scala.xml.{NodeSeq, Text}
 import net.liftweb.http._
 import net.liftweb.http.js.JsCmds.Noop
 
-import net.liftweb.widgets.flot._
+import net.liftmodules.widgets.flot._
 import net.liftweb.common._
 import net.liftweb.util._
 

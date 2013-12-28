@@ -23,6 +23,7 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
   val SonatypeRep = "Sonatype scala-tools repo" at "https://oss.sonatype.org/content/groups/scala-tools/"
   val SonatypeSnapshot = "Sonatype Snapshot repo" at "https://oss.sonatype.org/content/repositories/snapshots/"
+  val SonatypeReleases = "Sonatype Releases repo" at "https://oss.sonatype.org/content/repositories/releases/"
 
   // TODO: consider cross-lift build, for now set it to current project version
   val liftVersion = version.toString
@@ -40,10 +41,10 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
     lazy val lift_db     = "net.liftweb" %% "lift-db" % liftVersion
     lazy val lift_mapper = "net.liftweb" %% "lift-mapper" % liftVersion
 
-    lazy val lift_facebook = "net.liftweb" %% "lift-facebook" % liftVersion
-    lazy val lift_scalate  = "net.liftweb" %% "lift-scalate" % liftVersion
-    lazy val lift_textile  = "net.liftweb" %% "lift-textile" % liftVersion
-    lazy val lift_widgets  = "net.liftweb" %% "lift-widgets" % liftVersion
+    lazy val lift_facebook = "net.liftmodules" %% "facebook_2.5" % "1.2"
+    lazy val lift_scalate  = "net.liftmodules" %% "scalate" % "1.3"
+    lazy val lift_textile  = "net.liftmodules" %% "textile_2.5" % "1.3"
+    lazy val lift_widgets  = "net.liftmodules" %% "widgets_2.5" % "1.3"
   }
 
   import CompileScope._
@@ -59,14 +60,14 @@ class LiftExamplesProject(info: ProjectInfo) extends ParentProject(info) with Li
 
   // Nuggets projects
   // ----------------
-  lazy val flot         = nuggetsProject("flotDemo", lift_widgets)()
-  lazy val hellodarwin  = nuggetsProject("hellodarwin", lift_mapper)()
-  lazy val hellofbc     = nuggetsProject("hellofbc", lift_mapper, lift_widgets, lift_facebook, servlet_api)()
-  lazy val hellolift    = nuggetsProject("hellolift", lift_mapper)()
-  lazy val helloscalate = nuggetsProject("helloscalate", lift_mapper, lift_scalate)()
+  lazy val flot         = nuggetsProject("flotDemo", lift_webkit, lift_widgets)()
+  lazy val hellodarwin  = nuggetsProject("hellodarwin", lift_webkit, lift_mapper)()
+  lazy val hellofbc     = nuggetsProject("hellofbc", lift_webkit, lift_mapper, lift_widgets, lift_facebook, servlet_api)()
+  lazy val hellolift    = nuggetsProject("hellolift", lift_webkit, lift_mapper)()
+  lazy val helloscalate = nuggetsProject("helloscalate", lift_webkit, lift_mapper, lift_scalate)()
   lazy val httpauth     = nuggetsProject("http-authentication", lift_webkit)()
   // lazy val jpademo      = nuggetsProject("JPADemo", lift_mapper, lift_scalate)()
-  lazy val skittr       = nuggetsProject("skittr", lift_mapper)()
+  lazy val skittr       = nuggetsProject("skittr", lift_webkit, lift_mapper)()
 
 
   // Examples apidocs

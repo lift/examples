@@ -24,7 +24,7 @@ import js._
 import JsCmds._
 import common._
 import json._
-import textile._
+import net.liftmodules.textile._
 
 import scala.xml._
 

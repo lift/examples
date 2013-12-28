@@ -49,8 +49,8 @@ my employer or other contracts, and that I license this work under
 an [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) license.
 
 
-### Name: ###
+### Name: Carlos Saltos ###
 
-### Email: ###
+### Email: csaltos@talenteca.com ###
 
 
