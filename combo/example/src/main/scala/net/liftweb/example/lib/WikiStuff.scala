@@ -18,20 +18,20 @@ package net.liftweb {
 package example {
 package lib {
 
-import _root_.net.liftweb._
-import net.liftmodules.textile._
-import common._
-import util._
-import Helpers._
-import http._
-import mapper._
-import sitemap._
-import Loc._
+  import _root_.net.liftweb._
+  import net.liftmodules.textile._
+  import common._
+  import util._
+  import Helpers._
+  import http._
+  import mapper._
+  import sitemap._
+  import Loc._
 
-import example._
-import model._
+  import example._
+  import model._
 
-import scala.xml.{Text, NodeSeq}
+  import scala.xml.{Text, NodeSeq}
 
 /**
  * A wiki location
@@ -114,17 +114,17 @@ object WikiStuff extends Loc[WikiLoc] {
   Full(NamedPF("Wiki Rewrite") {
       case RewriteRequest(ParsePath("wiki" :: "edit" :: page :: Nil, _, _,_),
                           _, _) =>
-        (RewriteResponse("wiki" :: Nil), WikiLoc(page, true))
+        (RewriteResponse("wiki" :: Nil), Full(WikiLoc(page, true)))
 
       case RewriteRequest(ParsePath("wiki" :: page :: Nil, _, _,_),
                           _, _) =>
-        (RewriteResponse("wiki" :: Nil), WikiLoc(page, false))
+        (RewriteResponse("wiki" :: Nil), Full(WikiLoc(page, false)))
 
     })
 
   def showAll(in: NodeSeq): NodeSeq =
   WikiEntry.findAll(OrderBy(WikiEntry.name, Ascending)).flatMap(entry =>
-    <div><a href={url(entry.name)}>{entry.name}</a></div>)
+    <div><a href={url(entry.name.get)}>{entry.name}</a></div>)
 
   def url(page: String) = createLink(WikiLoc(page, false))
 
@@ -134,7 +134,7 @@ object WikiStuff extends Loc[WikiLoc] {
     <a href={createLink(AllLoc)}>Show All Pages</a><br />
     {
       val isNew = !r.saved_?
-      val pageName = r.name.is
+      val pageName = r.name.get
       val action = url(pageName)
       val message =
       if (isNew)
@@ -165,9 +165,9 @@ object WikiStuff extends Loc[WikiLoc] {
   def displayRecord(entry: WikiEntry)(in: NodeSeq): NodeSeq =
   <span>
     <a href={createLink(AllLoc)}>Show All Pages</a><br />
-    {TextileParser.toHtml(entry.entry, textileWriter)}
+    {TextileParser.toHtml(entry.entry.get, textileWriter)}
 
-    <br/><a href={createLink(WikiLoc(entry.name, true))}>Edit</a>
+    <br/><a href={createLink(WikiLoc(entry.name.get, true))}>Edit</a>
   </span>
 
   import TextileParser._

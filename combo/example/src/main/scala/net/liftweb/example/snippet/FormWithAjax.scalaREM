@@ -29,7 +29,7 @@ import Helpers._
 
 import scala.xml.NodeSeq
 
-class FormWithAjax extends StatefulSnippet {
+class FormWithAjaxREM extends StatefulSnippet {
   private var firstName = ""
   private var lastName = ""
   private val from = S.referer openOr "/"

@@ -1,95 +1,52 @@
-<lift:surround with="default" at="content">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default2;at=content">
   <p>
     Lift supports lazy loading of a snippet.  This is
     useful when a snippet may take a long time to render,
     but you want to return the page to the browser quickly.
   </p>
 
-  
-  <div>
-    <lift:lazy-load><div class="lift:LongTime"></div></lift:lazy-load>
+  <div data-lift="lazy-load">
+    <div data-lift="LongTime"></div>
   </div>
 
-  <div>
-    <lift:lazy-load><div class="lift:LongTime"></div></lift:lazy-load>
+  <div data-lift="lazy-load">
+    <div data-lift="LongTime"></div>
   </div>
 
-  <div>
-    <lift:lazy-load><div class="lift:LongTime"></div></lift:lazy-load>
+  <div data-lift="lazy-load">
+    <div data-lift="LongTime"></div>
   </div>
 
-  <div>
-    <lift:lazy-load><div class="lift:LongTime"></div></lift:lazy-load>
+  <div data-lift="lazy-load">
+    <div data-lift="LongTime"></div>
   </div>
 
+  <hr>
 
+  <p>The Markup:</p>
+  <pre><code class="html">&lt;div data-lift="lazy-load"&gt;
+    &lt;div data-lift="LongTime"&gt;&lt;/div&gt;
+  &lt;/div&gt;</code></pre>
 
-    <style type="text/css">
-    /* <![CDATA[ */
-       .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .sgml-namespace {
-        /* sgml-namespace */
-        color: #da70d6;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-
-     .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-
-      /* ]]> */
-    </style>
-
-    <hr>
-
-    <p>The Markup:</p>
-    <pre>
-  &lt;<span class="function-name">div</span>&gt;
-    &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">lazy-load</span>&gt;&lt;<span class="function-name">div</span> <span class="variable-name">class</span>=<span class="string">"lift:LongTime"</span>&gt;&lt;/<span class="function-name">div</span>&gt;&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">lazy-load</span>&gt;
-  &lt;/<span class="function-name">div</span>&gt;
-</pre>
-
-    <p>The Scala Code:</p>
-    <pre>
-<span class="keyword">object</span> <span class="variable-name">LongTime</span> {
-  <span class="keyword">def</span> <span class="function-name">render</span> = {
-    <span class="keyword">val</span> <span class="variable-name">delay</span> = 1000L + randomLong(10000)
+  <p>The Scala Code:</p>
+  <pre><code class="scala">object LongTime {
+  def render = {
+    val delay = 1000L + randomLong(10000)
 
     Thread.sleep(delay)
-    
+
     &lt;div&gt;
     This thread delayed {delay / 1000L} seconds
     &lt;/div&gt;
   }
-}
-</pre>
+}</code></pre>
 
-</lift:surround>
+</div>
+</body>

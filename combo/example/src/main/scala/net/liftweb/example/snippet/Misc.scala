@@ -69,8 +69,11 @@ class Misc {
         // when the delete button is pressed, call the "deleteUser"
         // function (which is a closure and bound the "user" object
         // in the current content)
-        bind("xmp", xhtml, "username" -> (user.firstName.is+" "+user.lastName.is),
-             "delete" -> submit("Delete", deleteUser _))
+        val bindDelete = {
+          "#username" #> (user.firstName.get + " " + user.lastName.get) &
+            "#delete" #> submit("Delete", deleteUser _)
+        }
+       bindDelete(xhtml)
 
         // if the was no ID or the user couldn't be found,
         // display an error and redirect
@@ -123,6 +126,10 @@ class Misc {
   /**
    * Bind the appropriate XHTML to the form
    */
+  /*TODO PPE REM
+  *
+  * */
+  /*
   def upload(xhtml: Group): NodeSeq =
   if (S.get_?) bind("ul", chooseTemplate("choose", "get", xhtml),
                     "file_upload" -> fileUpload(ul => theUpload(Full(ul))))
@@ -132,7 +139,7 @@ class Misc {
             "length" -> theUpload.is.map(v => Text(v.file.length.toString)),
             "md5" -> theUpload.is.map(v => Text(hexEncode(md5(v.file))))
   );
-
+  */
 
   def lang = {
     "#lang" #> locale.getDisplayLanguage(locale) &

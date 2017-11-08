@@ -1,134 +1,150 @@
-<lift:surround with="default" at="content">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default2;at=content">
 
-  <center><b>AJAX Samples</b></center>
-  <br >
-  <div class="lift:Ajax.sample?id_name=cnt_id;id_msgs=messages">
-    <ajax:clicker>
-      <span>Click me to increase the count (currently <span id='cnt_id'>0</span>)</span>
-    </ajax:clicker>
-    <br>
+    <!-- The AutoComplete function (widgets.autocomplete) used by Ajax.scala uses a
+    really old jqurey so we need to add jquery migrate for that functionality to work. -->
+    <head_merge>
+        <script id="jquery-migrate" src="/classpath/fobo/jquery-migrate.js" type="text/javascript"></script>
+    </head_merge>
 
-    <div id="messages"></div>
+    <center><b>AJAX Samples</b></center>
+    <br >
+    <div class="lift:Ajax.sample?id_name=cnt_id;id_msgs=messages">
+        <div id="ajaxClicker">
+            <span>Click me to increase the count (currently <span id='cnt_id'>0</span>)</span>
+        </div>
+        <!--    <ajax:clicker>
+              <span>Click me to increase the count (currently <span id='cnt_id'>0</span>)</span>
+            </ajax:clicker> -->
+        <br>
 
-    <ajax:select>
-      You selected <sel:number></sel:number> From the select box.
-    </ajax:select>
+        <div id="messages"></div>
+        <div id="bcmessages"></div>
 
-    <br>
-    <ajax:text>
-      You entered <text:value></text:value> in the text box.
-    </ajax:text>
+        <div id="ajaxSelect">
+            You selected '<span id="selNumber"></span>' from the select box.
+        </div>
 
-    <br>
+        <!--    <ajax:select>
+              You selected <sel:number></sel:number> From the select box.
+            </ajax:select> -->
 
-    An example of autocomplete with a server round trip to
-    calculate the autocomplete list
-    <ajax:auto></ajax:auto>
-    <br>
-    <br>
+        <br>
+        <div id="ajaxText">
+            You entered '<span id="textValue"></span>' in the text box.
+        </div>
+        <!--    <ajax:text>
+              You entered <text:value></text:value> in the text box.
+            </ajax:text> -->
 
-    <hr >
-    <div>
-      And each time an Ajax or Comet update is made to the page,
-      we update this span:
-      <span id="timely" class="lift:Timely">The time is</span>
+        <br>
+
+        An example of autocomplete with a server round trip to
+        calculate the autocomplete list
+        <div id="ajaxAuto"></div>
+        <!--    <ajax:auto></ajax:auto> -->
+        <br>
+        <br>
+
+        <hr >
+        <div>
+            And each time an Ajax or Comet update is made to the page,
+            we update this span:
+            <span id="timely" class="lift:Timely">The time is</span>
+        </div>
+
+
     </div>
 
+    <p>
+        Enter some text: <input id="the_input">
+        and <button class="lift:Ajax.buttonClick">Click Here</button>
+    </p>
 
-  </div>
+    <br >
 
-  <p>
-    Enter some text: <input id="the_input">
-    and <button class="lift:Ajax.buttonClick">Click Here</button>
-  </p>
-  
-  <br >
-  <br >
-  <br >
-  
-  The <i>Lift</i> Scala code to render the controls:
-  <br >
-  <head_merge>
-    <style type="text/css">
-    /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
+    The <i>Lift</i> Scala code to render the controls:
+    <br >
+
+    <pre><code class="scala">
+class Ajax extends Loggable {
+
+    def sample(xhtml: NodeSeq): NodeSeq = {
+      // local state for the counter
+      var cnt = 0
+
+      // get the id of some elements to update
+      val spanName: String = S.attr("id_name") openOr "cnt_id"
+      val msgName: String = S.attr("id_msgs") openOr "messages"
+
+      // build up an ajax &lt;a&gt; tag to increment the counter
+      def doClicker(text: NodeSeq) =
+        a(() => { cnt = cnt + 1; SetHtml(spanName, Text(cnt.toString)) },
+          text)
+
+      // create an ajax select box
+      def doSelect(msg: NodeSeq) =
+        ajaxSelect(
+          (1 to 50).toList.map(i => (i.toString, i.toString)),
+          Full(1.toString),
+          v => {
+            val selectBind = "#selNumber" #> Text(v)
+            DisplayMessage(
+              msgName,
+              &lt;span&gt;{selectBind(msg)}&lt;/span&gt;,
+              5 seconds,
+              1 second
+            )
+          }
+        )
+
+      // build up an ajax text box
+      def doText(msg: NodeSeq) =
+        ajaxText(
+          "",
+          v => {
+            val textBind = "#textValue" #> Text(v)
+            DisplayMessage(msgName,
+                           &lt;span&gt;{textBind(msg)}&lt;/span&gt;,
+                           4 seconds,
+                           1 second)
+          }
+        )
+
+      // bind the view to the functionality
+      val viewBind = {
+        "#ajaxClicker" #> doClicker _ &
+          "#ajaxSelect" #> doSelect _ &
+          "#ajaxText" #> doText _ &
+          "#ajaxAuto" #> AutoComplete("", buildQuery _, _ => ())
       }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-    /* ]]> */
-    </style>
-  </head_merge>
-  
-    <pre>
-<span class="keyword">class</span> <span class="type">Ajax</span> {
+      viewBind(xhtml)
+    }
 
-  <span class="keyword">def</span> <span class="function-name">sample</span>(<span class="variable-name">xhtml</span>: <span class="type">NodeSeq</span>): <span class="type">NodeSeq </span>= {
-    <span class="comment-delimiter">// </span><span class="comment">local state for the counter
-</span>    <span class="keyword">var</span> <span class="variable-name">cnt</span> = 0
+    private def buildQuery(current: String, limit: Int): Seq[String] = {
+      logger.info(
+        "Checking on server side with " + current + " limit " + limit)
+      (1 to limit).map(n => current + "" + n)
+    }
 
-    <span class="comment-delimiter">// </span><span class="comment">get the id of some elements to update
-</span>    <span class="keyword">val</span> <span class="variable-name">spanName</span>: <span class="type">String </span>= S.attr(<span class="string">"id_name"</span>) openOr <span class="string">"cnt_id"</span>
-    <span class="keyword">val</span> <span class="variable-name">msgName</span>: <span class="type">String </span>= S.attr(<span class="string">"id_msgs"</span>) openOr <span class="string">"messages"</span>
+    def time = Text(now.toString)
 
-    <span class="comment-delimiter">// </span><span class="comment">build up an ajax &lt;a&gt; tag to increment the counter
-</span>    <span class="keyword">def</span> <span class="function-name">doClicker</span>(<span class="variable-name">text</span>: <span class="type">NodeSeq</span>) =
-    a(() =&gt; {cnt = cnt + 1; SetHtml(spanName, Text( cnt.toString))}, text)
+    def buttonClick = {
+      import js.JE._
 
-    <span class="comment-delimiter">// </span><span class="comment">create an ajax select box
-</span>    <span class="keyword">def</span> <span class="function-name">doSelect</span>(<span class="variable-name">msg</span>: <span class="type">NodeSeq</span>) =
-    ajaxSelect((1 to 50).toList.map(i =&gt; (i.toString, i.toString)),
-               Full(1.toString),
-               v =&gt; DisplayMessage(msgName,
-                                   bind(<span class="string">"sel"</span>, msg, <span class="string">"number"</span> -&gt; Text(v)),
-                                   5 seconds, 1 second))
-
-    <span class="comment-delimiter">// </span><span class="comment">build up an ajax text box
-</span>    <span class="keyword">def</span> <span class="function-name">doText</span>(<span class="variable-name">msg</span>: <span class="type">NodeSeq</span>) =
-    ajaxText(<span class="string">""</span>, v =&gt; DisplayMessage(msgName,
-                                     bind(<span class="string">"text"</span>, msg, <span class="string">"value"</span> -&gt; Text(v)),
-                                     4 seconds, 1 second))
+      "* [onclick]" #> SHtml.ajaxCall(
+        ValById("the_input"),
+        s => SetHtml("bcmessages",
+                     &lt;i&gt;Latest Button click was with text box value {s}&lt;/i&gt;))
+    }
+}</code></pre>
 
 
-
-    <span class="comment-delimiter">// </span><span class="comment">bind the view to the functionality
-</span>    bind(<span class="string">"ajax"</span>, xhtml,
-         <span class="string">"clicker"</span> -&gt; doClicker _,
-         <span class="string">"select"</span> -&gt; doSelect _,
-         <span class="string">"text"</span> -&gt; doText _,
-         <span class="string">"auto"</span> -&gt; JqSHtml.autocomplete(<span class="string">""</span>, buildQuery _, _ =&gt; ()))
-  }
-
-  <span class="keyword">private</span> <span class="keyword">def</span> <span class="function-name">buildQuery</span>(<span class="variable-name">current</span>: <span class="type">String</span>, <span class="variable-name">limit</span>: <span class="type">Int</span>): <span class="type">Seq[String]</span> = {
-    Log.info(<span class="string">"Checking on server side with "</span>+current+<span class="string">" limit "</span>+limit)
-    (1 to limit).map(n =&gt; current+<span class="string">""</span>+n)
-  }
-
-  <span class="keyword">def</span> <span class="function-name">time</span> = Text(timeNow.toString)
-}
-</pre>
-  
-</lift:surround>
+</div>
+</body>

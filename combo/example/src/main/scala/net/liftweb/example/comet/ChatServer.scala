@@ -37,7 +37,7 @@ object ChatServer extends LiftActor with ListenerManager {
 
   override def lowPriority = {
     case ChatServerMsg(user, msg) if msg.length > 0 =>
-      chats ::= ChatLine(user, toHtml(msg), timeNow)
+      chats ::= ChatLine(user, toHtml(msg), now)
       chats = chats.take(50)
       updateListeners()
 

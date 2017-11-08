@@ -37,9 +37,9 @@ object RuntimeStats extends DispatchSnippet {
   var sessions = 1
 
   @volatile
-  var lastUpdate = timeNow
+  var lastUpdate = now
 
-  val startedAt = timeNow
+  val startedAt = now
 
   private def nf(in: Long): String = NumberFormat.getInstance.format(in)
 

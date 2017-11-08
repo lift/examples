@@ -26,10 +26,18 @@ import Helpers._
 
 import example._
 import net.liftmodules.widgets.autocomplete._
+// import net.liftmodules.JQueryModule
+import net.liftmodules.fobo
 import comet._
 import model._
 import lib._
-import net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, ConnectionIdentifier}
+import net.liftweb.mapper.{
+DB,
+ConnectionManager,
+Schemifier,
+DefaultConnectionIdentifier,
+ConnectionIdentifier
+}
 
 import _root_.java.sql.{Connection, DriverManager}
 import snippet._
@@ -74,10 +82,16 @@ class Boot {
         () => Full(RedirectResponse("/login/validate"))
     })
 
+    /* TODO PPE REM
+    * to make stuff compile
+    */
+    /*
     LiftRules.snippetDispatch.append(NamedPF("Template")
                                      (Map("Template" -> Template,
                                           "AllJson" -> AllJson)))
+    */
 
+    //note old rem
     /*
     LiftRules.snippetDispatch.append {
       case "MyWizard" => MyWizard
@@ -130,6 +144,28 @@ class Boot {
     LiftSession.onEndServicing
 
     LiftRules.setSiteMapFunc(MenuInfo.sitemap)
+    LiftRules.securityRules = () => {
+      SecurityRules(
+        content = Some(
+          ContentSecurityPolicy(
+            scriptSources = List(ContentSourceRestriction.UnsafeEval,
+              ContentSourceRestriction.UnsafeInline,
+              ContentSourceRestriction.Self),
+            styleSources = List(ContentSourceRestriction.UnsafeInline,
+              ContentSourceRestriction.Self)
+          )))
+    }
+
+    // FoBo init
+    fobo.Toolkit.init = fobo.Toolkit.JQuery224
+    fobo.Toolkit.init = fobo.Toolkit.HighlightJS930
+    fobo.Toolkit.init = fobo.Toolkit.FontAwesome470 //update to latest
+    fobo.Toolkit.init = fobo.Toolkit.Bootstrap400
+    fobo.Toolkit.init = fobo.Toolkit.Popper1125
+    fobo.Toolkit.init = fobo.Toolkit.JQueryMigrate141
+
+    //JQueryModule.InitParam.JQuery = JQueryModule.JQuery224
+    //JQueryModule.init()
 
     ThingBuilder.boot()
 
@@ -157,7 +193,7 @@ object RequestLogger extends Loggable {
   def endServicing(session: LiftSession, req: Req,
                    response: Box[LiftResponse]) {
     val delta = millis - startTime.is
-    logger.info("At " + (timeNow) + " Serviced " + req.uri + " in " + (delta) + "ms " + (
+    logger.info("At " + (now) + " Serviced " + req.uri + " in " + (delta) + "ms " + (
       response.map(r => " Headers: " + r.toResponse.headers) openOr ""
     ))
   }
@@ -323,7 +359,7 @@ object SessionInfoDumper extends LiftActor with Loggable {
           val rt = Runtime.getRuntime
           rt.gc
 
-          RuntimeStats.lastUpdate = timeNow
+          RuntimeStats.lastUpdate = now
           RuntimeStats.totalMem = rt.totalMemory
           RuntimeStats.freeMem = rt.freeMemory
           RuntimeStats.sessions = sessions.size
@@ -346,7 +382,7 @@ object SessionInfoDumper extends LiftActor with Loggable {
 	    if (newKillCnt > 0) SessionChecker.killCnt = newKillCnt
           }
 
-          val dateStr: String = timeNow.toString
+          val dateStr: String = now.toString
           logger.info("[MEMDEBUG] At " + dateStr + " Number of open sessions: " + sessions.size)
           logger.info("[MEMDEBUG] Free Memory: " + pretty(RuntimeStats.freeMem))
           logger.info("[MEMDEBUG] Total Memory: " + pretty(RuntimeStats.totalMem))

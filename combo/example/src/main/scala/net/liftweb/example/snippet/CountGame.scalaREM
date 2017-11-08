@@ -30,7 +30,7 @@ import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 
 
-class CountGame extends StatefulSnippet {
+class CountGameREM extends StatefulSnippet {
   val dispatch: DispatchIt = {
     case "run" if lastGuess == number =>
     xhtml => win(chooseTemplate("choose", "win", xhtml))
