@@ -38,7 +38,7 @@ object XmlServer {
 
   def showStates(which: String)(): Box[XmlResponse] =
   Full(XmlResponse(
-      <states renderedAt={timeNow.toString}>{
+      <states renderedAt={now.toString}>{
           which match {
             case "red" => <state name="Ohio"/><state name="Texas"/><state name="Colorado"/>
 

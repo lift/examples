@@ -1,10 +1,89 @@
-<lift:surround with="default" at="content">
-  <center><b>Forms with Ajax callback on form element blur</b></center>
-  <br >
-  Enter your first and last name:<br>
-  <form class="lift:FormWithAjax?form=post">
-    First Name: <form:first></form:first> <br>
-    Last Name: <form:last></form:last> <br >
-    <form:submit></form:submit>
-  </form>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <center>
+      <b>Forms with Ajax callback on form element blur</b>
+    </center>
+    <br> Enter your first and last name:
+    <br>
+    <form data-lift="FormWithAjax?form=post">
+        <div class="form-group row">
+            <label for="first" class="col-sm-2 col-form-label">First Name:</label>
+            <div class="col-sm-10">
+                <span id="first"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="last" class="col-sm-2 col-form-label">First Name:</label>
+            <div class="col-sm-10">
+                <span id="last"></span>
+            </div>
+        </div>
+
+<!--      First Name:
+      <span id="first"></span>
+      <br> Last Name:
+      <span id="last"></span>
+      <br>-->
+      <input type="submit">
+    </form>
+    <br>
+    <p>
+      Here's the code:
+    </p>
+      <pre><code class="scala">
+class FormWithAjax extends StatefulSnippet {
+  private var firstName = ""
+  private var lastName = ""
+  private val from = S.referer openOr "/"
+
+  def dispatch = {
+    case _ => render
+  }
+
+  def render = {
+
+    def validate() {
+      (firstName.length, lastName.length) match {
+        case (f, n) if f < 2 && n < 2 =>
+          S.error("First and last names too short")
+        case (f, _) if f < 2 => S.error("First name too short")
+        case (_, n) if n < 2 => S.error("Last name too short")
+        case _ => {
+          S.notice("Ajax form says Thanks!")
+          S.redirectTo(from)
+        }
+      }
+    }
+
+    "#first" #> textAjaxTest(firstName,
+                             s => firstName = s,
+                             s => {
+                               S.notice("First name " + s); Noop
+                             },
+                             "class" -> "form-control",
+                             "type" -> "text",
+                             "placeholder" -> "First name") &
+      "#last" #> textAjaxTest(lastName,
+                              s => lastName = s,
+                              s => {
+                                S.notice("Last name " + s); Noop
+                              },
+                              "class" -> "form-control",
+                              "type" -> "text",
+                              "placeholder" -> "Last name") &
+      "type=submit" #> submit("Send", validate _)
+  }
+}
+      </code></pre>
+  </div>
+</body>
+
+</html>

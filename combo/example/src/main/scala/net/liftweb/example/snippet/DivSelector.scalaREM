@@ -30,7 +30,7 @@ import _root_.net.liftweb.util._
 import _root_.scala.xml.{NodeSeq, Text, Group}
 
 
-class DivSelector extends StatefulSnippet {
+class DivSelectorREM extends StatefulSnippet {
   private var whichDivs: Array[Boolean] = Array(true, true, true, true, true, true)
 
   def dispatch: DispatchIt =

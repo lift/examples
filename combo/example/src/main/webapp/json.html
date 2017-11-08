@@ -1,8 +1,17 @@
-<lift:surround with="default" at="content">
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default2;at=content">
   <center><b>JSON Samples</b></center>
   <br >
   <div class="lift:Json.sample">
-    <json:script></json:script>
+      <div id="jsonscript"></div>
     <textarea id="json_question" rows="8" cols="50"></textarea>
     <br >
     <select id="json_select">
@@ -12,7 +21,7 @@
       <option value="error">Show an error</option>
     </select>
     <br >
-    <button json:onclick="onclick">Click Me</button>
+    <button class="json">Click Me</button>
     <div id="json_result"></div>
   </div>
 
@@ -68,4 +77,7 @@
 </pre>
 
 
-</lift:surround>
+</div>
+</body>
+
+</html>

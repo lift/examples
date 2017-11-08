@@ -79,7 +79,7 @@ object WebServices extends RestHelper {
   
   // a couple of helpful conversion rules
   implicit def userToInfo(u: User): UserInfo = 
-    UserInfo(u.firstName, u.lastName, u.email)
+    UserInfo(u.firstName.get, u.lastName.get, u.email.get)
 
   implicit def uLstToInfo(ul: List[User]): List[UserInfo] =
     ul.map(userToInfo)

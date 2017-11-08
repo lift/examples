@@ -27,22 +27,30 @@ import js._
 import JsCmds._
 import _root_.scala.xml.{Text, NodeSeq}
 
-class ExampleClock (initSession: LiftSession,
+class ExampleClock(initSession: LiftSession,
                    initType: Box[String],
                    initName: Box[String],
                    initDefaultXml: NodeSeq,
-                   initAttributes: Map[String, String]) extends CometActor {
+                   initAttributes: Map[String, String])
+    extends CometActor {
   // schedule a ping every 10 seconds so we redraw
   Schedule.schedule(this, Tick, 10 seconds)
 
-  def render = "#clock_time *" replaceWith timeNow.toString
+  def render = "#clock_time *" #> Text(now.toString)
 
   override def lowPriority = {
     case Tick =>
-      partialUpdate(SetHtml("clock_time", Text(timeNow.toString)))
+      partialUpdate(SetHtml("clock_time", Text(now.toString)))
       Schedule.schedule(this, Tick, 10 seconds)
   }
-  initCometActor(initSession, initType, initName, initDefaultXml, initAttributes)
+
+  val creationInfo = new CometCreationInfo(initType.orNull,
+                                           initName,
+                                           initDefaultXml,
+                                           initAttributes,
+                                           initSession)
+
+  initCometActor(creationInfo)
 }
 
 case object Tick

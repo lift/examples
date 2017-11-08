@@ -37,6 +37,8 @@ object Timely {
   def render(in: NodeSeq): NodeSeq = {
     var x = 0
 
+    def timesStr(x:Int): String = if (x == 1) "time" else "times"
+
     for {
       theId <- (in \ "@id")
       session <- S.session
@@ -46,7 +48,7 @@ object Timely {
         SetHtml(theId.text,
                 <span>The time of the last update to
                 this page is <b>{Helpers.now.toString}</b>,
-                and this section was updated {x} times.
+                and this section was updated <b>{x} {timesStr(x)}</b>.
               </span>)
       })
     }
