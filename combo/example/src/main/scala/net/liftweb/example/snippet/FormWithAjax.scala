@@ -24,6 +24,8 @@ import JsCmds._
 import util._
 import Helpers._
 
+import scala.xml.NodeSeq
+
 class FormWithAjax extends StatefulSnippet {
   private var firstName = ""
   private var lastName = ""
