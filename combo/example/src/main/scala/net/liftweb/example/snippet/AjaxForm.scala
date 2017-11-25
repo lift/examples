@@ -37,7 +37,10 @@ class AjaxForm {
     val first = cities.head
     // make the select "untrusted" because we might put new values
     // in the select
-    untrustedSelect(cities.map(s => (s, s)), Full(first), s => city = s)
+    untrustedSelect(cities.map(s => (s, s)),
+                    Full(first),
+                    s => city = s,
+                    "class" -> "form-control")
   }
 
   private def replace(state: String): JsCmd = {
@@ -49,11 +52,11 @@ class AjaxForm {
   def render = {
     "#state" #> ajaxSelect(AjaxForm.states.map(s => (s, s)), Full(state), { s =>
       state = s; After(200, replace(state))
-    }) &
+    }, "class" -> "form-control") &
       "#city" #> cityChoice(state) &
       "type=submit" #> submit(?("Save"), () => {
         S.notice("City: " + city + ", State: " + state); redirectTo("/")
-      })
+      }, "class" -> "btn btn-primary")
   }
 }
 

@@ -75,7 +75,7 @@ package net.liftweb {
           )
 
         // display a line
-        private def line(c: ChatLine) = {
+        private def line(c: ChatLine): NodeSeq = {
           ("name=when" #> hourFormat(c.when) &
             "name=who" #> c.user &
             "name=body" #> c.msg)(li)

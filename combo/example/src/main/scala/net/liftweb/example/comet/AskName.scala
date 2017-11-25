@@ -28,8 +28,14 @@ import _root_.scala.xml._
 class AskName extends CometActor {
   def render =
   ajaxForm(<div>What is your username?</div> ++
-           text("",name => answer(name.trim)) ++
-           <input type="submit" value="Enter"/>)
+      <div class="form-group row">
+        <div class="col-sm-8">
+          {text("",name => answer(name.trim), "class" -> "form-control form-control-sm")}
+        </div>
+        <div class="col-sm-2">
+          <input type="submit" value="Enter" class="btn btn-outline-primary btn-sm"/>
+        </div>
+      </div>)
 }
 
 }

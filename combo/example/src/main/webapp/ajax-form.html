@@ -14,11 +14,19 @@
     <br> Choose city and state:
     <br>
     <div data-lift="AjaxForm?form=post">
-      State:
-      <select id="state"></select>
-      City:
-      <select id="city"></select>
-      <input type="submit" />
+      <div class="form-group form-row">
+        <label for="state" class="col-form-label">State:</label>
+        <div class="col">
+          <select id="state"></select>
+        </div>
+        <label for="city" class="col-form-label">City:</label>
+        <div class="col">
+          <select id="city"></select>
+        </div>
+        <div class="col">
+          <input type="submit" />
+        </div>
+      </div>
     </div>
     <br>
     Here's the code:
@@ -33,7 +41,10 @@ class AjaxForm {
     val first = cities.head
     // make the select "untrusted" because we might put new values
     // in the select
-    untrustedSelect(cities.map(s => (s, s)), Full(first), s => city = s)
+    untrustedSelect(cities.map(s => (s, s)),
+                    Full(first),
+                    s => city = s,
+                    "class" -> "form-control")
   }
 
   private def replace(state: String): JsCmd = {
@@ -45,11 +56,11 @@ class AjaxForm {
   def render = {
     "#state" #> ajaxSelect(AjaxForm.states.map(s => (s, s)), Full(state), { s =>
       state = s; After(200, replace(state))
-    }) &
+    }, "class" -> "form-control") &
       "#city" #> cityChoice(state) &
       "type=submit" #> submit(?("Save"), () => {
         S.notice("City: " + city + ", State: " + state); redirectTo("/")
-      })
+      }, "class" -> "btn btn-primary")
   }
 }
 

@@ -119,6 +119,22 @@
     color: #B94A48;
 }
 
+.widget ul {
+  padding: 5px;
+}
+
+.widget ul li {
+  margin:0;
+  padding:0;
+  list-style:none;
+  border:1px solid #ccc;
+  border-bottom:none;
+}
+
+.widget ul li:last-child {
+  border-bottom:1px solid #ccc;
+}
+
 @media (min-width: 768px) {
   .main-border {
     border-left: 1px solid rgba(0, 0, 0, 0.1);

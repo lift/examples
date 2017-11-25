@@ -66,6 +66,6 @@ class FormWithAjax extends StatefulSnippet {
                               "class" -> "form-control",
                               "type" -> "text",
                               "placeholder" -> "Last name") &
-      "type=submit" #> submit("Send", validate _)
+      "type=submit" #> submit("Send", validate _, "class" -> "btn btn-primary")
   }
 }
