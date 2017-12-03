@@ -35,6 +35,7 @@ import _root_.java.util.Locale
 
 class Misc {
   private object selectedUser extends RequestVar[Box[User]](Empty)
+  // private val logger = Logger(classOf[Misc])
 
   /**
    * Get the XHTML containing a list of users
@@ -45,7 +46,7 @@ class Misc {
       case _ =>
     }
     // the header
-    <tr>{User.htmlHeaders}<th>Edit</th><th>Delete</th></tr> ::
+    <thead class="thead-light"><tr>{User.htmlHeaders}<th>Edit</th><th>Delete</th></tr></thead> ::
     // get and display each of the users
     User.findAll(OrderBy(User.id, Ascending)).flatMap(u => <tr>{u.htmlLine}
         <td>{link("/simple/edit", () => selectedUser(Full(u)), Text("Edit"))}</td>
@@ -88,7 +89,11 @@ class Misc {
 
       // oops... validation errors
       // display the errors and make sure our selected user is still the same
-    case x => error(x); selectedUser(Full(user))
+    case x => {
+      // x = List[FieldError]
+      error(x)
+      selectedUser(Full(user))
+    }
   }
 
   /**

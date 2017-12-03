@@ -1,7 +1,19 @@
-<lift:surround with="default" at="content">
-  <table>
-    <tr class="lift:misc.edit?form=post">
-      <td>foo</td>
-    </tr>
-  </table>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <table>
+      <tr data-lift="misc.edit?form=post">
+        <td>foo</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

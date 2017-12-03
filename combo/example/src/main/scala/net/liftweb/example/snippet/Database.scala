@@ -14,41 +14,38 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
 import _root_.net.liftweb.example.model._
-import _root_.scala.xml.{NodeSeq, Text, Group, Node}
-import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.S
 import _root_.net.liftweb.mapper._
 import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.common._
 
 /**
   * This snippet handles counting
   */
 class Database {
 
-  /**
-    * This method is invoked by the &lt;lift:Count /&gt; tag
-    */
-  def render(in: NodeSeq): NodeSeq = {
-	val count = Person.count()
-	val first = Person.find(OrderBy(Person.firstName, Ascending), MaxRows[Person](1))
+  def render = {
+    val count = Person.count()
+    val first =
+      Person.find(OrderBy(Person.firstName, Ascending), MaxRows[Person](1))
 
-	bind("database", in, "count" -> count,
-	"first" -> first.map(_.asHtml).openOr(<b>No Persons in the system</b>),
-	"submit" -> submit("Create More Records", () => {
-		val cnt = 10 + randomInt(50)
-		for (x <- 1 to cnt) Person.create.firstName(randomString(20)).lastName(randomString(20)).personalityType(Personality.rand).save
-		notice("Added "+cnt+" records to the Person table")
-	}))
+    "#count" #> count &
+      "#first" #> first.map(_.asHtml).openOr(<b>No Persons in the system</b>) &
+      "type=submit" #> submit(
+        "Create More Records",
+        () => {
+          val cnt = 10 + randomInt(50)
+          for (x <- 1 to cnt)
+            Person.create
+              .firstName(randomString(20))
+              .lastName(randomString(20))
+              .personalityType(Personality.rand)
+              .save
+          notice("Added " + cnt + " records to the Person table")
+        }
+      )
   }
-}
-}
-}
 }

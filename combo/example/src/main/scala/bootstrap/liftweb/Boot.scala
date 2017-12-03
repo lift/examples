@@ -222,8 +222,9 @@ object MenuInfo {
     Menu("Persistence") / "persistence" >> noGAE submenus (
       Menu("XML Fun") / "xml_fun" >> noGAE,
       Menu("Database") / "database" >> noGAE,
-      Menu(Loc("simple", Link(List("simple"), true, "/simple/index"), "Simple Forms", noGAE)),
-      Menu("Templates") / "template" >> noGAE),
+      Menu(Loc("simple", Link(List("simple"), true, "/simple/index"), "Simple Forms", noGAE)) //,
+      // Menu("Templates") / "template" >> noGAE
+      ),
     Menu("Templating") / "templating" / "index" submenus(
       Menu("Surround") / "templating" / "surround",
       Menu("Embed") / "templating" / "embed",
@@ -351,7 +352,7 @@ object BrowserLogger extends Loggable {
 object SessionInfoDumper extends LiftActor with Loggable {
   private var lastTime = millis
 
-  private def cyclePeriod = 1 minute
+  private def cyclePeriod = 10 minute
 
   import net.liftweb.example.lib.SessionChecker
 

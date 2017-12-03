@@ -1,5 +1,20 @@
-<lift:surround with="default" at="content">
-  <table>
-    <div class="lift:misc.add?form=post"></div>
-  </table>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <table class="table table-responsive table-striped">
+      <tr data-lift="misc.add?form=post">
+        <td>foo</td>
+      </tr>
+    </table>
+    <span data-lift="Msg?id=user_id&errorClass=error"></span>
+  </div>
+</body>
+
+</html>
