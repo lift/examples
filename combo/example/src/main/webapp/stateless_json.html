@@ -12,17 +12,19 @@
     <center>
       <b>Stateless JSON Sample</b>
     </center>
-    <br>
-    <textarea id="json_question" rows="8" cols="50"></textarea>
-    <br>
-    <select id="json_select">
-      <option value="show">Show</option>
-      <option value="textile">Show in Textile</option>
-      <option value="count">Count Characters</option>
-      <option value="error">Show an error</option>
-    </select>
-    <br>
-    <button onclick="jQuery.ajax({ url : 'stateless_json_call', data : JSON.stringify({'command': document.getElementById('json_select').value, 'params':document.getElementById('json_question').value}), type : 'POST', dataType : 'script', contentType: 'text/json', timeout : 5000, cache : false});">Click Me</button>
+    <div class="form-group">
+      <textarea id="json_question" class="form-control" rows="8"></textarea>
+    </div>
+    <div class="form-group">
+      <select id="json_select" class="form-control">
+        <option value="show">Show</option>
+        <option value="textile">Show in Textile</option>
+        <option value="count">Count Characters</option>
+        <option value="error">Show an error</option>
+      </select>
+    </div>
+    <button onclick="jQuery.ajax({ url : 'stateless_json_call', data : JSON.stringify({'command': document.getElementById('json_select').value, 'params':document.getElementById('json_question').value}), type : 'POST', dataType : 'script', contentType: 'text/json', timeout : 5000, cache : false});"
+      class="btn btn-primary">Click Me</button>
     <div id="json_result"></div>
 
     <p>Here's the code:</p>

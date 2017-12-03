@@ -2,49 +2,87 @@
 <html>
 
 <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-    <title>Template</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
 </head>
 
 <body data-lift-content-id="main">
-<div id="main" data-lift="surround?with=default2;at=content">
-  <center><b>JSON Samples</b></center>
-  <br >
-  <div class="lift:Json.sample">
-      <div id="jsonscript"></div>
-    <textarea id="json_question" rows="8" cols="50"></textarea>
-    <br >
-    <select id="json_select">
-      <option value="show">Show</option>
-      <option value="textile">Show in Textile</option>
-      <option value="count">Count Characters</option>
-      <option value="error">Show an error</option>
-    </select>
-    <br >
-    <button class="json">Click Me</button>
-    <div id="json_result"></div>
-  </div>
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <center>
+      <b>JSON Samples</b>
+    </center>
+    <br>
+    <div data-lift="JsonCall">
+      <p>Enter an addition question:</p>
 
-  <p>Here's the code:</p>
+      <div class="form-row">
+        <div class="form-inline">
+          <input id="x" class="form-control mb-1 mr-sm-1 mb-sm-1">
+          <label class="mr-sm-1">+</label>
+          <input id="y" class="form-control mb-1 mr-sm-1 mb-sm-1">
+          <label class="mr-sm-1">=</label>
+          <input id="z" class="form-control mb-1 mr-sm-1 mb-sm-1">
+          <button class="btn btn-primary form-control mb-1 mr-sm-1 mb-sm-1">Check</button>
+        </div>
+      </div>
+
+    </div>
+
+    <script type="text/javascript">
+      // <![CDATA[
+      function currentQuestion() {
+        return {
+          first: parseInt($('#x').val()),
+          second: parseInt($('#y').val()),
+          answer: parseInt($('#z').val())
+        };
+      }
+// ]]>
+    </script>
+
+    <br>
+    <div data-lift="Json.sample">
+      <div id="jsonscript"></div>
+      <div class="form-group">
+        <textarea id="json_question" class="form-control" rows="8"></textarea>
+      </div>
+      <div class="form-group">
+        <select id="json_select" class="form-control">
+          <option value="show">Show</option>
+          <option value="textile">Show in Textile</option>
+          <option value="count">Count Characters</option>
+          <option value="error">Show an error</option>
+        </select>
+      </div>
+      <button class="json btn btn-primary">Click Me</button>
+      <div id="json_result"></div>
+    </div>
+
+    <p>Here's the code:</p>
 
     <style type="text/css">
-    /* <![CDATA[ */
+      /* <![CDATA[ */
+
       .function-name {
         /* font-lock-function-name-face */
         color: #0000ff;
       }
+
       .keyword {
         /* font-lock-keyword-face */
         color: #a020f0;
       }
+
       .string {
         /* font-lock-string-face */
         color: #bc8f8f;
       }
+
       .type {
         /* font-lock-type-face */
         color: #228b22;
       }
+
       .variable-name {
         /* font-lock-variable-name-face */
         color: #b8860b;
@@ -77,7 +115,7 @@
 </pre>
 
 
-</div>
+  </div>
 </body>
 
 </html>
