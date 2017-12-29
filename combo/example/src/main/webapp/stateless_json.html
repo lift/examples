@@ -9,9 +9,20 @@
 <body data-lift-content-id="main">
 
   <div id="main" data-lift="surround?with=default2;at=content">
-    <center>
-      <b>Stateless JSON Sample</b>
-    </center>
+
+    <h2>Stateless JSON Sample</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Stateless JSON Sample</li>
+      </ol>
+    </nav>
+
     <div class="form-group">
       <textarea id="json_question" class="form-control" rows="8"></textarea>
     </div>
@@ -26,9 +37,7 @@
     <button onclick="jQuery.ajax({ url : 'stateless_json_call', data : JSON.stringify({'command': document.getElementById('json_select').value, 'params':document.getElementById('json_question').value}), type : 'POST', dataType : 'script', contentType: 'text/json', timeout : 5000, cache : false});"
       class="btn btn-primary">Click Me</button>
     <div id="json_result"></div>
-
-    <p>Here's the code:</p>
-
+    <br> Here's the code:
     <pre><code class="scala">
 object StatelessJson {
   def init() {

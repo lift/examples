@@ -35,7 +35,7 @@ import _root_.java.util.Locale
 
 class Misc {
   private object selectedUser extends RequestVar[Box[User]](Empty)
-  // private val logger = Logger(classOf[Misc])
+  private val logger = Logger(classOf[Misc])
 
   /**
    * Get the XHTML containing a list of users
@@ -49,8 +49,8 @@ class Misc {
     <thead class="thead-light"><tr>{User.htmlHeaders}<th>Edit</th><th>Delete</th></tr></thead> ::
     // get and display each of the users
     User.findAll(OrderBy(User.id, Ascending)).flatMap(u => <tr>{u.htmlLine}
-        <td>{link("/simple/edit", () => selectedUser(Full(u)), Text("Edit"))}</td>
-        <td>{link("/simple/delete", () => selectedUser(Full(u)), Text("Delete"))}</td>
+        <td>{link("/simple/edit", () => selectedUser(Full(u)), Text("Edit"), "class" -> "btn btn-sm btn-outline-secondary")}</td>
+        <td>{link("/simple/delete", () => selectedUser(Full(u)), Text("Delete"), "class" -> "btn btn-sm btn-outline-secondary")}</td>
                                                            </tr>)
   }
 
@@ -72,7 +72,11 @@ class Misc {
         // in the current content)
         val bindDelete = {
           "#username" #> (user.firstName.get + " " + user.lastName.get) &
-            "#delete" #> submit("Delete", deleteUser _)
+            "#delete" #> submit(
+              "Yes delete",
+              deleteUser _,
+              "type" -> "button",
+              "class" -> "btn btn-danger")
         }
        bindDelete(xhtml)
 
@@ -90,8 +94,8 @@ class Misc {
       // oops... validation errors
       // display the errors and make sure our selected user is still the same
     case x => {
-      // x = List[FieldError]
-      error(x)
+      logger.debug("SaveUser got a validation error="+x.toString())
+      S.error(x)
       selectedUser(Full(user))
     }
   }
@@ -101,8 +105,8 @@ class Misc {
    */
   def add(xhtml: Group): NodeSeq =
   selectedUser.is.openOr(new User).toForm(Empty, saveUser _) ++ <tr>
-    <td><a href="/simple/index.html">Cancel</a></td>
-    <td><input type="submit" value="Create"/></td>
+    <td><a class="btn btn-outline-secondary" href="/simple/index.html">Cancel</a></td>
+    <td><button class="btn btn-primary" type="submit">Create</button></td>
                                                                 </tr>
 
   /**
@@ -118,8 +122,8 @@ class Misc {
                    // form fields are bound to the model's fields by this
                    // call.
                    toForm(Empty, saveUser _) ++ <tr>
-      <td><a href="/simple/index.html">Cancel</a></td>
-      <td><input type="submit" value="Save"/></td>
+      <td><a class="btn btn-outline-secondary" href="/simple/index.html">Cancel</a></td>
+      <td><button class="btn btn-primary" type="submit">Save</button></td>
                                                 </tr>
 
                    // bail out if the ID is not supplied or the user's not found

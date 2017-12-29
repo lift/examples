@@ -43,9 +43,16 @@ class XmlFun extends LiftView {
           </head>
           <body data-lift-content-id="main">
             <div id="main" data-lift="surround?with=default2;at=content">
-              <p>The XML is
-                <pre>{addresses.map{e => Text(e.toString) :: <br/> :: Nil}}</pre>
-              </p>
+              <h2>XML Fun</h2>
+              <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="persistence.html">Persistence</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">XML Fun</li>
+                </ol>
+              </nav>
+              The XML is
+              <pre><code class="xml">{addresses.map{e => Text(e.toString) :: <br/> :: Nil}}</code></pre>
               <p><b>The count for {toCount} nodes is {countryCount(toCount, addresses)}</b></p>
               <p><a href='/xml_fun'>Count US addresses.</a></p>
               <p><a href='/xml_fun?country=GB'>Count GB addresses.</a></p>

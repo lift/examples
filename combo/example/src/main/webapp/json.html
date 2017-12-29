@@ -8,10 +8,21 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-    <center>
-      <b>JSON Samples</b>
-    </center>
-    <br>
+
+    <h2>JSON Samples</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">JSON Samples</li>
+      </ol>
+    </nav>
+
+    <h4>Example 1</h4>
     <div data-lift="JsonCall">
       <p>Enter an addition question:</p>
 
@@ -37,10 +48,11 @@
           answer: parseInt($('#z').val())
         };
       }
-// ]]>
+      // ]]>
     </script>
 
-    <br>
+    <hr>
+    <h4>Example 2</h4>
     <div data-lift="Json.sample">
       <div id="jsonscript"></div>
       <div class="form-group">
@@ -87,7 +99,6 @@
         /* font-lock-variable-name-face */
         color: #b8860b;
       }
-
       /* ]]> */
     </style>
 

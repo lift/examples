@@ -5,15 +5,27 @@
   <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
   <title>Template</title>
 </head>
-
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-    <a href='/simple/add'>Add a User</a>
+    <h2>Simple Forms</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="../persistence.html">Persistence</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Simple Forms</li>
+      </ol>
+    </nav>
+
     <table class="table table-responsive table-striped table-hover table-sm" width="90%">
       <tr data-lift="misc.users">
         <td>test</td>
       </tr>
     </table>
+    <a class="btn btn-outline-primary" href='/simple/add'>Add a User</a>
   </div>
 </body>
 

@@ -1,11 +1,28 @@
-<lift:surround with="default" at="content">
-  <center><b>More JSON Samples</b></center>
-  <br >
-  <span class="lift:AllJson"></span>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-  <div>
-    <script>
-      // <![CDATA[
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>More JSON Samples</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">More JSON Samples</li>
+      </ol>
+    </nav>
+    <br>
+    <span class="lift:AllJson"></span>
+
+    <div>
+      <script>
+        // <![CDATA[
         function callNoParam() {
           noParam("noParamCallback");
         }
@@ -13,16 +30,14 @@
         function noParamCallback() {
           alert("the server called me back... woo hoo!");
         }
-      // ]]>
-    </script>
-    This example calls the <code>noParam</code> function which
-    invokes a server-side JSON call that then calls a handler
-    back in the browser.  
-    <button onclick="javascript:callNoParam()">Press Me</button>
+        // ]]>
+      </script>
+      This example calls the
+      <code>noParam</code> function which invokes a server-side JSON call that then calls a handler back in the browser.
+      <button onclick="javascript:callNoParam()">Press Me</button>
 
-    <br>
-    The client-side JavaScript for looks like:
-    <pre>
+      <br> The client-side JavaScript for looks like:
+      <pre>
     &lt;<span class="function-name">script</span>&gt;
       // &lt;![CDATA[
         function callNoParam() {
@@ -35,13 +50,13 @@
       // ]]&gt;
     &lt;/<span class="function-name">script</span>&gt;
 </pre>
-  </div>
+    </div>
 
-  <hr>
-  
-  <div>
-    <script>
-      // <![CDATA[
+    <hr>
+
+    <div>
+      <script>
+        // <![CDATA[
         function stringSender() {
           var q = jQuery("#myField")[0];
           var v = q.value;
@@ -49,20 +64,19 @@
         }
 
         function stringCallback(what) {
-          jQuery("#dest")[0].innerHTML = "The server said: "+what;
+          jQuery("#dest")[0].innerHTML = "The server said: " + what;
         }
-      // ]]>
-    </script>
+        // ]]>
+      </script>
 
-    Let's send the contents of a test field and process it:
+      Let's send the contents of a test field and process it:
 
-    <input id="myField">
-    <button onclick="javascript:stringSender()">Press Me</button>
-    <br>
-    <div id="dest"></div>
-    <br>
-    The Script to do this is:
-        <pre>
+      <input id="myField">
+      <button onclick="javascript:stringSender()">Press Me</button>
+      <br>
+      <div id="dest"></div>
+      <br> The Script to do this is:
+      <pre>
     &lt;<span class="function-name">script</span>&gt;
       // &lt;![CDATA[
         function stringSender() {
@@ -78,13 +92,13 @@
     &lt;/<span class="function-name">script</span>&gt;
 </pre>
 
-  </div>
+    </div>
 
-  <hr >
-  
-  <div>
-    <script>
-      // <![CDATA[
+    <hr>
+
+    <div>
+      <script>
+        // <![CDATA[
         function parseAndSend() {
           var q = jQuery("#numbers")[0];
           var v = q.value;
@@ -96,50 +110,53 @@
         }
 
         function addOneCallback(what) {
-          alert("Server sez: "+what);
+          alert("Server sez: " + what);
         }
-      // ]]>
-    </script>
-    
-    
-    Let's send some numbers to the server and have the server
-    add 1 to each of the numbers.
-    <br >
-    Enter comma separated numbers:
-    <input id="numbers" style="width: 300px;">
-    <button onclick="parseAndSend()">Click Me</button>
-  </div>
-  
-  <hr>
+        // ]]>
+      </script>
 
 
-  <div>
-    The server-side code looks like:
-    <style type="text/css">
-    /* <![CDATA[ */
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
-    <pre>
+      Let's send some numbers to the server and have the server add 1 to each of the numbers.
+      <br> Enter comma separated numbers:
+      <input id="numbers" style="width: 300px;">
+      <button onclick="parseAndSend()">Click Me</button>
+    </div>
+
+    <hr>
+
+
+    <div>
+      The server-side code looks like:
+      <style type="text/css">
+        /* <![CDATA[ */
+
+        .function-name {
+          /* font-lock-function-name-face */
+          color: #0000ff;
+        }
+
+        .keyword {
+          /* font-lock-keyword-face */
+          color: #a020f0;
+        }
+
+        .string {
+          /* font-lock-string-face */
+          color: #bc8f8f;
+        }
+
+        .type {
+          /* font-lock-type-face */
+          color: #228b22;
+        }
+
+        .variable-name {
+          /* font-lock-variable-name-face */
+          color: #b8860b;
+        }
+        /* ]]> */
+      </style>
+      <pre>
   <span class="keyword">new</span> JsonHandler {
     <span class="keyword">def</span> <span class="function-name">apply</span>(<span class="variable-name">in</span>: <span class="type">Any</span>): <span class="type">JsCmd </span>= in <span class="keyword">match</span> {
       <span class="keyword">case</span> <span class="type">JsonCmd</span>(<span class="string">"noParam"</span>, <span class="variable-name">resp</span>, <span class="variable-name">_</span>, <span class="variable-name">_</span>) =&gt;
@@ -157,6 +174,9 @@
 </pre>
 
 
-  </div>
+    </div>
 
-</lift:surround>
+  </div>
+</body>
+
+</html>

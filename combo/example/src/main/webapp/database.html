@@ -7,19 +7,32 @@
 </head>
 
 <body data-lift-content-id="main">
-<div id="main" data-lift="surround?with=default2;at=content">
-<p><i>Lift</i> allows you to create model objects that
-map themselves to and from the database.  Here's an example of
-a "User" model object.</p>
+    <div id="main" data-lift="surround?with=default2;at=content">
+        <h2>Database</h2>
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="persistence.html">Persistence</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Database</li>
+            </ol>
+        </nav>
+        <p>
+            <i>Lift</i> allows you to create model objects that map themselves to and from the database. Here's an example of
+            a "User" model object.</p>
 
-<p>object User extends User
-	<div data-lift="Database?form=post">
-	There are <span id="count"></span> records in the "Person" table.  The first one is <span id="first"></span>.
-	Press <button type="submit" class="btn btn-primary"></button> to create more records.
-	</div>
-	</p>
-
-    <pre><code class="scala">
+        object User extends User
+        <div data-lift="Database?form=post">
+            There are
+            <span id="count"></span> records in the "Person" table. The first one is
+            <span id="first"></span>. Press
+            <button type="submit" class="btn btn-primary"></button> to create more records.
+        </div>
+        <br>
+        <pre><code class="scala">
 /**
   * The singleton that has methods for accessing the database
   */
@@ -47,16 +60,12 @@ class User extends ProtoUser[User] {
 }
     </code></pre>
 
-<p>For this little bit of work, we get a complete user with
-first name, last name, password, email, and a personal essay.
+        <p>For this little bit of work, we get a complete user with first name, last name, password, email, and a personal essay.
+            Each of the fields knows how to validate itself. The User (and any other "Mapped" class) knows how to Create,
+            Update, Read, and Delete itself from the database. It knows how to convert itself to a string, to XML, and even
+            generate HTML forms for itself.</p>
 
-Each of the fields knows how to validate itself.  The
-User (and any other "Mapped" class) knows how to Create,
-Update, Read, and Delete itself from the database.  It knows
-how to convert itself to a string, to XML, and even generate
-HTML forms for itself.</p>
-
-</div>
+    </div>
 </body>
 
 </html>

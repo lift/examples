@@ -39,7 +39,6 @@ package net.liftweb {
           ajaxButton(in,
                      () =>
                        S.runTemplate(List("_jsdialog_confirm"))
-                         //.map(ns => ns) openOr
                         .map(ns => ModalDialog(ns)) openOr
                          Alert("Couldn't find _jsdialog_confirm template"),
                          "class" -> "btn btn-primary")
@@ -47,7 +46,7 @@ package net.liftweb {
        /* def button(in: NodeSeq) =
           ajaxButton(in,
             () =>
-              S.runTemplate(List("_jsdialog_confirm")).map(ns =>  JqSetHtml("modal",ns)) openOr
+              S.runTemplate(List("_bsdialog_confirm")).map(ns =>  JqSetHtml("modal",ns)) openOr
                 Alert("Couldn't find _jsdialog_confirm template"),
             "class" -> "btn btn-primary", "data-toggle" -> "modal", "data-target" -> "modal") */
 

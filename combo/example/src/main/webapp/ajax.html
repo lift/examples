@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
     <title>Template</title>
 </head>
+
 <body data-lift-content-id="main">
-<div id="main" data-lift="surround?with=default2;at=content">
+    <div id="main" data-lift="surround?with=default2;at=content">
 
-    <!-- The AutoComplete function (widgets.autocomplete) used by Ajax.scala uses a
+        <!-- The AutoComplete function (widgets.autocomplete) used by Ajax.scala uses a
     really old jqurey so we need to add jquery migrate for that functionality to work. -->
-    <head_merge>
-        <script id="jquery-migrate" src="/classpath/fobo/jquery-migrate.js" type="text/javascript"></script>
-    </head_merge>
+        <head_merge>
+            <script id="jquery-migrate" src="/classpath/fobo/jquery-migrate.js" type="text/javascript"></script>
+        </head_merge>
+        <h2>AJAX Samples</h2>
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="interactive.html">Interactive Stuff</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">AJAX Samples</li>
+            </ol>
+        </nav>
 
-    <center><b>AJAX Samples</b></center>
-    <br >
-    <div data-lift="Ajax.sample?id_name=cnt_id;id_msgs=messages">
-        <div id="ajaxClicker">
-            <span>Click me to increase the count (currently <span id='cnt_id'>0</span>)</span>
-        </div>
+        <div data-lift="Ajax.sample?id_name=cnt_id;id_msgs=messages">
+            <div id="ajaxClicker">
+                <span>Click me to increase the count (currently
+                    <span id='cnt_id'>0</span>)</span>
+            </div>
 
-        <br>
+            <br>
 
-        <div id="messages"></div>
-        <div id="bcmessages"></div>
+            <div id="messages"></div>
+            <div id="bcmessages"></div>
 
-        <div class="form-group row">
-            <div class="col-sm-2">
-        <div id="ajaxSelect">
-            You selected '<span id="selNumber"></span>' from the select box.
-        </div>
-        </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-6">
-        <div id="ajaxText">
-            You entered '<span id="textValue"></span>' in the text box.
-        </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <div id="ajaxSelect">
+                        You selected '
+                        <span id="selNumber"></span>' from the select box.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <div id="ajaxText">
+                        You entered '
+                        <span id="textValue"></span>' in the text box.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-12 col-form-label" for="ajaxAuto">An example of autocomplete with a server round trip to calculate the autocomplete list</label>
+                <div class="col-sm-6">
+                    <div id="ajaxAuto"></div>
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-form-label" for="ajaxAuto">An example of autocomplete with a server round trip to
-                calculate the autocomplete list</label>
-            <div class="col-sm-6">
-        <div id="ajaxAuto"></div>
-            </div>
-        </div>
-    </div>
-        <hr >
+        <hr>
         <p>
-            And each time an Ajax or Comet update is made to the page,
-            we update this span:
+            And each time an Ajax or Comet update is made to the page, we update this span:
             <span id="timely" data-lift="Timely">The time is</span>
         </p>
 
 
 
-    <div class="form-row">
-        <label for="the_input" class="col-sm-3 col-form-label">Enter some text:</label>
-        <div class="col-sm-5">
-          <input id="the_input" class="form-control">
+        <div class="form-row">
+            <label for="the_input" class="col-sm-3 col-form-label">Enter some text:</label>
+            <div class="col-sm-5">
+                <input id="the_input" class="form-control">
+            </div>
+            <div class="col-sm-4">
+                and
+                <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
+            </div>
         </div>
-        <div class="col-sm-4">
-            and <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
-        </div>
-    </div>
 
-    <br >
+        <br> The
+        <i>Lift</i> Scala code to render the controls:
+        <br>
 
-    The <i>Lift</i> Scala code to render the controls:
-    <br >
-
-    <pre><code class="scala">
+        <pre><code class="scala">
 class Ajax extends Loggable {
 
     def sample(xhtml: NodeSeq): NodeSeq = {
@@ -151,8 +164,7 @@ class Ajax extends Loggable {
   }
     </code></pre>
 
-  </div>
+    </div>
 </body>
 
 </html>
-

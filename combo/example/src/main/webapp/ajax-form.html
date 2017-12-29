@@ -8,11 +8,21 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-    <center>
-      <b>AJAX Form Update</b>
-    </center>
-    <br> Choose city and state:
-    <br>
+    <h2>AJAX Form Update</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">AJAX Form Update</li>
+      </ol>
+    </nav>
+
+    Choose city and state:
+
     <div data-lift="AjaxForm?form=post">
       <div class="form-group form-row">
         <label for="state" class="col-form-label">State:</label>
@@ -28,7 +38,7 @@
         </div>
       </div>
     </div>
-    <br> Here's the code:
+    Here's the code:
     <pre><code class="scala">
 class AjaxForm {
   var state = AjaxForm.state

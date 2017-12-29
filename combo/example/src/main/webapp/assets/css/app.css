@@ -1,9 +1,9 @@
 .widget {
-  border:1px solid #ccc;
-  background:#f5f5f5;
-  padding:5px;
-  margin:10px 0 0 0;
-  font-size:8pt;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  padding: 5px;
+  margin: 10px 0 0 0;
+  font-size: 8pt;
 }
 
 .sidebar ul {
@@ -12,23 +12,23 @@
 }
 
 .sidebar ul li {
-  margin:0;
-  padding:0;
-  list-style:none;
-  border:1px solid #ccc;
-  border-bottom:none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  border-bottom: none;
 }
-.sidebar > ul > li:last-child {
-  border-bottom:1px solid #ccc;
+
+.sidebar>ul>li:last-child {
+  border-bottom: 1px solid #ccc;
 }
 
 .sidebar ul li ul li {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   border-style: none;
   list-style-position: inside;
   padding-left: 10px;
-
 }
 
 .sidebar ul li ul li a {
@@ -41,36 +41,33 @@
 }
 
 .sidebar ul li ul li span {
-  display:inline;
-  padding:0px;
+  display: inline;
+  padding: 0px;
 }
 
-
 .sidebar ul li a {
-  display:block;
-  padding:3px;
-  text-indent:10px;
-  text-decoration:none;
+  display: block;
+  padding: 3px;
+  text-indent: 10px;
+  text-decoration: none;
 }
 
 .sidebar ul li span {
-  display:block;
-  padding:3px;
-  text-indent:10px;
-  text-decoration:none;
+  display: block;
+  padding: 3px;
+  text-indent: 10px;
+  text-decoration: none;
 }
-
 
 .sidebar ul li a:hover {
   background-color: #eee;
 }
 
-
 #poweredBy .alt {
-    color: #666;
-    font-family: "Warnock Pro", "Goudy Old Style","Palatino","Book Antiqua", Georgia, serif;
-    font-style: italic;
-    font-weight: normal;
+  color: #666;
+  font-family: "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiqua", Georgia, serif;
+  font-style: italic;
+  font-weight: normal;
 }
 
 .lift_error {
@@ -81,42 +78,44 @@
   color: yellow;
 }
 
-.lift_notice {
-}
+.lift_notice {}
 
 .main-border {
   border-left: none;
 }
 
+
 /*Lift stuff*/
+
+
 /*Lift notice*/
+
 #wrappedNotice #lift__noticesContainer___notice ul,
 #wrappedNotice #lift__noticesContainer___warning ul,
-#wrappedNotice #lift__noticesContainer___error ul
-{
-	padding:5px;
-    list-style-type: none;
+#wrappedNotice #lift__noticesContainer___error ul {
+  padding: 5px;
+  list-style-type: none;
 }
 
 #wrappedNotice #lift__noticesContainer___notice {
-	border-radius: 5px;
-    background-color: #D9EDF7;
-    border-color: #BCE8F1;
-    color: #3A87AD;
+  border-radius: 5px;
+  background-color: #D9EDF7;
+  border-color: #BCE8F1;
+  color: #3A87AD;
 }
 
 #wrappedNotice #lift__noticesContainer___warning {
-	border-radius: 5px;
-    background-color: #FCF8E3;
-    border-color: #FBEED5;
-    color: #C09853;
+  border-radius: 5px;
+  background-color: #FCF8E3;
+  border-color: #FBEED5;
+  color: #C09853;
 }
 
 #wrappedNotice #lift__noticesContainer___error {
-    border-radius: 5px;
-    background-color: #F2DEDE;
-    border-color: #EED3D7;
-    color: #B94A48;
+  border-radius: 5px;
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+  color: #B94A48;
 }
 
 .widget ul {
@@ -124,15 +123,21 @@
 }
 
 .widget ul li {
-  margin:0;
-  padding:0;
-  list-style:none;
-  border:1px solid #ccc;
-  border-bottom:none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  border-bottom: none;
 }
 
 .widget ul li:last-child {
-  border-bottom:1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+/* bootstrap overrides */
+.breadcrumb {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.8rem;
 }
 
 @media (min-width: 768px) {

@@ -8,12 +8,30 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Add User</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="../persistence.html">Persistence</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="index.html">Simple Forms</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Add User</li>
+      </ol>
+    </nav>
+    <div id="wrappedNotice">
+      <div data-lift="Msgs?showAll=true"></div>
+    </div>
     <table class="table table-responsive table-striped">
       <tr data-lift="misc.add?form=post">
         <td>foo</td>
       </tr>
     </table>
-    <span data-lift="Msg?id=user_id&errorClass=error"></span>
+
   </div>
 </body>
 

@@ -11,6 +11,24 @@
     <head_merge>
       <script type="text/javascript" src="/scripts/jquery.blockUI.js"></script>
     </head_merge>
+    <h2>Modal Dialog</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Modal Dialog</li>
+      </ol>
+    </nav>
+
+    <p>This section has two examples showing how you could work with modal dialogs that has there template data in a separate
+      file. The first example is a plain javascript dialog while the other one is taking advantage of bootstrap's javascript
+      modals.</p>
+
+    <h4>JS dialog example</h4>
     <span data-lift="JSDialog.button">
       Destroy Rhode Island
     </span>
@@ -41,6 +59,59 @@
               &lt;/button&gt;)
         }
       }
+    </code></pre>
+    <br>
+    <h4>Bootstrap dialog example</h4>
+    <span data-lift="BSDialog.button">Destroy Rhode Island</span>
+    <span id="modalPlaceholder"></span>
+    <br>
+    <br> The code:
+    <pre><code class="scala">
+class BSDialog {
+  // build the button... when pressed, present
+  // a dialog based on the _bsdialog_confirm
+  // template
+  def button(in: NodeSeq) =
+    ajaxButton(in,
+               () => injectDialogTemplate & openDialog,
+               "type" -> "button",
+               "class" -> "btn btn-primary",
+               "data-target" -> "#exampleModal")
+
+  def confirm = {
+    "#yes" #> ((b: NodeSeq) =>
+      ajaxButton(b, () => {
+        logger.debug("Rhode Island Destroyed")
+        showDestroyAlert & closeDialog
+      }, "type" -> "button", "class" -> "btn btn-primary")) &
+      "#no" #> ((b: NodeSeq) =>
+        ajaxButton(
+          b,
+          () => {
+            logger.debug("Rhode Island intact")
+            Noop //we could have used closeDialog here but we are instead using the data-dismiss attribute.
+          },
+          "type" -> "button",
+          "class" -> "btn btn-primary",
+          "data-dismiss" -> "modal"
+        ))
+  }
+
+  private val logger = Logger(classOf[BSDialog])
+  private val bsDialogTemplate: Box[NodeSeq] = Templates(
+    List("_bsdialog_confirm"))
+  private val openDialog
+    : JsCmd = JsRaw("""$('#exampleModal').modal('show')""").cmd
+  private val closeDialog
+    : JsCmd = JsRaw("""$('#exampleModal').modal('hide')""").cmd
+  private val showDestroyAlert = Alert("Rhode Island Destroyed")
+  private val showTemplateNotFoundAlert = Alert(
+    "Couldn't find _bsdialog_confirm template")
+
+  private def setAtPlaceholder(ns: NodeSeq) = SetHtml("modalPlaceholder", ns)
+  private def injectDialogTemplate =
+    bsDialogTemplate map setAtPlaceholder openOr showTemplateNotFoundAlert
+}
     </code></pre>
   </div>
 </body>

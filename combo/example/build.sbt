@@ -1,12 +1,12 @@
 enablePlugins(JettyPlugin)
 
-organization := "Lift"
+organization := "net.liftweb"
 
 name := "demo"
 
-version := "0.5"
+version := "0.5.1-SNAPSHOT"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.11.11" //2.12.2
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 

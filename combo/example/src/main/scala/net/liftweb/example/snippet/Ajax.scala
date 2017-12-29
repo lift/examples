@@ -84,7 +84,7 @@ package net.liftweb {
               "#ajaxText" #> doText _ &
               "#ajaxAuto" #> AutoComplete("",
                                           buildQuery _,
-                                          _ => (),
+                                          (x:String) => (),
                                           "class" -> "form-control")
           }
           viewBind(xhtml)

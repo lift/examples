@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
   <title>Template</title>
 </head>
+
 <body data-lift-content-id="main">
-<div id="main" data-lift="surround?with=default2;at=content">
-
-  <div class="widget">
-    <center><b>Group Chat</b></center><br >
-    <div data-lift="comet?type=Chat;name=Other;ul_id=main_ul_id;li_id=main_li_id">
-      Hello <span name="chat_name">Your name</span>
-      <ul id="main_ul_id">
-        <li id="main_li_id">
-          <span name="when">12:15</span>
-          <span name="who">dpp</span>
-          <i><span name="body">My Message</span></i>
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Comet Chat</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
         </li>
-      </ul>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Comet Chat</li>
+      </ol>
+    </nav>
+
+    <div class="widget">
+      <center>
+        <b>Group Chat</b>
+      </center>
+      <br>
+      <div data-lift="comet?type=Chat;name=Other;ul_id=main_ul_id;li_id=main_li_id">
+        Hello
+        <span name="chat_name">Your name</span>
+        <ul id="main_ul_id">
+          <li id="main_li_id">
+            <span name="when">12:15</span>
+            <span name="who">dpp</span>
+            <i>
+              <span name="body">My Message</span>
+            </i>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <p>
-    The total chat app, including the ask/answer component for soliciting a
-    name
-    comments, etc. is listed on this page.
-    There is no special code to support AJAX/Comet
-    (all the wrapping is done automatically by <i>Lift</i>).
-  </p>
+    <p>
+      The total chat app, including the ask/answer component for soliciting a name comments, etc. is listed on this page. There
+      is no special code to support AJAX/Comet (all the wrapping is done automatically by
+      <i>Lift</i>).
+    </p>
 
-  <p>
-    When the Chat comet widget is added to the page, it needs to solict the
-    user for a "chat name".  It asks the "AskName" comet widget for the name.
-    Until the AskName comet widget provides a name, all rendering messages
-    are forwarded to AskName.
-    Here's the code for the "AskName":</p>
+    <p>
+      When the Chat comet widget is added to the page, it needs to solict the user for a "chat name". It asks the "AskName" comet
+      widget for the name. Until the AskName comet widget provides a name, all rendering messages are forwarded to AskName.
+      Here's the code for the "AskName":</p>
 
-  <pre><code class="scala">
+    <pre><code class="scala">
 class Chat extends CometActor with CometListener {
   private var userName = ""
   private var chats: List[ChatLine] = Nil
@@ -121,14 +137,13 @@ class Chat extends CometActor with CometListener {
 }
   </code></pre>
 
-  <p>
-    This example demonstrates the power of Scala's Actors and <i>Lift</i>.
-    With very few lines of code, we've got a complete AJAX/Comet app that
-    has Seaside style Ask/Answer for building modal dialogs.
-  </p>
-</div>
+    <p>
+      This example demonstrates the power of Scala's Actors and
+      <i>Lift</i>. With very few lines of code, we've got a complete AJAX/Comet app that has Seaside style Ask/Answer for building
+      modal dialogs.
+    </p>
+  </div>
 
 </body>
 
 </html>
-

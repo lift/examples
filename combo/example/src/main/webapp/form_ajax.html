@@ -8,32 +8,40 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-    <center>
-      <b>Forms with Ajax callback on form element blur</b>
-    </center>
-    <br> Enter your first and last name:
+    <h2>Ajax and Forms</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="interactive.html">Interactive Stuff</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Ajax and Forms</li>
+      </ol>
+    </nav>
+
+    <h4>Example: Forms with Ajax callback on form element blur</h4>
+    Enter your first and last name:
     <br>
     <form data-lift="FormWithAjax?form=post">
-        <div class="form-group row">
-            <label for="first" class="col-sm-2 col-form-label">First Name:</label>
-            <div class="col-sm-10">
-                <span id="first"></span>
-            </div>
+      <div class="form-group row">
+        <label for="first" class="col-sm-2 col-form-label">First Name:</label>
+        <div class="col-sm-10">
+          <span id="first"></span>
         </div>
-        <div class="form-group row">
-            <label for="last" class="col-sm-2 col-form-label">First Name:</label>
-            <div class="col-sm-10">
-                <span id="last"></span>
-            </div>
+      </div>
+      <div class="form-group row">
+        <label for="last" class="col-sm-2 col-form-label">First Name:</label>
+        <div class="col-sm-10">
+          <span id="last"></span>
         </div>
+      </div>
 
       <input type="submit">
     </form>
-    <br>
-    <p>
-      Here's the code:
-    </p>
-      <pre><code class="scala">
+    <br> Here's the code:
+    <pre><code class="scala">
 class FormWithAjax extends StatefulSnippet {
   private var firstName = ""
   private var lastName = ""
@@ -82,4 +90,3 @@ class FormWithAjax extends StatefulSnippet {
 </body>
 
 </html>
-

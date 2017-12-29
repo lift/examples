@@ -8,11 +8,24 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Delete User</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="../persistence.html">Persistence</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="index.html">Simple Forms</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Delete User</li>
+      </ol>
+    </nav>
     <form data-lift="misc.confirmDelete?form=post">
-      Do you really want to delete
-      <xmp:username></xmp:username>
-      <a href="/simple/index">No</a>
-      <xmp:delete></xmp:delete>
+      <p>Do you really want to delete user: <strong>'<span id="username"></span>'</strong>?</p>
+      <div><a class="btn btn-outline-primary" href="/simple/index">No</a> <div id="delete"></div></div>
     </form>
   </div>
 </body>
