@@ -31,6 +31,8 @@
     <p>
       The above paragraph was embedded using this code:
     </p>
+
+    <span class="badge badge-secondary">The Markup</span>
     <pre><code class="html">&lt;span data-lift="embed?what=/templating/_sample_embed"&gt;&lt;/span&gt;</code></pre>
 
     <p>
@@ -41,12 +43,16 @@
     <p>
       Lift will select templates based on the current localization setting for the session. Lift uses the function in
       <code>LiftRules.localeCalculator</code> to determine the current locale for template selection. By default the function is:
+    </p>
 
-      <pre><code class="scala">def defaultLocaleCalculator(request: Box[HttpServletRequest]) =
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">def defaultLocaleCalculator(request: Box[HttpServletRequest]) =
     request.flatMap(_.getLocale() match
                     {case null => Empty
-                     case l: Locale => Full(l)}).openOr(Locale.getDefault())</code></pre> But you can customize the function to return the locale of the currently logged in user, detect the IP address of
-      the request, etc.
+                     case l: Locale => Full(l)}).openOr(Locale.getDefault())</code></pre>
+    <p>But you can customize the function to return the locale of the currently logged in user, detect the IP address of the
+      request, etc.
     </p>
 
     <p>

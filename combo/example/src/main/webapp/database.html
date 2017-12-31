@@ -32,8 +32,9 @@
             <button type="submit" class="btn btn-primary"></button> to create more records.
         </div>
         <br>
-        <pre><code class="scala">
-/**
+        <span class="badge badge-secondary">The
+            <i>Lift</i> Scala code</span>
+        <pre><code class="scala">/**
   * The singleton that has methods for accessing the database
   */
 object User extends User with KeyedMetaMapper[Long, User] {
@@ -57,8 +58,7 @@ class User extends ProtoUser[User] {
     override def textareaCols = 50
     override def displayName = "Personal Essay"
   }
-}
-    </code></pre>
+}</code></pre>
 
         <p>For this little bit of work, we get a complete user with first name, last name, password, email, and a personal essay.
             Each of the fields knows how to validate itself. The User (and any other "Mapped" class) knows how to Create,

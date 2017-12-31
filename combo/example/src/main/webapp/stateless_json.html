@@ -37,9 +37,11 @@
     <button onclick="jQuery.ajax({ url : 'stateless_json_call', data : JSON.stringify({'command': document.getElementById('json_select').value, 'params':document.getElementById('json_question').value}), type : 'POST', dataType : 'script', contentType: 'text/json', timeout : 5000, cache : false});"
       class="btn btn-primary">Click Me</button>
     <div id="json_result"></div>
-    <br> Here's the code:
-    <pre><code class="scala">
-object StatelessJson {
+
+    <hr>
+
+    <span class="badge badge-secondary">The Scala Code</span>
+    <pre><code class="scala">object StatelessJson {
   def init() {
     // register the JSON handler
     LiftRules.statelessDispatch.append {
@@ -69,8 +71,7 @@ object StatelessJson {
             case x         => &lt;b&gt;Problem... didn't handle JSON message {x}&lt;/b&gt;
           }
         ))
-}
-    </code></pre>
+}</code></pre>
   </div>
 </body>
 

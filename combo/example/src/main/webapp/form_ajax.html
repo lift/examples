@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="last" class="col-sm-2 col-form-label">First Name:</label>
+        <label for="last" class="col-sm-2 col-form-label">Last Name:</label>
         <div class="col-sm-10">
           <span id="last"></span>
         </div>
@@ -40,9 +40,10 @@
 
       <input type="submit">
     </form>
-    <br> Here's the code:
-    <pre><code class="scala">
-class FormWithAjax extends StatefulSnippet {
+    <br>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class FormWithAjax extends StatefulSnippet {
   private var firstName = ""
   private var lastName = ""
   private val from = S.referer openOr "/"
@@ -84,8 +85,8 @@ class FormWithAjax extends StatefulSnippet {
                               "placeholder" -> "Last name") &
       "type=submit" #> submit("Send", validate _, "class" -> "btn btn-primary")
   }
-}
-      </code></pre>
+}</code></pre>
+
   </div>
 </body>
 

@@ -1,35 +1,28 @@
-<!DOCTYPE html>
-<html>
+/*
+ * Copyright 2007-2010 WorldWide Conferencing, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-<head>
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-  <title>Template</title>
-</head>
+package net.liftweb.example.snippet
 
-<body data-lift-content-id="main">
-  <div id="main" data-lift="surround?with=default2;at=content">
-    <h2>Simple Wizard</h2>
-    <nav aria-label="breadcrumb" role="navigation">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="index.html">Templating</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">Simple Wizard</li>
-      </ol>
-    </nav>
+import _root_.net.liftweb.http._
+import _root_.net.liftweb.http.S
+import _root_.net.liftweb.http.SHtml._
+import _root_.net.liftweb.util.Helpers._
+import _root_.scala.xml.{NodeSeq}
 
-    <div class="lift:SimpleWizard"></div>
-
-    <p>
-      Code to generate. It's easier to use Wizard, but here's the "old fashioned" way.
-    </p>
-
-    <span class="badge badge-secondary">The
-      <i>Lift</i> Scala code</span>
-    <pre><code class="scala">/**
+/**
   * The Arc Challenge is Paul Graham's quest for web framework concision.
   *
   * http://www.paulgraham.com/arcchallenge.html
@@ -124,9 +117,4 @@ class SimpleWizard extends StatefulSnippet {
     )
   }
 
-}</code></pre>
-
-  </div>
-</body>
-
-</html>
+}

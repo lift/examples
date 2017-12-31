@@ -24,48 +24,51 @@
       </ol>
     </nav>
 
-    <p>This section has two examples showing how you could work with modal dialogs that has there template data in a separate
-      file. The first example is a plain javascript dialog while the other one is taking advantage of bootstrap's javascript
-      modals.</p>
+    <p>This section has
+      <strong>two examples</strong> showing how you could work with modal dialogs that has there template data in a separate file.
+      The first example is a plain javascript dialog while the other one is taking advantage of bootstrap's javascript modals.
+    </p>
 
     <h4>JS dialog example</h4>
     <span data-lift="JSDialog.button">
       Destroy Rhode Island
     </span>
     <br>
-    <br> The code:
-    <pre><code class="scala">
-      class JSDialog {
-        // build the button... when pressed, present
-        // a dialog based on running the _jsdialog_confirm
-        // template
-        def button(in: NodeSeq) =
-          ajaxButton(in,
-                     () =>
-                       S.runTemplate(List("_jsdialog_confirm"))
-                         .map(ns => ModalDialog(ns)) openOr
-                         Alert("Couldn't find _jsdialog_confirm template"))
+    <br>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class JSDialog {
+  // build the button... when pressed, present
+  // a dialog based on running the _jsdialog_confirm
+  // template
+  def button(in: NodeSeq) =
+    ajaxButton(in,
+               () =>
+                 S.runTemplate(List("_jsdialog_confirm"))
+                   .map(ns => ModalDialog(ns)) openOr
+                   Alert("Couldn't find _jsdialog_confirm template"))
 
-        // the template needs to bind to either server-side behavior
-        // and unblock the UI
-        def confirm = {
-          "#yes" #> ((b: NodeSeq) =>
-            ajaxButton(b, () => {
-              println("Rhode Island Destroyed")
-              Unblock & Alert("Rhode Island Destroyed")
-            })) &
-            "#no" #> ((b: NodeSeq) => &lt;button onclick={Unblock.toJsCmd}&gt;
-                {b}
-              &lt;/button&gt;)
-        }
-      }
-    </code></pre>
+  // the template needs to bind to either server-side behavior
+  // and unblock the UI
+  def confirm = {
+    "#yes" #> ((b: NodeSeq) =>
+      ajaxButton(b, () => {
+        println("Rhode Island Destroyed")
+        Unblock & Alert("Rhode Island Destroyed")
+      })) &
+      "#no" #> ((b: NodeSeq) => &lt;button onclick={Unblock.toJsCmd}&gt;
+          {b}
+        &lt;/button&gt;)
+  }
+}</code></pre>
     <br>
     <h4>Bootstrap dialog example</h4>
     <span data-lift="BSDialog.button">Destroy Rhode Island</span>
     <span id="modalPlaceholder"></span>
     <br>
-    <br> The code:
+    <br>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
     <pre><code class="scala">
 class BSDialog {
   // build the button... when pressed, present
@@ -89,7 +92,9 @@ class BSDialog {
           b,
           () => {
             logger.debug("Rhode Island intact")
-            Noop //we could have used closeDialog here but we are instead using the data-dismiss attribute.
+            // we could have used closeDialog here but we
+            // are instead using the data-dismiss attribute.
+            Noop
           },
           "type" -> "button",
           "class" -> "btn btn-primary",

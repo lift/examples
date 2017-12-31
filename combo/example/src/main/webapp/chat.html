@@ -51,8 +51,9 @@
       widget for the name. Until the AskName comet widget provides a name, all rendering messages are forwarded to AskName.
       Here's the code for the "AskName":</p>
 
-    <pre><code class="scala">
-class Chat extends CometActor with CometListener {
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class Chat extends CometActor with CometListener {
   private var userName = ""
   private var chats: List[ChatLine] = Nil
 
@@ -134,8 +135,7 @@ class Chat extends CometActor with CometListener {
     }
   }
 
-}
-  </code></pre>
+}</code></pre>
 
     <p>
       This example demonstrates the power of Scala's Actors and

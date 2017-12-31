@@ -1,65 +1,58 @@
-<html lift:content_id="main">
-  <head>
-    <title>Lift Example</title>
-  </head>
-  <body>
-    <div id="main" class="lift:surround?with=default;at=content">
-<style>
-/* <![CDATA[ */
-p + p {
-margin-top: 0em;
-text-indent: 0em;
-}
+<!DOCTYPE html>
+<html>
 
-.dpp_stuff p {
-  padding-left: 15px;
-}
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
 
-/* ]]> */
-</style>
+<body data-lift-content-id="main">
+    <div id="main" data-lift="surround?with=default2;at=content">
+        <h2>Evalutation Order</h2>
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="index.html">Templating</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Evalutation Order</li>
+            </ol>
+        </nav>
 
-<p>
-  Lift evaluates the &lt;lift:xxx/&gt; tags from the outside in, otherwise
-knows as lazy evaluation.  This means that the following code will only
-embed a single template:
-    <style type="text/css">
-    /* <![CDATA[ */
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .sgml-namespace {
-        /* sgml-namespace */
-        color: #da70d6;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
-    <pre>
-&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedout</span>&gt;
-  &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">embed</span> <span class="variable-name">what</span>=<span class="string">"/templates/_login_panel"</span>/&gt;
-&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedout</span>&gt;
+        <p>
+            Lift evaluates the &lt;xxx data-lift="yyy"/&gt; &lt;lift:xxx/&gt; tags from the outside in, otherwise knows as lazy evaluation.
+            This means that the following code will only embed a single template:</p>
 
-&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedin</span>&gt;
-  &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">embed</span> <span class="variable-name">what</span>=<span class="string">"/templates/_welcome_message"</span>/&gt;
-&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">TestCond.loggedin</span>&gt;
-</pre>
+        <span class="badge badge-secondary">HTML syntax</span>
+        <pre><code class="html">&lt;span data-lift="TestCond.loggedout"&gt;
+  &lt;span data-lift="embed?what=/templates/_login_panel"/&gt;
+&lt;/span&gt;
 
-Depending on if the user is logged in.
-</p>
+&lt;span data-lift="TestCond.loggedin"&gt;
+  &lt;span data-lift="embed?what=/templates/_welcome_message"/&gt;
+&lt;/span&gt;</code></pre>
 
-<p>
-  This also means that a snippet may return XML that
-  contains other snippet tags.
-</p>
+        <span class="badge badge-secondary">The older XHTML syntax</span>
+        <pre><code class="html">&lt;lift:TestCond.loggedout&gt;
+  &lt;lift:embed what="/templates/_login_panel"/&gt;
+&lt;/lift:TestCond.loggedout&gt;
+
+&lt;lift:TestCond.loggedin&gt;
+  &lt;lift:embed what="/templates/_welcome_message"/&gt;
+&lt;/lift:TestCond.loggedin&gt;</code></pre>
+
+
+        <p>
+            Depending on if the user is logged in.
+        </p>
+
+        <p>
+            This also means that a snippet may return XML that contains other snippet tags.
+        </p>
+
     </div>
-  </body>
-</html>
+</body>
 
+</html>

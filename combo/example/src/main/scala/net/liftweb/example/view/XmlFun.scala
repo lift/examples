@@ -51,7 +51,8 @@ class XmlFun extends LiftView {
                   <li class="breadcrumb-item active" aria-current="page">XML Fun</li>
                 </ol>
               </nav>
-              The XML is
+
+              <span class="badge badge-secondary">The XML is</span>
               <pre><code class="xml">{addresses.map{e => Text(e.toString) :: <br/> :: Nil}}</code></pre>
               <p><b>The count for {toCount} nodes is {countryCount(toCount, addresses)}</b></p>
               <p><a href='/xml_fun'>Count US addresses.</a></p>

@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
   <title>Template</title>
 </head>
+
 <body data-lift-content-id="main">
-<div id="main" data-lift="surround?with=default2;at=content">
-  <p>
-    Lift supports lazy loading of a snippet.  This is
-    useful when a snippet may take a long time to render,
-    but you want to return the page to the browser quickly.
-  </p>
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Lazy Loading</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="index.html">Templating</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Lazy Loading</li>
+      </ol>
+    </nav>
+    <p>
+      Lift supports lazy loading of a snippet. This is useful when a snippet may take a long time to render, but you want to return
+      the page to the browser quickly.
+    </p>
 
-  <div data-lift="lazy-load">
-    <div data-lift="LongTime"></div>
-  </div>
+    <div data-lift="lazy-load">
+      <div data-lift="LongTime"></div>
+    </div>
 
-  <div data-lift="lazy-load">
-    <div data-lift="LongTime"></div>
-  </div>
+    <div data-lift="lazy-load">
+      <div data-lift="LongTime"></div>
+    </div>
 
-  <div data-lift="lazy-load">
-    <div data-lift="LongTime"></div>
-  </div>
+    <div data-lift="lazy-load">
+      <div data-lift="LongTime"></div>
+    </div>
 
-  <div data-lift="lazy-load">
-    <div data-lift="LongTime"></div>
-  </div>
+    <div data-lift="lazy-load">
+      <div data-lift="LongTime"></div>
+    </div>
 
-  <hr>
+    <hr>
 
-  <p>The Markup:</p>
-  <pre><code class="html">&lt;div data-lift="lazy-load"&gt;
-    &lt;div data-lift="LongTime"&gt;&lt;/div&gt;
-  &lt;/div&gt;</code></pre>
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code class="html">&lt;div data-lift="lazy-load"&gt;
+  &lt;div data-lift="LongTime"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
-  <p>The Scala Code:</p>
-  <pre><code class="scala">object LongTime {
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">object LongTime {
   def render = {
     val delay = 1000L + randomLong(10000)
 
     Thread.sleep(delay)
 
-    &lt;div&gt;
-    This thread delayed {delay / 1000L} seconds
-    &lt;/div&gt;
+    &lt;div&gt;This thread delayed {delay / 1000L} seconds&lt;/div&gt;
   }
 }</code></pre>
 
-</div>
+  </div>
 </body>
+
+</html>

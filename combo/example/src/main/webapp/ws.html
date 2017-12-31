@@ -1,110 +1,95 @@
-<lift:surround with="default" at="content">
-    <style type="text/css">
-      /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #66cdaa;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #87ceeb;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #6495ed;
-        font-weight: bold;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #32cd32;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #9290ff;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #98fb98;
-      }
-    /* ]]> */
-    </style>
+<!DOCTYPE html>
+<html>
 
-<p>Normally, <i>Lift</i> will look for a "view" that
-satifying an HTTP request.  A view is an XHTML page
-or segment of a page with special &lt;lift:xxx&gt; processing
-instructions in it (e.g., an instruction to embed a controller,
-an instruction to surround the XHTML with another template, etc.)
-However, in certain cases, for example, when you want to
-satisfy a Web Services (REST) request, you can use
-Scala's pattern matching to intercept a request and service
-it.
-</p>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-<p>It's easy to "serve" incoming HTTP requests.
-Using Lift's RestHelper class.  For example, you can 
-serve "/webservices/all_users" as a JSON request as:
-</p>
+<body data-lift-content-id="main">
 
-    <pre>
-  serve {
-    <span class="keyword">case</span> <span class="string">"webservices"</span> <span class="variable-name">::</span> <span class="string">"all_users"</span> <span class="variable-name">::</span> <span class="variable-name">_</span> <span class="type">JsonGet</span> <span class="variable-name">_</span> =&gt;
-      AllUsers(User.findAll()).toJson
-  }
-</pre>
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Web Services</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Web Services</li>
+      </ol>
+    </nav>
 
-<p>
-  And we can serve the same request if it's an XML request:
-</p>
+    <p>Normally,
+      <i>Lift</i> will look for a "view" that satifying an HTTP request. A view is an XHTML page or segment of a page with special
+      &lt;lift:xxx&gt; processing instructions in it (e.g., an instruction to embed a controller, an instruction to surround
+      the XHTML with another template, etc.) However, in certain cases, for example, when you want to satisfy a Web Services
+      (REST) request, you can use Scala's pattern matching to intercept a request and service it.
+    </p>
 
-    <pre>
-  serve {
-    <span class="keyword">case</span> <span class="string">"webservices"</span> <span class="variable-name">::</span> <span class="string">"all_users"</span> <span class="variable-name">::</span> <span class="variable-name">_</span> <span class="type">XmlGet</span> <span class="variable-name">_</span> =&gt;
-      AllUsers(User.findAll()).toXml
-  }
-</pre>
+    <p>It's easy to "serve" incoming HTTP requests. Using Lift's RestHelper class. For example, you can serve "/webservices/all_users"
+      as a JSON request as:
+    </p>
 
-<p>
-  If you have a request (in the case of this example, servicing
-  both a POST and a GET for /webservices/add_user),
-  then service the request and include a function to convert the 
-  response into either JSON or XML:
-</p>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">serve {
+  case "webservices" :: "all_users" :: _ JsonGet _ =>
+    AllUsers(User.findAll()).toJson
+}</code></pre>
 
-    <pre>
-  serveJx {
-    <span class="keyword">case</span> <span class="type">Req</span>(<span class="string">"webservices"</span> <span class="variable-name">::</span> <span class="string">"add_user"</span> <span class="variable-name">::</span> <span class="variable-name">_</span>, <span class="variable-name">_</span>, <span class="variable-name">rt</span>) <span class="keyword">if</span> rt.post_? || rt.get_? =&gt;
-      addUser()
-  } { <span class="comment-delimiter">// </span><span class="comment">How do we convert a UserInfo to either XML or JSON?
-</span>    <span class="keyword">case</span> (<span class="type">JsonSelect</span>, <span class="variable-name">u</span>, <span class="variable-name">_</span>) =&gt; u.toJson
-    <span class="keyword">case</span> (<span class="type">XmlSelect</span>, <span class="variable-name">u</span>, <span class="variable-name">_</span>) =&gt; u.toXml
-  }
-</pre>
+    <p>
+      And we can serve the same request if it's an XML request:
+    </p>
 
-<p>
-  And the addUser() method looks like:
-</p>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">serve {
+  case "webservices" :: "all_users" :: _ XmlGet _ =>
+    AllUsers(User.findAll()).toXml
+}</code></pre>
 
-    <pre>
-  <span class="keyword">def</span> <span class="function-name">addUser</span>(): <span class="type">Box[UserInfo]</span> =
-    <span class="keyword">for</span> {
-      firstname &lt;- S.param(<span class="string">"firstname"</span>) ?~ <span class="string">"firstname parameter missing"</span> ~> 400
-      lastname &lt;- S.param(<span class="string">"lastname"</span>) ?~ <span class="string">"lastname parameter missing"</span>
-      email &lt;- S.param(<span class="string">"email"</span>) ?~ <span class="string">"email parameter missing"</span>
-    } <span class="keyword">yield</span> {
-      <span class="keyword">val</span> <span class="variable-name">u</span> = User.create.firstName(firstname).
-      lastName(lastname).email(email)
+    <p>
+      If you have a request (in the case of this example, servicing both a POST and a GET for /webservices/add_user), then service
+      the request and include a function to convert the response into either JSON or XML:
+    </p>
 
-      S.param(<span class="string">"password"</span>) foreach u.password.set
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">serveJx {
+  case Req("webservices" :: "add_user" :: _, _, rt) if rt.post_? || rt.get_? =>
+    addUser()
+} { // How do we convert a UserInfo to either XML or JSON?
+  case (JsonSelect, u, _) => u.toJson
+  case (XmlSelect, u, _) => u.toXml
+}</code></pre>
 
-      u.saveMe
-    }
-</pre>
+    <p>
+      And the addUser() method looks like:
+    </p>
 
-<p>
-  Note that if the firstname parameter is missing, a 400 response with
-  the message "firstname parameter missing" message in the body will
-  be returned.  If the lastname parameter is missing, a 404 will be
-  returned with "lastname parameter missing" message in the body.
-</p>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">def addUser(): Box[UserInfo] =
+  for {
+    firstname <- S.param("firstname") ?~ "firstname parameter missing" ~> 400
+    lastname <- S.param("lastname") ?~ "lastname parameter missing"
+    email <- S.param("email") ?~ "email parameter missing"
+  } yield {
+    val u = User.create.firstName(firstname).
+    lastName(lastname).email(email)
 
-</lift:surround>
+    S.param("password") foreach u.password.set
+
+    u.saveMe
+  }</code></pre>
+
+    <p>
+      Note that if the firstname parameter is missing, a 400 response with the message "firstname parameter missing" message in
+      the body will be returned. If the lastname parameter is missing, a 404 will be returned with "lastname parameter missing"
+      message in the body.
+    </p>
+
+  </div>
+</body>
+
+</html>

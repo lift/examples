@@ -38,9 +38,10 @@
         </div>
       </div>
     </div>
-    Here's the code:
-    <pre><code class="scala">
-class AjaxForm {
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class AjaxForm {
   var state = AjaxForm.state
   var city = ""
 
@@ -87,9 +88,7 @@ object AjaxForm {
 
   def citiesFor(state: String): List[String] =
     citiesAndStates.filter(_._1 == state).map(_._2)
-}
-
-      </code></pre>
+}</code></pre>
 
   </div>
 </body>

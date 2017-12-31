@@ -1,101 +1,70 @@
-<lift:surround with="default" at="content">
-  <p>
-    Lift allows you to execute multiple snippets in
-    parallel during the rendering of a page.  This allows you
-    to fork off multiple long-running jobs (e.g., talking
-    to an external ad server) and run them in parallel.  All
-    the jobs must complete before the final page render is sent back
-    to the browser.  The lift:parallel="true" attribute
-    designates a snippet as parallel.
-  </p>
+<!DOCTYPE html>
+<html>
 
-  <div>
-    Exec inline:
-    <div class="lift:Parallel"></div>
-  </div>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-  <div>
-    Exec parallel:
-    <div class="lift:Parallel?parallel=true"></div>
-  </div>
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Parallel Snippets</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="index.html">Templating</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Parallel Snippets</li>
+      </ol>
+    </nav>
 
-  <div>
-    Exec parallel:
-    <div class="lift:Parallel?parallel=true"></div>
-  </div>
+    <p>
+      Lift allows you to execute multiple snippets in parallel during the rendering of a page. This allows you to fork off multiple
+      long-running jobs (e.g., talking to an external ad server) and run them in parallel. All the jobs must complete before
+      the final page render is sent back to the browser. The lift:parallel="true" attribute designates a snippet as parallel.
+    </p>
 
-  <div>
-    Exec inline:
-    <div class="lift:Parallel"></div>
-  </div>
+    <div>
+      Exec inline:
+      <div data-lift="Parallel"></div>
+    </div>
 
+    <div>
+      Exec parallel:
+      <div data-lift="Parallel?parallel=true"></div>
+    </div>
 
-    <style type="text/css">
-    /* <![CDATA[ */
-       .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .sgml-namespace {
-        /* sgml-namespace */
-        color: #da70d6;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
+    <div>
+      Exec parallel:
+      <div data-lift="Parallel?parallel=true"></div>
+    </div>
 
-     .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
+    <div>
+      Exec inline:
+      <div data-lift="Parallel"></div>
+    </div>
 
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
+    <hr>
 
-      /* ]]> */
-    </style>
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code class="html">&lt;div&gt;
+  Exec parallel:
+  &lt;div data-lift="Parallel?parallel=true"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
-    <hr/>
-
-    <p>The Markup:</p>
-    <pre>
-  &lt;<span class="function-name">div</span>&gt;
-    Exec parallel:
-    &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">Parallel</span>  <span class="sgml-namespace">lift</span>:<span class="variable-name">parallel</span>=<span class="string">"true"</span>/&gt;
-  &lt;/<span class="function-name">div</span>&gt;
-</pre>
-
-    <p>The Scala Code:</p>
-    <pre>
-<span class="keyword">object</span> <span class="variable-name">Parallel</span> {
-  <span class="keyword">def</span> <span class="function-name">render</span> = {
-    &lt;div&gt;This snippet evaluated on 
-    {
-      Thread.currentThread.getName()
-    } 
-    &lt;/div&gt;
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">object Parallel {
+  def threadName() = Thread.currentThread.getName()
+  def render = {
+    &lt;div&gt;This snippet evaluated on {threadName()}&lt;/div&gt;
   }
-}
-</pre>
+}</code></pre>
 
+  </div>
+</body>
 
-</lift:surround>
+</html>

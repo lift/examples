@@ -43,13 +43,6 @@ package net.liftweb {
                          Alert("Couldn't find _jsdialog_confirm template"),
                          "class" -> "btn btn-primary")
 
-       /* def button(in: NodeSeq) =
-          ajaxButton(in,
-            () =>
-              S.runTemplate(List("_bsdialog_confirm")).map(ns =>  JqSetHtml("modal",ns)) openOr
-                Alert("Couldn't find _jsdialog_confirm template"),
-            "class" -> "btn btn-primary", "data-toggle" -> "modal", "data-target" -> "modal") */
-
         // the template needs to bind to either server-side behavior
         // and unblock the UI
         def confirm = {

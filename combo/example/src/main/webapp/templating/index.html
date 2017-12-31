@@ -8,29 +8,27 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-      <h2>Templating</h2>
-      <nav aria-label="breadcrumb" role="navigation">
-          <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                  <a href="index.html">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">Templating</li>
-          </ol>
-      </nav>
-    <style>
-      /* <![CDATA[ */
-
-      p+p {
-        margin-top: 0em;
-        text-indent: 0em;
-      }
-
-      .dpp_stuff p {
-        padding-left: 15px;
-      }
-      /* ]]> */
-    </style>
+    <h2>Templating</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Templating</li>
+      </ol>
+    </nav>
+    <br>
     <p>The following is David Pollak's take on web framework view technology:</p>
+
+    <div class="bd-callout bd-callout-info">
+      <h5>In the beginning there was XHTML</h5>
+      <p>The text on this page is written in the era of xhtml so it's associated examples uses xhtml namespace syntax, but don't
+        worry alongside with the older examples there are
+        <strong>equivalent modern examples</strong> written in pure HTML using
+        <code>data-lift</code> and CSS-selectors for data bindings.
+      </p>
+    </div>
+
     <div class="dpp_stuff">
       <p>The Lift design is born out of my experience (both good and bad) with a variety of technologies including Rails.
       </p>
@@ -71,59 +69,69 @@
       <p>So, the quintessential use of Lift's templates are as follows:
       </p>
 
-        <form data-lift="Show?form=post" id="myForm">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" placeholder="Name">
-            <label for="birthyear">Birthyear</label>
-            <select id="birthyear">
-                <option>2006</option>
-                <option>2007</option>
-            </select>
-            <input type="submit" value="Submit"/>
-        </form>
-        <div id="selectedyear"></div>
-        <div id="namevalue"></div>
-        <div id="wrappedNotice">
-            <div data-lift="Msgs"></div>
-        </div>
+      <form data-lift="Show?form=post" id="myForm">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Name">
+        <label for="birthyear">Birthyear</label>
+        <select id="birthyear">
+          <option>2006</option>
+          <option>2007</option>
+        </select>
+        <input type="submit" value="Submit" />
+      </form>
+      <div id="selectedyear"></div>
+      <div id="namevalue"></div>
+      <div id="wrappedNotice">
+        <div data-lift="Msgs"></div>
+      </div>
 
-      <span class="badge badge-secondary">the new way</span>
-      <pre class="html"><code>
-&lt;html&gt;
-...
-      &lt;form data-lift="Show?form=post" id="myForm"&gt;
-          &lt;label for="name">Name&lt;/label&gt;
-          &lt;input type="text" name="name" id="name" placeholder="Name"&gt;
-          &lt;label for="birthyear">Birthyear&lt;/label&gt;
-          &lt;select id="birthyear"&gt;
-              &lt;option>2006&lt;/option&gt;
-              &lt;option>2007&lt;/option&gt;
+      <span class="badge badge-secondary">HTML syntax</span>
+      <pre class="html"><code>&lt;html&gt;
+  ...
+  &lt;form data-lift="Show?form=post" id="myForm"&gt;
+     &lt;label for="name">Name&lt;/label&gt;
+     &lt;input type="text" name="name" id="name" placeholder="Name"&gt;
+     &lt;label for="birthyear">Birthyear&lt;/label&gt;
+     &lt;select id="birthyear"&gt;
+        &lt;option>2006&lt;/option&gt;
+        &lt;option>2007&lt;/option&gt;
+     &lt;/select&gt;
+     &lt;input type="submit" value="Submit"/&gt;
+  &lt;/form&gt;
+  &lt;div id="selectedyear"&gt;&lt;/div&gt;
+  &lt;div id="namevalue"&gt;&lt;/div&gt;
+  &lt;div id="wrappedNotice"&gt;
+    &lt;div data-lift="Msgs"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  ...
+&lt;/html&gt;</code></pre>
+
+
+      <span class="badge badge-secondary">The older XHTML syntax</span>
+      <pre class="html"><code>&lt;html&gt;
+  ...
+  &lt;lift:show.myForm form=&quot;post&quot;&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Name&lt;/td&gt;
+      &lt;td&gt;&lt;f:name&gt;&lt;input type=&quot;text&quot;/&gt;&lt;/f:name&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Birthyear&lt;/td&gt;
+      &lt;td&gt;
+        &lt;f:year&gt;
+          &lt;select&gt;
+            &lt;option&gt;2007&lt;/option&gt;
+            &lt;option&gt;2006&lt;/option&gt;
           &lt;/select&gt;
-          &lt;input type="submit" value="Submit"/&gt;
-      &lt;/form&gt;
-      &lt;div id="selectedyear"&gt;&lt;/div&gt;
-      &lt;div id="namevalue"&gt;&lt;/div&gt;
-      &lt;div id="wrappedNotice"&gt;
-        &lt;div data-lift="Msgs"&gt;&lt;/div&gt;
-      &lt;/div&gt;
-...
-&lt;/html&gt;
-        </code></pre>
-
-
-      <span class="badge badge-secondary">the old way</span>
-      <pre class="html"><code>
-&lt;html&gt;
-...
-&lt;lift:show.myForm form=&quot;post&quot;&gt;
-
-&lt;tr&gt;&lt;td&gt;Name&lt;/td&gt;&lt;td&gt;&lt;f:name&gt;&lt;input type=&quot;text&quot;/&gt;&lt;/f:name&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Birthyear&lt;/td&gt;&lt;td&gt;&lt;f:year&gt;&lt;select&gt;&lt;option&gt;2007&lt;/option&gt;&lt;option&gt;2006&lt;/option&gt;&lt;/select&gt;&lt;/f:year&gt;&lt;/td&gt;&lt;/tr&gt;
-
-&lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Add&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;/lift:show.myForm&gt;
-...
-
+        &lt;/f:year&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+      &lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Add&quot;/&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/lift:show.myForm&gt;
+  ...
 &lt;/html&gt;</code></pre>
 
       <p>So we've got a Lift snippet invocation with the valid HTML form and some additional tags. So far (with the proper namespace
@@ -144,9 +152,8 @@
       <p>So, your Lift code will look like:
       </p>
 
-        <span class="badge badge-secondary">the new way</span>
-        <pre class="scala"><code>
-class Show {
+      <span class="badge badge-secondary">Lift 3.x syntax</span>
+      <pre class="scala"><code>class Show {
   def render = {
     "#birthyear" #> SHtml.ajaxSelect(Show.yearsOptions,
                                      Show.yearsDefault,
@@ -185,23 +192,26 @@ object Show {
       "The name and year was set to (" + this.name + "," + this.year + ")")
     S.redirectTo("#myForm")
   }
-}
-        </code></pre>
+}</code></pre>
 
-      <span class="badge badge-secondary">the old way</span>
-      <pre class="scala"><code>
-class Show {
+      <span class="badge badge-secondary">Older Lift syntax</span>
+      <pre class="scala"><code>class Show {
    def myForm(xhtml: NodeSeq): NodeSeq = {
      var name = &quot;&quot;
      def handleYear(year: String) {
        ... the form's been submitted... do something
      }
-     Helpers.bind(&quot;f&quot;, xhtml, &quot;name&quot; -&gt; SHtml.text(name, name = _),
-                   &quot;year&quot; -&gt; SHtml.select((1900 to 2007).toList.reverse.map(v =&gt; (v.toString, v.toString)), 
-                                       Empty, handleYear _))
+     Helpers.bind(&quot;f&quot;,
+                  xhtml,
+                  &quot;name&quot; -&gt; SHtml.text(name, name = _),
+                  &quot;year&quot; -&gt;
+                    SHtml.select((1900 to 2007).toList.reverse
+                                   .map(v =&gt; (v.toString, v.toString)),
+                                 Empty,
+                                 handleYear _)
+                  )
    }
-}
-        </code></pre>
+}</code></pre>
 
       <p>Note that no display code has crept into the snippet. You've simply bound the HTML created by text() and select() to
         the &lt;f:name/&gt; and &lt;f:year/&gt; tags in the incoming XHTML.
@@ -213,37 +223,29 @@ class Show {
       <p>If you are displaying a table rather than a form, then the same binding logic still works. For example:
       </p>
 
-        <span class="badge badge-secondary">the new way</span>
-        <pre class="html"><code>
-&lt;table data-lift="show:users"&gt;
+      <span class="badge badge-secondary">HTML syntax</span>
+      <pre class="html"><code>&lt;table data-lift="show:users"&gt;
    &lt;tr&gt;
      &lt;td&gt;&lt;span id="first_name"&gt;David&lt;/span&gt;&lt;/td&gt;
      &lt;td&gt;&lt;span id="last_name"&gt;Pollak&lt;/span&gt;&lt;/td&gt;
    &lt;/tr&gt;
-&lt;/table&gt;
-        </code></pre>
+&lt;/table&gt;</code></pre>
 
-        <span class="badge badge-secondary">the old way</span>
-      <pre class="html"><code>
-&lt;table&gt;
+      <span class="badge badge-secondary">The older XHTML syntax</span>
+      <pre class="html"><code>&lt;table&gt;
 
 &lt;lift:snippet type=&quot;show:users&quot;&gt;
 &lt;tr&gt;&lt;td&gt;&lt;f:first_name&gt;David&lt;/f:first_name&gt;&lt;/ 
 td&gt;&lt;td&gt;&lt;f:last_name&gt;Pollak&lt;/f:last_name&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/lift:snippet&gt;
 
-&lt;/table&gt;
-        </code></pre>
+&lt;/table&gt;</code></pre>
 
 
-      <pre class="scala">
-        <code>
-class Show {
+      <pre class="scala"><code>class Show {
    def users(xhtml: NodeSeq): NodeSeq = Users.findAll.flatMap(user =&gt; bind(&quot;f&quot;, 
              xhtml, &quot;first_name&quot; --&gt; user.firstName, &quot;last_name&quot; --&gt; user.nameName))
-}
-        </code>
-      </pre>
+}</code></pre>
 
       <p>If you take the time to clearly define the bind points, then you can have no display code at all in your snippets.
       </p>
@@ -260,6 +262,7 @@ class Show {
         to police business logic in the templates.
       </p>
     </div>
+
   </div>
 </body>
 
