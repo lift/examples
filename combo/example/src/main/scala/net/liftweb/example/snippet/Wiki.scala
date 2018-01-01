@@ -17,9 +17,7 @@
 package net.liftweb {
 package example {
 package snippet {
-
 /*
-
 import _root_.net.liftweb.example.model._
 import _root_.scala.xml.{NodeSeq, Text, Group}
 import _root_.net.liftweb.http.{S, SHtml}

@@ -4,7 +4,7 @@ organization := "net.liftweb"
 
 name := "demo"
 
-version := "0.5.2-SNAPSHOT"
+version := "0.5.3-SNAPSHOT"
 
 scalaVersion := "2.11.11" //2.12.2
 

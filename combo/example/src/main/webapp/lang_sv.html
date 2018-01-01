@@ -1,14 +1,63 @@
-<lift:surround with="default" at="content"> 
-  <form class="lift:misc.lang?form=post">
-    <h1>Hej</h1> 
-    <span>Mitt språk: <span id="lang">lang</span></span> 
-    
-    <div>
-      Ändra språk <select id="select">
-	<option>Foo</option>
-	</select> <input type="submit" value="Ändra"/>
-    </div> 
-  </form>
-  <lift:snippet type="misc:lang" form="post">
-  </lift:snippet> 
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Localization</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Localization</li>
+      </ol>
+    </nav>
+
+    <form data-lift="misc.lang?form=post">
+      <h3>Hej</h3>
+      <span>Mitt språk:
+        <span id="lang">lang</span>
+      </span>
+
+      <div class="form-group form-row">
+        <label for="select" class="col-form-label">Ändra språk</label>
+        <div class="col">
+          <select id="select">
+            <option>Foo</option>
+          </select>
+        </div>
+        <div class="col">
+          <input type="submit" class="btn btn-primary" value="Ändra">
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <h4>
+      Lift kod för att välja och sätta språk:
+    </h4>
+
+    <pre><code class="scala">def lang = {
+    "#lang" #> locale.getDisplayLanguage(locale) &
+      "#select" #> SHtml.selectObj(locales.map(lo => (lo, lo.getDisplayName)),
+                                   definedLocale,
+                                   setLocale,
+                                   "class" -> "form-control")
+  }
+
+  private def locales =
+    Locale.getAvailableLocales.toList
+      .sortWith(_.getDisplayName < _.getDisplayName)
+
+  private def setLocale(loc: Locale) = definedLocale(Full(loc))</code></pre>
+
+  </div>
+</body>
+
+</html>

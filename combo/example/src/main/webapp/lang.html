@@ -1,58 +1,71 @@
-<lift:surround with="default" at="content">
+<!DOCTYPE html>
+<html>
 
-  <form class="lift:misc.lang?form=post">
-    <h1><span class="lift:Loc?locid=hello">Hello</h1>
-    <span><span class="lift:Loc?locid=my_lang">My language: </span><span id="lang">lang</span></span>
-    
-    <div>
-      <span class="lift:Loc.set_locale">Set locale</span> <select id="select">
-	<option>Foo</option>
-	</select>
-      <button type="submit"><span class="lift:Loc.change"></span></button>
-    </div>
-  </form>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-  <br>
-  <h3>
-    The Lift code to select and set the Locale:
-  </h3>
-    <style type="text/css">
-    /* <![CDATA[ */
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
+<body data-lift-content-id="main">
 
-    <pre>
-  <span class="keyword">def</span> <span class="function-name">lang</span> = {
-    <span class="string">"#lang"</span> #&gt; locale.getDisplayLanguage(locale) &amp;
-    <span class="string">"#select"</span> #&gt; SHtml.selectObj(locales.map(lo =&gt; (lo, lo.getDisplayName)),
-                                 definedLocale, setLocale)
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Localization</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Localization</li>
+      </ol>
+    </nav>
+
+    <form data-lift="misc.lang?form=post">
+      <h3>
+        <span data-lift="Loc?locid=hello">Hello</span>
+      </h3>
+
+      <span>
+        <span data-lift="Loc?locid=my_lang">My language: </span>
+        <span id="lang">lang</span>
+      </span>
+
+      <div class="form-group form-row">
+        <label for="select" class="col-form-label">
+          <span data-lift="Loc.set_locale">Set locale</span>
+        </label>
+        <div class="col">
+          <select id="select">
+            <option>Foo</option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">
+            <span class="lift:Loc.change"></span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <h4>
+      The Lift code to select and set the Locale:
+    </h4>
+
+    <pre><code class="scala">def lang = {
+    "#lang" #> locale.getDisplayLanguage(locale) &
+      "#select" #> SHtml.selectObj(locales.map(lo => (lo, lo.getDisplayName)),
+                                   definedLocale,
+                                   setLocale,
+                                   "class" -> "form-control")
   }
 
-  <span class="keyword">private</span> <span class="keyword">def</span> <span class="function-name">locales</span> =
-  Locale.getAvailableLocales.toList.sort(_.getDisplayName &lt; _.getDisplayName)
+  private def locales =
+    Locale.getAvailableLocales.toList
+      .sortWith(_.getDisplayName < _.getDisplayName)
 
-  <span class="keyword">private</span> <span class="keyword">def</span> <span class="function-name">setLocale</span>(<span class="variable-name">loc</span>: <span class="type">Locale</span>) = definedLocale(Full(loc))
-</pre>
+  private def setLocale(loc: Locale) = definedLocale(Full(loc))</code></pre>
 
+  </div>
+</body>
 
-</lift:surround>
+</html>

@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package lib {
+package net.liftweb.example.lib
 
-  import _root_.net.liftweb._
-  import net.liftmodules.textile._
-  import common._
-  import util._
-  import Helpers._
-  import http._
-  import mapper._
-  import sitemap._
-  import Loc._
+import _root_.net.liftweb._
+import net.liftmodules.textile._
+import common._
+import util._
+import Helpers._
+import http._
+import mapper._
+import sitemap._
+import Loc._
 
-  import example._
-  import model._
+import example._
+import model._
 
-  import scala.xml.{Text, NodeSeq}
+import scala.xml.{Text, NodeSeq}
 
 /**
  * A wiki location
@@ -142,7 +140,7 @@ object WikiStuff extends Loc[WikiLoc] {
       else
       Text("Edit entry named "+pageName)
 
-      val hobixLink = <span>&nbsp;<a href="http://hobix.com/textile/quick.html" target="_blank">Textile Markup Reference</a><br /></span>
+      val texMarkRefLink = <span>&nbsp;<a href="https://txstyle.org/" target="_blank">Textile Markup Reference</a><br /></span>
 
       val cancelLink = <a href={action}>Cancel</a>
       val textarea = r.entry.toForm
@@ -151,7 +149,7 @@ object WikiStuff extends Loc[WikiLoc] {
 
       <form method="post" action={action}>{ // the form tag
           message ++
-          hobixLink ++
+          texMarkRefLink ++
           textarea ++ // display the form
           <br /> ++
           cancelLink ++
@@ -181,8 +179,5 @@ object WikiStuff extends Loc[WikiLoc] {
   def stringUrl(page: String): String =
   url(page).map(_.text) getOrElse ""
 
+}
 
-}
-}
-}
-}

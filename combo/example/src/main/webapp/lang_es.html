@@ -1,13 +1,44 @@
-<lift:surround with="default" at="content">
-  <form class="lift:misc.lang?form=post">
-    <h1>Hola</h1>
-    <span>Mi idioma: <span id="lang">lang</span></span>
-    
-    <div>
-      Cambiar de idioma <select id="select">
-	<option>Foo</option>
-	</select>
-      <input type="submit" value="Cambiar">
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+
+    <div id="main" data-lift="surround?with=default2;at=content">
+        <h2>Localization</h2>
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Localization</li>
+            </ol>
+        </nav>
+
+        <form data-lift="misc.lang?form=post">
+            <h3>Hola</h3>
+            <span>Mi idioma:
+                <span id="lang">lang</span>
+            </span>
+
+            <div class="form-group form-row">
+                <label for="select" class="col-form-label">Cambiar de idioma</label>
+                <div class="col">
+                    <select id="select">
+                        <option>Foo</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="submit" class="btn btn-primary" value="Cambiar">
+                </div>
+            </div>
+        </form>
+
     </div>
-  </form>
-</lift:surround>
+</body>
+
+</html>
