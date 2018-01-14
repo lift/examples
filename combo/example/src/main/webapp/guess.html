@@ -1,46 +1,75 @@
-<lift:surround with="default" at="content">
-  <lift:snippet type="CountGame:run" form="post">
-    <choose:guess>
-      Guess a number between 1 and 100.<br>
-      Last guess: <count:last></count:last><br >
-      Guess: <count:input></count:input><br>
-      <input type="submit" value="Guess">
-    </choose:guess>
+<!DOCTYPE html>
+<html>
 
-    <choose:win>
-      You Win!!<br >
-      You guessed <count:number></count:number> after 
-      <count:count></count:count> guesses.<br>
-    </choose:win>
-  </lift:snippet>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-  <br >
-  <br >
-  The view code:
-  <head_merge>
-    <style type="text/css">
-      <![CDATA[
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .sgml-namespace {
-        /* sgml-namespace */
-        color: #da70d6;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      ]]>
-    </style>
-  </head_merge>
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Number Guessing</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="misc.html">Misc code</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Number Guessing</li>
+      </ol>
+    </nav>
 
-  <pre>
+    <lift:snippet type="CountGame:run" form="post">
+      <choose:guess>
+        Guess a number between 1 and 100.
+        <br> Last guess:
+        <count:last></count:last>
+        <br> Guess:
+        <count:input></count:input>
+        <br>
+        <input type="submit" value="Guess">
+      </choose:guess>
+
+      <choose:win>
+        You Win!!
+        <br> You guessed
+        <count:number></count:number> after
+        <count:count></count:count> guesses.
+        <br>
+      </choose:win>
+    </lift:snippet>
+
+    <br>
+    <br> The view code:
+    <head_merge>
+      <style type="text/css">
+        <![CDATA[ .function-name {
+          /* font-lock-function-name-face */
+          color: #0000ff;
+        }
+
+        .sgml-namespace {
+          /* sgml-namespace */
+          color: #da70d6;
+        }
+
+        .string {
+          /* font-lock-string-face */
+          color: #bc8f8f;
+        }
+
+        .variable-name {
+          /* font-lock-variable-name-face */
+          color: #b8860b;
+        }
+
+        ]]>
+      </style>
+    </head_merge>
+
+    <pre>
 &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">surround</span> <span class="variable-name">with</span>=<span class="string">"default"</span> <span class="variable-name">at</span>=<span class="string">"content"</span>&gt;
 &lt;<span class="sgml-namespace">lift</span>:<span class="function-name">snippet</span> <span class="variable-name">type</span>=<span class="string">"CountGame:run"</span> <span class="variable-name">form</span>=<span class="string">"post"</span>&gt;
   &lt;<span class="sgml-namespace">choose</span>:<span class="function-name">guess</span>&gt;
@@ -56,46 +85,49 @@
   &lt;/<span class="sgml-namespace">choose</span>:<span class="function-name">win</span>&gt;
 &lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">snippet</span>&gt;
 &lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">surround</span>&gt;
-  </pre>
+  </pre> The Snippet:
+    <head_merge>
+      <style type="text/css">
+        <![CDATA[ .comment {
+          /* font-lock-comment-face */
+          color: #b22222;
+        }
 
-  The Snippet:
-  <head_merge>
-  <style type="text/css">
-    <![CDATA[
+        .comment-delimiter {
+          /* font-lock-comment-delimiter-face */
+          color: #b22222;
+        }
 
-    .comment {
-      /* font-lock-comment-face */
-      color: #b22222;
-    }
-    .comment-delimiter {
-      /* font-lock-comment-delimiter-face */
-      color: #b22222;
-    }
-    .function-name {
-      /* font-lock-function-name-face */
-      color: #0000ff;
-    }
-    .keyword {
-      /* font-lock-keyword-face */
-      color: #a020f0;
-    }
-    .string {
-      /* font-lock-string-face */
-      color: #bc8f8f;
-    }
-    .type {
-      /* font-lock-type-face */
-      color: #228b22;
-    }
-    .variable-name {
-      /* font-lock-variable-name-face */
-      color: #b8860b;
-    }
-    ]]>
-  </style>
-  </head_merge>
-  
-  <pre>
+        .function-name {
+          /* font-lock-function-name-face */
+          color: #0000ff;
+        }
+
+        .keyword {
+          /* font-lock-keyword-face */
+          color: #a020f0;
+        }
+
+        .string {
+          /* font-lock-string-face */
+          color: #bc8f8f;
+        }
+
+        .type {
+          /* font-lock-type-face */
+          color: #228b22;
+        }
+
+        .variable-name {
+          /* font-lock-variable-name-face */
+          color: #b8860b;
+        }
+
+        ]]>
+      </style>
+    </head_merge>
+
+    <pre>
 <span class="keyword">class</span> <span class="type">CountGame</span> <span class="keyword">extends</span> <span class="type">StatefulSnippet</span> {
   <span class="keyword">val</span> <span class="variable-name">dispatch</span>: <span class="type">DispatchIt </span>= {
     <span class="keyword">case</span> <span class="string">"run"</span> <span class="keyword">if</span> lastGuess == number =&gt; 
@@ -128,4 +160,7 @@
   </pre>
 
 
-</lift:surround>
+  </div>
+</body>
+
+</html>

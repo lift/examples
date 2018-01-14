@@ -26,42 +26,9 @@
 
     <p>This section has
       <strong>two examples</strong> showing how you could work with modal dialogs that has there template data in a separate file.
-      The first example is a plain javascript dialog while the other one is taking advantage of bootstrap's javascript modals.
+      The second example is a plain javascript dialog while the first one is taking advantage of bootstrap's javascript modals.
     </p>
 
-    <h4>JS dialog example</h4>
-    <span data-lift="JSDialog.button">
-      Destroy Rhode Island
-    </span>
-    <br>
-    <br>
-    <span class="badge badge-secondary">The
-      <i>Lift</i> Scala code</span>
-    <pre><code class="scala">class JSDialog {
-  // build the button... when pressed, present
-  // a dialog based on running the _jsdialog_confirm
-  // template
-  def button(in: NodeSeq) =
-    ajaxButton(in,
-               () =>
-                 S.runTemplate(List("_jsdialog_confirm"))
-                   .map(ns => ModalDialog(ns)) openOr
-                   Alert("Couldn't find _jsdialog_confirm template"))
-
-  // the template needs to bind to either server-side behavior
-  // and unblock the UI
-  def confirm = {
-    "#yes" #> ((b: NodeSeq) =>
-      ajaxButton(b, () => {
-        println("Rhode Island Destroyed")
-        Unblock & Alert("Rhode Island Destroyed")
-      })) &
-      "#no" #> ((b: NodeSeq) => &lt;button onclick={Unblock.toJsCmd}&gt;
-          {b}
-        &lt;/button&gt;)
-  }
-}</code></pre>
-    <br>
     <h4>Bootstrap dialog example</h4>
     <span data-lift="BSDialog.button">Destroy Rhode Island</span>
     <span id="modalPlaceholder"></span>
@@ -118,6 +85,40 @@ class BSDialog {
     bsDialogTemplate map setAtPlaceholder openOr showTemplateNotFoundAlert
 }
     </code></pre>
+    <br>
+    <h4>JS dialog example</h4>
+    <span data-lift="JSDialog.button">
+      Destroy Rhode Island
+    </span>
+    <br>
+    <br>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class JSDialog {
+  // build the button... when pressed, present
+  // a dialog based on running the _jsdialog_confirm
+  // template
+  def button(in: NodeSeq) =
+    ajaxButton(in,
+               () =>
+                 S.runTemplate(List("_jsdialog_confirm"))
+                   .map(ns => ModalDialog(ns)) openOr
+                   Alert("Couldn't find _jsdialog_confirm template"))
+
+  // the template needs to bind to either server-side behavior
+  // and unblock the UI
+  def confirm = {
+    "#yes" #> ((b: NodeSeq) =>
+      ajaxButton(b, () => {
+        println("Rhode Island Destroyed")
+        Unblock & Alert("Rhode Island Destroyed")
+      })) &
+      "#no" #> ((b: NodeSeq) => &lt;button onclick={Unblock.toJsCmd}&gt;
+          {b}
+        &lt;/button&gt;)
+  }
+}</code></pre>
+
   </div>
 </body>
 
