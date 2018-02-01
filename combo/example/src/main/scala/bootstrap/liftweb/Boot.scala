@@ -168,7 +168,7 @@ class Boot {
     fobo.Toolkit.init = fobo.Toolkit.HighlightJS930
     fobo.Toolkit.init = fobo.Toolkit.FontAwesome470 //update to latest
     fobo.Toolkit.init = fobo.Toolkit.Bootstrap400
-    fobo.Toolkit.init = fobo.Toolkit.Popper1125
+    fobo.Toolkit.init = fobo.Toolkit.Popper1129
     fobo.Toolkit.init = fobo.Toolkit.JQueryMigrate141
 
     ThingBuilder.boot()
