@@ -118,7 +118,7 @@ class PersonScreen extends LiftScreen {
 
   val shouldSave = field("Save ?", false)
 
-  val likeCats = builder("Do you like cats?", "") ^/
+  val likeCats = builder("Do you like cats?", "", "class" -> "form-control") ^/
     (s => if (Helpers.toBoolean(s)) Nil else "You have to like cats") make
 
   def finish() {
@@ -139,7 +139,8 @@ object VariableScreenInfo {
 
   def name: BaseField = new BaseField with FEP {
     private var _name = ""
-    def toForm: Box[NodeSeq] = Full(SHtml.text(_name, _name = _))
+    def toForm: Box[NodeSeq] =
+      Full(SHtml.text(_name, _name = _, "class" -> "form-control"))
 
     def setFilter = Nil
 
@@ -161,7 +162,8 @@ object VariableScreenInfo {
 
   def address: BaseField = new BaseField with FEP {
     private var address = ""
-    def toForm: Box[NodeSeq] = Full(SHtml.text(address, address = _))
+    def toForm: Box[NodeSeq] =
+      Full(SHtml.text(address, address = _, "class" -> "form-control"))
 
     def setFilter = Nil
 
@@ -184,7 +186,10 @@ object VariableScreenInfo {
   def age: BaseField = new BaseField with FEP {
     private var age = 0
     def toForm: Box[NodeSeq] =
-      Full(SHtml.text(age.toString, s => Helpers.asInt(s).map(age = _)))
+      Full(
+        SHtml.text(age.toString,
+                   s => Helpers.asInt(s).map(age = _),
+                   "class" -> "form-control"))
 
     def set(v: Int) = { age = v; v }
     def get = age
@@ -208,7 +213,11 @@ object VariableScreenInfo {
     private val opts = List("A", "B", "C", "Last")
     private var sel = Full("C")
     def toForm: Box[NodeSeq] =
-      Full(SHtml.select(opts.map(a => a -> a), sel, x => sel = Full(x)))
+      Full(
+        SHtml.select(opts.map(a => a -> a),
+                     sel,
+                     x => sel = Full(x),
+                     "class" -> "form-control"))
     def set(v: String) = { sel = Full(v); v }
     def name = "Selection Thing"
     def get = sel.openOrThrowException("Value should not be empty.")

@@ -70,6 +70,18 @@
   font-weight: normal;
 }
 
+div.globalErrors ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.errors {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .lift_error {
   color: red;
 }
@@ -87,6 +99,8 @@
 .dpp_stuff p {
   padding-left: 15px;
 }
+
+
 /*Lift stuff*/
 
 
@@ -136,24 +150,26 @@
   border-bottom: 1px solid #ccc;
 }
 
-
 .bd-callout {
-	padding: 1.25rem;
-	margin-top: 1.25rem;
-	margin-bottom: 1.25rem;
-	border: 1px solid #eee;
-	border-left-width: .25rem;
-	border-radius: .25rem;
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #eee;
+  border-left-width: .25rem;
+  border-radius: .25rem;
 }
 
 .bd-callout-info {
-	border-left-color: #5bc0de;
-}
-.bd-callout-warning {
-	border-left-color: #f0ad4e;
+  border-left-color: #5bc0de;
 }
 
+.bd-callout-warning {
+  border-left-color: #f0ad4e;
+}
+
+
 /* bootstrap overrides */
+
 .breadcrumb {
   font-size: 0.8rem;
   padding: 0.2rem 0.8rem;

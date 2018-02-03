@@ -1,12 +1,32 @@
-<html lift:content_id="main">
-  <head>
-    <title>Lift Example</title>
-  </head>
-  <body>
-    <div id="main" class="lift:surround?with=default;at=content">
-      <div class="lift:VariableScreen">
-	The Variable Screen Example
-      </div>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Lift Example</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Variable Screen</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="misc.html">Misc code</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Variable Screen</li>
+      </ol>
+    </nav>
+
+
+    <div data-lift="VariableScreen">
+      The Variable Screen Example
     </div>
-  </body>
+
+  </div>
+</body>
+
 </html>
