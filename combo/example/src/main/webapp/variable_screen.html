@@ -26,6 +26,140 @@
       The Variable Screen Example
     </div>
 
+    <hr>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class VariableScreen extends LiftScreen {
+  object fields extends ScreenVar(VariableScreenInfo.chooseFields)
+
+  override def formName = "VariableScreen"
+
+  override def screenTop =
+    <b>A single screen with variable fields</b>
+
+  addFields(() => fields.is)
+
+  def finish() {
+    S.notice("You've completed the screen")
+  }
+}
+
+object VariableScreenInfo {
+  private trait FEP {
+    self: FieldIdentifier =>
+    implicit def strToListFieldError(msg: String): List[FieldError] =
+      List(FieldError(self, Text(msg)))
+  }
+
+  def name: BaseField = new BaseField with FEP {
+    private var _name = ""
+    def toForm: Box[NodeSeq] =
+      Full(SHtml.text(_name, _name = _, "class" -> "form-control"))
+
+    def setFilter = Nil
+
+    def validations = Nil
+
+    def set(v: String) = { _name = v; v }
+    def get = _name
+    def is = get
+    type ValueType = String
+
+    def name = "Name"
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate =
+      if (_name.length >= 4) Nil
+      else "Name must be 4 characters"
+  }
+
+  def address: BaseField = new BaseField with FEP {
+    private var address = ""
+    def toForm: Box[NodeSeq] =
+      Full(SHtml.text(address, address = _, "class" -> "form-control"))
+
+    def setFilter = Nil
+
+    def validations = Nil
+
+    def set(v: String) = { address = v; v }
+    def get = address
+    def is = get
+    type ValueType = String
+
+    def name = "Address"
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate =
+      if (address.length >= 3) Nil
+      else "Address must be 3 characters"
+  }
+
+  def age: BaseField = new BaseField with FEP {
+    private var age = 0
+    def toForm: Box[NodeSeq] =
+      Full(
+        SHtml.text(age.toString,
+                   s => Helpers.asInt(s).map(age = _),
+                   "class" -> "form-control"))
+
+    def set(v: Int) = { age = v; v }
+    def get = age
+    def is = get
+    type ValueType = Int
+
+    def setFilter = Nil
+
+    def validations = Nil
+    def name = "Age"
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate =
+      if (age > 10) Nil
+      else "Age must be greater than 10"
+
+  }
+
+  def selection: BaseField = new BaseField {
+    private val opts = List("A", "B", "C", "Last")
+    private var sel = Full("C")
+    def toForm: Box[NodeSeq] =
+      Full(
+        SHtml.select(opts.map(a => a -> a),
+                     sel,
+                     x => sel = Full(x),
+                     "class" -> "form-control"))
+    def set(v: String) = { sel = Full(v); v }
+    def name = "Selection Thing"
+    def get = sel.openOrThrowException("Value should not be empty.")
+    def is = get
+    type ValueType = String
+
+    def setFilter = Nil
+
+    def validations = Nil
+
+    override val uniqueFieldId: Box[String] = Full(Helpers.nextFuncName)
+
+    def validate = Nil
+  }
+
+  def chooseFields: FieldContainer =
+    List(name, address, age, selection) filter { ignore =>
+      Helpers.randomInt(100) > 50
+    } match {
+      case Nil => chooseFields
+      case xs =>
+        new FieldContainer {
+          def allFields = xs
+        }
+    }
+}</code></pre>
+
   </div>
 </body>
 
