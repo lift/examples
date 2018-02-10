@@ -116,7 +116,7 @@ class PersonScreen extends LiftScreen {
 
   addFields(() => person.is)
 
-  val shouldSave = field("Save ?", false)
+  val shouldSave = field("Save ?", false, "style" -> "vertical-align:bottom")
 
   val likeCats = builder("Do you like cats?", "", "class" -> "form-control") ^/
     (s => if (Helpers.toBoolean(s)) Nil else "You have to like cats") make

@@ -1,75 +1,66 @@
-<lift:surround with="default" at="content">
-  <div>
-    This example demonstrates how to use the container's
-    Asynchronous (continuation) response capabilities such
-    that no I/O threads are consumed during the calculation
-    of the REST response value.
-    <a href="/async/yep_it_works">Click</a> to see the response
-    after a 2 second delay.
-  </div>
+<!DOCTYPE html>
+<html>
 
-  <div>
-    <style type="text/css">
-      body {
-        color: #000000;
-        background-color: #ffffff;
-      }
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-    </style>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-    <pre>
-<span class="comment-delimiter">/**</span><span class="comment">
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default2;at=content">
+    <h2>Async REST</h2>
+    <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="misc.html">Misc code</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Async REST</li>
+      </ol>
+    </nav>
+
+    <div>
+      This example demonstrates how to use the container's Asynchronous (continuation) response capabilities such that no I/O threads
+      are consumed during the calculation of the REST response value.
+      <a href="/async/yep_it_works">Click</a> to see the response after a 2 second delay.
+    </div>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">/**
  * An example of Lift's RestHelper and RestContinuation
- */</span>
-<span class="keyword">object</span> <span class="variable-name">AsyncRest</span> <span class="keyword">extends</span> <span class="type">RestHelper</span> {
+ */
+object AsyncRest extends RestHelper {
 
-  <span class="comment-delimiter">// </span><span class="comment">serve the URL /async/:id
-</span>  serve {
-    <span class="keyword">case</span> <span class="string">"async"</span> <span class="variable-name">::</span> <span class="variable-name">id</span> <span class="variable-name">::</span> <span class="variable-name">_</span> <span class="type">Get</span> <span class="variable-name">_</span> =&gt; 
+  // serve the URL /async/:id
+  serve {
+    case "async" :: id :: _ Get _ =>
 
-      <span class="comment-delimiter">// </span><span class="comment">move the calculation to another thread
-</span>      RestContinuation.async(
-        reply =&gt; {
-          Thread.sleep(2000) <span class="comment-delimiter">// </span><span class="comment">sleep for 2 seconds
-</span>          <span class="keyword">val</span> <span class="variable-name">name1</span> = Thread.currentThread.getName
-          <span class="keyword">val</span> <span class="variable-name">outerSesStr</span> = S.session.toString <span class="comment-delimiter">// </span><span class="comment">this should be Empty
-</span>          
-          <span class="comment-delimiter">// </span><span class="comment">the code block for reply will be executed in the
-</span>          <span class="comment-delimiter">// </span><span class="comment">scope of the original request and that may mean
-</span>          <span class="comment-delimiter">// </span><span class="comment">that JDBC connections are consumed, etc.
-</span>          reply{
-            <span class="keyword">val</span> <span class="variable-name">name2</span> = Thread.currentThread.getName
-            <span class="keyword">val</span> <span class="variable-name">innerSesStr</span> = S.session.toString <span class="comment-delimiter">// </span><span class="comment">this should be Full()
-</span>            &lt;i id={id}&gt;name1: {name1} outer: {outerSesStr} name2: {name2}
+      // move the calculation to another thread
+      RestContinuation.async(
+        reply => {
+          Thread.sleep(2000) // sleep for 2 seconds
+          val name1 = Thread.currentThread.getName
+          val outerSesStr = S.session.toString // this should be Empty
+
+          // the code block for reply will be executed in the
+          // scope of the original request and that may mean
+          // that JDBC connections are consumed, etc.
+          reply{
+            val name2 = Thread.currentThread.getName
+            val innerSesStr = S.session.toString // this should be Full()
+            &lt;i id={id}&gt;name1: {name1} outer: {outerSesStr} name2: {name2}
             inner: {innerSesStr}&lt;/i&gt;
           }
         })
   }
-}
-</pre>
+}</code></pre>
+
 
   </div>
-</lift:surround>
+
+</body>
+
+</html>

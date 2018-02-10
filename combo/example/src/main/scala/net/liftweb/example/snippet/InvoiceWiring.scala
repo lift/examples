@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
 import _root_.net.liftweb._
 import http._
@@ -29,19 +27,18 @@ import _root_.scala.xml.{NodeSeq, Text}
 case class Line(guid: String, name: String, price: Double, taxable: Boolean)
 
 /**
- * An invoice system with subtotals, tax, etc.
- */
+  * An invoice system with subtotals, tax, etc.
+  */
 class InvoiceWiring {
   private object Info {
     val invoices = ValueCell(List(newLine))
     val taxRate = ValueCell(0.05d)
     val subtotal = invoices.lift(_.foldLeft(0d)(_ + _.price))
-    val taxable = invoices.lift(_.filter(_.taxable).
-                                foldLeft(0D)(_ + _.price))
+    val taxable = invoices.lift(_.filter(_.taxable).foldLeft(0D)(_ + _.price))
 
-    val tax = taxRate.lift(taxable) {_ * _}
+    val tax = taxRate.lift(taxable) { _ * _ }
 
-    val total = subtotal.lift(tax) {_ + _}    
+    val total = subtotal.lift(tax) { _ + _ }
   }
 
   def subtotal(in: NodeSeq) = WiringUI.asText(in, Info.subtotal)
@@ -52,13 +49,13 @@ class InvoiceWiring {
 
   def total(in: NodeSeq) = WiringUI.asText(in, Info.total, JqWiringSupport.fade)
 
-  def taxRate = SHtml.ajaxText(Info.taxRate.get.toString,
-                               s => {
-                                 Helpers.asDouble(s).foreach {
-                                   Info.taxRate.set
-                                 }
-                                 Noop
-                               })
+  def taxRate =
+    SHtml.ajaxText(Info.taxRate.get.toString, s => {
+      Helpers.asDouble(s).foreach {
+        Info.taxRate.set
+      }
+      Noop
+    }, "class" -> "form-control")
 
   def showLines = "* *" #> (Info.invoices.get.flatMap(renderLine): NodeSeq)
 
@@ -68,18 +65,18 @@ class InvoiceWiring {
       val theLine = appendLine
       val guid = theLine.guid
       JqJsCmds.AppendHtml(div, renderLine(theLine))
-    })
+    }, "class" -> "btn btn-primary mx-sm-2 mb-2")
   }
 
   private def renderLine(theLine: Line): NodeSeq =
-    <div id={theLine.guid}>{
+    <div class="form-group" id={theLine.guid}>{
       SHtml.ajaxText(theLine.name,
                      s => {
                        mutateLine(theLine.guid) {
                          l => Line(l.guid, s, l.price, l.taxable)
                        }
                        Noop
-                     })
+                     },"class" -> "form-control mx-sm-2 mb-2") //mx-sm-2 mb-2
     }
   
   {
@@ -92,7 +89,7 @@ class InvoiceWiring {
                          }
                      }
                      Noop
-                   })
+                   },"class" -> "form-control mx-sm-2 mb-2") //mx-sm-2 mb-2
   }
 
   {
@@ -102,28 +99,23 @@ class InvoiceWiring {
                           l => Line(l.guid, l.name, l.price, b)
                         }
                         Noop
-                      })
+                      }, "class" -> "mx-sm-2 mb-2") //mx-sm-2 mb-2
   }
   </div>
 
-    private def newLine = Line(nextFuncName, "", 0, false)
-    
-    private def appendLine: Line = {
-      val ret = newLine
-      Info.invoices.set(ret :: Info.invoices.get)
-      ret
-    }
-    
-    private def mutateLine(guid: String)(f: Line => Line) {
-      val all = Info.invoices.get
-      val head = all.filter(_.guid == guid).map(f)
-      val rest = all.filter(_.guid != guid)
-      Info.invoices.set(head ::: rest)
-    }
+  private def newLine = Line(nextFuncName, "", 0, false)
 
+  private def appendLine: Line = {
+    val ret = newLine
+    Info.invoices.set(ret :: Info.invoices.get)
+    ret
+  }
 
-}
+  private def mutateLine(guid: String)(f: Line => Line) {
+    val all = Info.invoices.get
+    val head = all.filter(_.guid == guid).map(f)
+    val rest = all.filter(_.guid != guid)
+    Info.invoices.set(head ::: rest)
+  }
 
-}
-}
 }

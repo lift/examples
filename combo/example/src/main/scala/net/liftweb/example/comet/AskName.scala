@@ -14,30 +14,20 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package comet {
+package net.liftweb.example.comet
 
-import _root_.net.liftweb.http._
-import S._
+import net.liftweb.http._
 import SHtml._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.scala.xml._
 
 class AskName extends CometActor {
   def render =
   ajaxForm(<div>What is your username?</div> ++
-      <div class="form-group row">
-        <div class="col-sm-8">
+      <div class="form-row">
+        <div class="col-sm-7">
           {text("",name => answer(name.trim), "class" -> "form-control form-control-sm")}
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-5">
           <input type="submit" value="Enter" class="btn btn-outline-primary btn-sm"/>
         </div>
       </div>)
-}
-
-}
-}
 }

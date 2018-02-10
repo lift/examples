@@ -14,58 +14,63 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
-import _root_.net.liftweb.example.model._
 import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.S
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
-import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.scala.xml.{NodeSeq, Text, Group}
 
 /**
- * The Arc Challenge is Paul Graham's quest for web framework concision.
- *
- * http://www.paulgraham.com/arcchallenge.html
- *
- * This is one potential lift-based solution to it using StatefulSnippets.
- * There are doubtless many other ways.
- *
- * @author: Steve Jenson
- */
+  * The Arc Challenge is Paul Graham's quest for web framework concision.
+  *
+  * http://www.paulgraham.com/arcchallenge.html
+  *
+  * This is one potential lift-based solution to it using StatefulSnippets.
+  * There are doubtless many other ways.
+  *
+  * @author: Steve Jenson
+  */
 class ArcChallenge extends StatefulSnippet {
-  var dispatch: DispatchIt = {case _ => xhtml => ask}
-
-  /**
-   * Step 1: Type in a Phrase.
-   */
-  def ask = {
-    <p>
-    Say Anything:
-    {text("", p => phrase = p)}
-    {submit("Submit", () => dispatch = {case _ => xhtml => think})}
-    </p>
+  var dispatch: DispatchIt = {
+    case _ =>
+      xhtml =>
+        ask
   }
 
   /**
-   * Step 2: Show a link that takes you to the Phrase you entered.
-   */
-  def think = submit("Click here to see what you said",
-		     () => dispatch = {case _ => xhtml => answer})
+    * Step 1: Type in a Phrase.
+    */
+  def ask = {
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="answer">Say Anything:</label>
+        {text("",
+              p => phrase = p,
+              "id" -> "answer",
+              "class" -> "form-control mx-sm-3")}
+      </div>
+      {submit("Submit",
+              () => dispatch = {case _ => xhtml => think},
+              "class" -> "btn btn-primary")}
+    </form>
+  }
 
   /**
-   * Step 3: Show the phrase.
-   */
+    * Step 2: Show a link that takes you to the Phrase you entered.
+    */
+  def think =
+    submit("Click here to see what you said",
+           () =>
+             dispatch = {
+               case _ =>
+                 xhtml =>
+                   answer
+           },
+           "class" -> "btn btn-primary")
+
+  /**
+    * Step 3: Show the phrase.
+    */
   def answer = <p>You said: {phrase}</p>
 
   private var phrase = ""
-}
-}
-}
 }

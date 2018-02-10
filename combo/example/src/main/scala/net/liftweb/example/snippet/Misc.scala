@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-package net.liftweb
-package example
-package snippet
+package net.liftweb.example.snippet
 
-import model._
+import net.liftweb.example.model._
 
-import _root_.net.liftweb._
-import http._
-import mapper._
+import net.liftweb.http._
+import net.liftweb.mapper._
 import S._
 import SHtml._
 
-import common._
-import util._
+import net.liftweb.common._
+import net.liftweb.util._
 import Helpers._
 
-import _root_.scala.xml.{NodeSeq, Text, Group}
-import _root_.java.util.Locale
+import scala.xml.{NodeSeq, Text, Group}
+import java.util.Locale
 
 class Misc {
   private object selectedUser extends RequestVar[Box[User]](Empty)

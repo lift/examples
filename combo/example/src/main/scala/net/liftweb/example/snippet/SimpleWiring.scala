@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
-import _root_.net.liftweb._
+import net.liftweb._
 import http._
 import util._
 import Helpers._
-import js.JsCmds._
 import js.jquery._
-import _root_.scala.xml.{NodeSeq, Text}
+import scala.xml.NodeSeq
 
 /**
- * A simple example of Wiring.  The count of done
- * To-do items 
- */
+  * A simple example of Wiring.
+  * The count of done To-do items
+  */
 class SimpleWiring {
   // define the cells
   private val feedFish = ValueCell(false)
@@ -38,30 +35,47 @@ class SimpleWiring {
   private val watchTv = ValueCell(false)
 
   // Our count is the collection of cells and we sum them up
-  private val count = SeqCell(feedFish,
-                              walkDog,
-                              doDishes,
-                              watchTv).lift {
-    _.map(_.toInt).reduceLeft(_ + _)}
+  private val count = SeqCell(feedFish, walkDog, doDishes, watchTv).lift {
+    _.map(_.toInt).sum
+  }
 
-  private class BtoI(b: Boolean) {def toInt: Int = if (b) 1 else 0}
+  private class BtoI(b: Boolean) { def toInt: Int = if (b) 1 else 0 }
   private implicit def bToI(b: Boolean): BtoI = new BtoI(b)
 
   // define the count transformation
-  def count(in: NodeSeq): NodeSeq = 
+  def count(in: NodeSeq): NodeSeq =
     WiringUI.asText(in, count, JqWiringSupport.fade)
+
+  //def toDo = {
+  //  import SHtml._
+  //  "* *" #> List[NodeSeq](
+  //    <span>Feed Fish {ajaxCheckboxElem(feedFish)}</span>,
+  //    <span>Walk Dog {ajaxCheckboxElem(walkDog)}</span>,
+  //    <span>Do Dishes {ajaxCheckboxElem(doDishes)}</span>,
+  //    <span>Watch TV {ajaxCheckboxElem(watchTv)}</span>
+  //  )
+  //}
 
   def toDo = {
     import SHtml._
     "* *" #> List[NodeSeq](
-      <span>Feed Fish {ajaxCheckboxElem(feedFish)}</span>,
-      <span>Walk Dog {ajaxCheckboxElem(walkDog)}</span>,
-      <span>Do Dishes {ajaxCheckboxElem(doDishes)}</span>,
-      <span>Watch TV {ajaxCheckboxElem(watchTv)}</span>)
+      <div class="form-check">
+        {ajaxCheckboxElem(feedFish)}
+        <label class="form-check-label">Feed Fish</label>
+      </div>,
+      <div class="form-check">
+        {ajaxCheckboxElem(walkDog)}
+        <label class="form-check-label">Walk Dog</label>
+      </div>,
+      <div class="form-check">
+        {ajaxCheckboxElem(doDishes)}
+        <label class="form-check-label">Do Dishes</label>
+      </div>,
+      <div class="form-check">
+        {ajaxCheckboxElem(watchTv)}
+        <label class="form-check-label">Watch TV</label>
+      </div>
+    )
   }
-  
-}
 
-}
-}
 }
