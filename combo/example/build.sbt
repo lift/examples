@@ -4,7 +4,7 @@ organization := "net.liftweb"
 
 name := "demo"
 
-version := "0.5.6-SNAPSHOT"
+version := "0.5.7-SNAPSHOT"
 
 scalaVersion := "2.11.11" //2.12.2
 
@@ -16,13 +16,12 @@ resolvers ++= Seq("snapshots"     at "https://oss.sonatype.org/content/repositor
 )
 
 libraryDependencies ++= {
-  val liftVersion = "3.2.0"
+  val liftVersion = "3.3.0"
   Seq(
     "net.liftweb" %% "lift-webkit" % liftVersion,
     "net.liftweb" %% "lift-db" % liftVersion,
     "net.liftweb" %% "lift-mapper" % liftVersion,
-    "net.liftmodules" %% "fobo_3.2" % "2.0",
-    // "net.liftmodules" %% "lift-jquery-module_3.1" % "2.10",
+    "net.liftmodules" %% "fobo_3.3" % "2.0",
     "net.liftmodules" %% "widgets_3.1" % "1.6.0-SNAPSHOT",
     "net.liftmodules" %% "textile_3.1" % "1.4-SNAPSHOT",
     "org.eclipse.jetty" % "jetty-webapp" % "8.1.7.v20120910" % "test",
