@@ -134,6 +134,34 @@ ul.errors {
   color: #B94A48;
 }
 
+#wrappedNoticeAtHead #lift__noticesContainer___notice ul,
+#wrappedNoticeAtHead #lift__noticesContainer___warning ul,
+#wrappedNoticeAtHead #lift__noticesContainer___error ul {
+  padding: 5px;
+  list-style-type: none;
+}
+
+#wrappedNoticeAtHead #lift__noticesContainer___notice {
+  border-radius: 5px;
+  background-color: #D9EDF7;
+  border-color: #BCE8F1;
+  color: #3A87AD;
+}
+
+#wrappedNoticeAtHead #lift__noticesContainer___warning {
+  border-radius: 5px;
+  background-color: #FCF8E3;
+  border-color: #FBEED5;
+  color: #C09853;
+}
+
+#wrappedNoticeAtHead #lift__noticesContainer___error {
+  border-radius: 5px;
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+  color: #B94A48;
+}
+
 .widget ul {
   padding: 5px;
 }

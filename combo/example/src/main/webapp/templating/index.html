@@ -17,7 +17,11 @@
         <li class="breadcrumb-item active" aria-current="page">Templating</li>
       </ol>
     </nav>
-    <br>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
     <p>The following is David Pollak's take on web framework view technology:</p>
 
     <div class="bd-callout bd-callout-info">
@@ -68,8 +72,8 @@
       </p>
       <p>So, the quintessential use of Lift's templates are as follows:
       </p>
-
-      <form data-lift="Show?form=post" id="myForm">
+      <h3 id="myForm">Simple form example</h3>
+      <form data-lift="Show?form=post" >
         <label for="name">Name</label>
         <input type="text" name="name" id="name" placeholder="Name">
         <label for="birthyear">Birthyear</label>

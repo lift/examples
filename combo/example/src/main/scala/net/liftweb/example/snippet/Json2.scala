@@ -18,14 +18,15 @@ package net.liftweb.example.snippet
 
 import net.liftweb.util.Helpers._
 import net.liftweb.http.SHtml
-import net.liftweb.http.js.{JsCmd, JE}
-import net.liftweb.common.Loggable
+import net.liftweb.http.js.{JE, JsCmd, JsonCall}
+import net.liftweb.common.Logger
 import net.liftweb.json.JsonAST._
 import net.liftweb.http.js.JsCmds.Alert
 import net.liftweb.json.DefaultFormats
 
-object JsonCall extends Loggable {
+object JsonCall {
 
+  private val logger = Logger(classOf[JsonCall])
   implicit val formats = DefaultFormats
 
   case class Question(first: Int, second: Int, answer: Int) {

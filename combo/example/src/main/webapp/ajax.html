@@ -27,6 +27,10 @@
             </ol>
         </nav>
 
+        <div id="wrappedNoticeAtHead">
+            <div data-lift="Msgs"></div>
+        </div>
+
         <div data-lift="Ajax.sample?id_name=cnt_id;id_msgs=messages">
             <div id="ajaxClicker">
                 <span>Click me to increase the count (currently
@@ -36,7 +40,7 @@
             <br>
 
             <div id="messages"></div>
-            <div id="bcmessages"></div>
+            <!--<div id="bcmessages"></div>-->
 
             <div class="form-group row">
                 <div class="col-sm-2">
@@ -61,21 +65,81 @@
                 </div>
             </div>
         </div>
-        <hr>
+
         <p>
-            And each time an Ajax or Comet update is made to the page, we update this span:
+            Each time an Ajax or Comet update is made to the page, we update this span:
             <span id="timely" data-lift="Timely">The time is</span>
         </p>
 
+<!--
+        <div class="form-group row">
+            <label for="the_input" class="col-sm-4 col-form-label">Enter some text:</label>
+            <div class="col-sm-8">
+                <input id="the_input" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                 <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
+            </div>
+        </div>
+-->
 
+<!--
+        <div class="form-row">
+        <div class="form-group  col-md-8">
+            <label for="the_input">Enter some text:</label>
+            <input id="the_input" class="form-control">
+        </div>
 
+        <div class="form-group col-md-4">
+            <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
+        </div>
+        </div>
+-->
+
+<!--
+        <div class="form-group col-md-6">
+            <label for="the_input" class="col-form-label">Enter some text:</label>
+            <input id="the_input" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+            <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
+        </div>
+-->
+
+<!--
         <div class="form-row">
             <label for="the_input" class="col-sm-3 col-form-label">Enter some text:</label>
             <div class="col-sm-5">
                 <input id="the_input" class="form-control">
             </div>
             <div class="col-sm-4">
-                and
+                <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
+            </div>
+        </div>
+-->
+<!--
+        <div class="form-row">
+            <label for="the_input" class="col-sm-3 col-form-label">Enter some text:</label>
+            <div class="col-sm-6">
+                <input id="the_input" class="form-control">
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
+            </div>
+        </div>
+-->
+        <div id="bcmessages"></div>
+
+        <div class="form-group row">
+            <label for="the_input" class="col-sm-4 col-form-label">Enter some text:</label>
+            <div class="col-sm-8">
+                <input id="the_input" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
                 <button class="btn btn-primary" data-lift="Ajax.buttonClick">Click Here</button>
             </div>
         </div>
