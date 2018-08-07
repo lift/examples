@@ -40,9 +40,9 @@ class FormWithAjax extends StatefulSnippet {
     def validate() {
       (firstName.length, lastName.length) match {
         case (f, n) if f < 2 && n < 2 =>
-          S.error("First and last names too short")
-        case (f, _) if f < 2 => S.error("First name too short")
-        case (_, n) if n < 2 => S.error("Last name too short")
+          S.error("fwaErrMsg","First and last names too short")
+        case (f, _) if f < 2 => S.error("fwaErrMsg","First name too short")
+        case (_, n) if n < 2 => S.error("fwaErrMsg","Last name too short")
         case _ => {
           S.notice("Ajax form says Thanks!")
           S.redirectTo(from)

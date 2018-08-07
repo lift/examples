@@ -217,7 +217,7 @@ object MenuInfo {
       Menu("Modal Dialog") / "rhodeisland",
       Menu("JSON Messaging") / "json",
       Menu("Stateless JSON Messaging") / "stateless_json",
-      Menu("More JSON") / "json_more",
+      // Menu("More JSON") / "json_more",
       Menu("Ajax and Forms") / "form_ajax") ,
     Menu("Persistence") / "persistence" >> noGAE submenus (
       Menu("XML Fun") / "xml_fun" >> noGAE,

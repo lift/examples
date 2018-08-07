@@ -58,7 +58,6 @@
       <i>Lift</i> Scala code</span>
     <pre><code class="scala">object JsonCall {
 
-  private val logger = Logger(classOf[JsonCall])
   implicit val formats = DefaultFormats
 
   case class Question(first: Int, second: Int, answer: Int) {
@@ -68,7 +67,6 @@
   def render = {
 
     def validate(value: JValue) : JsCmd = {
-      logger.info(value)
       value.extractOpt[Question].map(_.valid_?) match {
         case Some(true) => Alert("Looks good")
         case Some(false) => Alert("That doesn't add up")
@@ -80,6 +78,37 @@
       SHtml.jsonCall( JE.Call("currentQuestion"), validate _ )
   }
 }</code></pre>
+
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code>...
+    &lt;div data-lift="JsonCall"&gt;
+      &lt;p&gt;Enter an addition question:&lt;/p&gt;
+
+      &lt;div class="form-row"&gt;
+        &lt;div class="form-inline"&gt;
+          &lt;input id="x" class="form-control"&gt;
+          &lt;label"&gt;+&lt;/label&gt;
+          &lt;input id="y" class="form-control"&gt;
+          &lt;label"&gt;=&lt;/label&gt;
+          &lt;input id="z" class="form-control"&gt;
+          &lt;button class="btn btn-primary form-control"&gt;Check&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;script type="text/javascript"&gt;
+      // &lt;![CDATA[
+      function currentQuestion() {
+        return {
+          first: parseInt($('#x').val()),
+          second: parseInt($('#y').val()),
+          answer: parseInt($('#z').val())
+        };
+      }
+      // ]]&gt;
+    &lt;/script&gt;
+...</code></pre>
 
   </div>
 </body>

@@ -17,52 +17,18 @@
 package net.liftweb.example.snippet
 
 import net.liftweb.http._
-import S._
 import js._
-import SHtml._
 import JsCmds._
 import JE._
 import net.liftmodules.textile._
 import net.liftweb.common._
 import net.liftweb.util._
 import Helpers._
-//import JsRaw._
 
 import scala.xml._
-import net.liftweb.common.Loggable
-import net.liftweb.json.JsonAST._
-import net.liftweb.http.js.JsCmds.Alert
-import net.liftweb.json.DefaultFormats
-
-/*object jsonMessage extends Loggable {
-
-  implicit val formats = DefaultFormats
-
-  case class Message(message: String) {
-    def valid_? = message
-  }
-
-  def render = {
-
-    def validate(value: JValue) : JsCmd = {
-      logger.info(value)
-      value.extractOpt[Message].map(_.valid_?) match {
-        case JsonCmd("show", _, p: String, _) => JsRaw(p).cmd
-        case JsonCmd("textile", _, p: String, _) =>
-          JsRaw(TextileParser.toHtml(p, Empty).toString()).cmd
-        case JsonCmd("count", _, p: String, _) =>
-          JsRaw(p.length.toString + " Characters").cmd
-        case x => JsRaw(<b>Problem... didn't handle JSON message {x}</b>.toString()).cmd
-      }
-    }
-
-    "button [onclick]" #>
-      SHtml.jsonCall( JE.Call("currentMessage"), validate _ )
-  }
-}*/
 
 class Json {
-  object json extends Loggable /*extends JsonHandler*/ {
+  object json {
     def apply(in: Any): JsCmd =
       SetHtml(
         "json_result",
@@ -82,16 +48,5 @@ class Json {
       ".json [onclick]" #> Text(
         json(ElemById("json_select") ~> Value,
              ElemById("json_question") ~> Value).toJsCmd)
-  /*
-  def sample =
-    "#jsonscript" #> Script(json.jsCmd) &
-      ".json [onclick]" #> Text(json.call(ElemById("json_select") ~> Value, ElemById("json_question") ~> Value).toJsCmd)
-   */
-  /*  def sample(in: NodeSeq): NodeSeq =
-  bind("json", in,
-       "script" -> Script(json.jsCmd),
-       AttrBindParam("onclick",
-                     Text(json.call(ElemById("json_select")~>Value,
-                                    ElemById("json_question")~>Value).toJsCmd),
-                     "onclick"))*/
+
 }

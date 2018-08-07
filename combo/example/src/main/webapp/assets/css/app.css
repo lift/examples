@@ -162,6 +162,22 @@ ul.errors {
   color: #B94A48;
 }
 
+.error_class {
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+  color: #B94A48;
+}
+
+.notice_class {
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #D9EDF7;
+  border-color: #BCE8F1;
+  color: #3A87AD;
+}
+
 .widget ul {
   padding: 5px;
 }
