@@ -8,7 +8,7 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-    <h2>AJAX Form Update</h2>
+    <h2><span data-lift="Menu.title">%*%</span></h2>
     <nav aria-label="breadcrumb" role="navigation">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -17,15 +17,15 @@
         <li class="breadcrumb-item">
           <a href="interactive.html">Interactive Stuff</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">AJAX Form Update</li>
+        <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
       </ol>
     </nav>
+
+    <div id="stateForm">Choose city and state:</div>
 
     <div id="wrappedNoticeAtHead">
       <div data-lift="Msgs"></div>
     </div>
-
-    <div id="stateForm">Choose city and state:</div>
 
     <div data-lift="AjaxForm?form=post">
       <div class="form-group form-row">

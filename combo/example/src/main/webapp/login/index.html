@@ -1,9 +1,32 @@
-<lift:surround with="default" at="content">
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default2;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="misc.html">Misc code</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
+        </ol>
+    </nav>
 
 <p>
 You have reached this page, but you can only get here if you've logged in
 first.
 </p>
 
+</div>
+</body>
 
-</lift:surround>
+</html>

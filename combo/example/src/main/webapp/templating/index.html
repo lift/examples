@@ -8,13 +8,13 @@
 
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default2;at=content">
-    <h2>Templating</h2>
+    <h2><span data-lift="Menu.title">%*%</span></h2>
     <nav aria-label="breadcrumb" role="navigation">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="index.html">Home</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Templating</li>
+        <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
       </ol>
     </nav>
 
@@ -73,15 +73,19 @@
       <p>So, the quintessential use of Lift's templates are as follows:
       </p>
       <h3 id="myForm">Simple form example</h3>
-      <form data-lift="Show?form=post" >
+      <form data-lift="Show?form=post" class="form-inline">
+          <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Name">
+        <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+          </div>
+          <div class="form-group">
         <label for="birthyear">Birthyear</label>
-        <select id="birthyear">
+        <select id="birthyear" class="form-control">
           <option>2006</option>
           <option>2007</option>
         </select>
-        <input type="submit" value="Submit" />
+          </div>
+        <input type="submit" class="btn btn-primary" value="Submit" />
       </form>
       <div id="selectedyear"></div>
       <div id="namevalue"></div>

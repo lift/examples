@@ -10,7 +10,7 @@
 
   <div id="main" data-lift="surround?with=default2;at=content">
 
-    <h2>Stateless JSON Sample</h2>
+    <h2><span data-lift="Menu.title">%*%</span></h2>
     <nav aria-label="breadcrumb" role="navigation">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -19,7 +19,7 @@
         <li class="breadcrumb-item">
           <a href="interactive.html">Interactive Stuff</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Stateless JSON Sample</li>
+        <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
       </ol>
     </nav>
 
@@ -40,7 +40,8 @@
     </div>
     <button onclick="jQuery.ajax({ url : 'stateless_json_call', data : JSON.stringify({'command': document.getElementById('json_select').value, 'params':document.getElementById('json_question').value}), type : 'POST', dataType : 'script', contentType: 'text/json', timeout : 5000, cache : false});"
       class="btn btn-primary">Click Me</button>
-    <div id="json_result"></div>
+
+    <div id="json_result" style="margin-top:10px;"></div>
 
     <hr>
 

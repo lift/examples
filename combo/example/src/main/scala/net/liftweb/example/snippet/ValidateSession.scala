@@ -48,7 +48,7 @@ class ValidateSession {
 			 LoginStuff(true)
 			 S.notice("Your session is validated")
 			 RedirectTo("/login/index")
-		       })
+		       }, "class" -> "btn btn-outline-primary")
 }
 }
 }

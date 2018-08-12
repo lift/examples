@@ -1,6 +1,29 @@
-<lift:surround with="default" at="content">
-  <lift:with-param name="title-suffix">: Wiki</lift:with-param>
-  <lift:wiki></lift:wiki>
-</lift:surround>
+<!DOCTYPE html>
+<html>
 
-<!-- vim: set ts=4 sw=4 et: -->
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title><span data-lift="Menu.title">%*%</span></title>
+</head>
+
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default2;at=content">
+  <h2><span data-lift="Menu.title">%*%</span></h2>
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="../index.html">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="wiki">wiki</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
+    </ol>
+  </nav>
+
+  <div data-lift="with-param?name=title-suffix">: Wiki</div>
+  <div data-lift="wiki"></div>
+</div>
+</body>
+
+</html>

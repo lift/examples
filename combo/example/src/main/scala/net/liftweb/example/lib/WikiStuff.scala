@@ -142,10 +142,10 @@ object WikiStuff extends Loc[WikiLoc] {
 
       val texMarkRefLink = <span>&nbsp;<a href="https://txstyle.org/" target="_blank">Textile Markup Reference</a><br /></span>
 
-      val cancelLink = <a href={action}>Cancel</a>
+      val cancelLink = <a href={action} class="btn btn-secondary">Cancel</a>
       val textarea = r.entry.toForm
 
-      val submitButton = SHtml.submit(isNew ? "Add" | "Edit", () => r.save)
+      val submitButton = SHtml.submit(isNew ? "Add" | "Edit", () => r.save, "class" -> "btn btn-primary")
 
       <form method="post" action={action}>{ // the form tag
           message ++
