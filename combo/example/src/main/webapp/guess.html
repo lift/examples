@@ -25,27 +25,94 @@
       <div data-lift="Msgs"></div>
     </div>
 
-    <lift:snippet type="CountGame:run" form="post">
-      <choose:guess>
-        Guess a number between 1 and 100.
-        <br> Last guess:
-        <count:last></count:last>
-        <br> Guess:
-        <count:input></count:input>
-        <br>
-        <input type="submit" value="Guess">
-      </choose:guess>
+    <div data-lift="CountGame.run?form=post">
+      <span id="choose">
+        <span id="guess">
+          <span>Guess a number between 1 and 100.</span><br>
+          <span>Last guess: </span><span class="last"></span>
+          <div class="form-group row">
+            <label for="nbr" class="col-sm-1 col-form-label">Guess:</label>
+            <div class="col-sm-2">
+              <span class="input" id="nbr"></span>
+            </div>
+          </div>
+          <input class="btn btn-primary" type="submit" value="Guess">
+        </span>
 
-      <choose:win>
-        You Win!!
-        <br> You guessed
-        <count:number></count:number> after
-        <count:count></count:count> guesses.
-        <br>
-      </choose:win>
-    </lift:snippet>
+        <span id="win">
+          <span>You Win!!</span><br>
+          <span>You guessed <span class="number"></span> after <span class="count"></span> guesses.</span><br>
+        </span>
+      </span>
+    </div>
 
     <br>
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code>&lt;div data-lift="CountGame.run?form=post"&gt;
+  &lt;span id="choose"&gt;
+    &lt;span id="guess"&gt;
+      &lt;span&gt;Guess a number between 1 and 100.&lt;/span&gt;&lt;br&gt;
+      &lt;span&gt;Last guess: &lt;/span&gt;&lt;span class="last"&gt;&lt;/span&gt;
+      &lt;div class="form-group row"&gt;
+        &lt;label for="nbr" class="col-sm-1 col-form-label"&gt;Guess:&lt;/label&gt;
+        &lt;div class="col-sm-2"&gt;
+          &lt;span class="input" id="nbr"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;input class="btn btn-primary" type="submit" value="Guess"&gt;
+    &lt;/span&gt;
+
+    &lt;span id="win"&gt;
+      &lt;span&gt;You Win!!&lt;/span&gt;&lt;br&gt;
+      &lt;span&gt;You guessed &lt;span class="number"&gt;&lt;/span&gt; after
+      &lt;span class="count"&gt;&lt;/span&gt; guesses.&lt;/span&gt;&lt;br&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class CountGame extends StatefulSnippet {
+  val dispatch: DispatchIt = {
+    case "run" if lastGuess == number => xhtml => win(xhtml)
+
+    case "run" => xhtml => nextGuess(xhtml)
+
+    case "count_down" =>
+    xhtml => countDown(attr("from").map(Helpers.toInt).openOr(0))
+  }
+
+  def win(xhtml: NodeSeq) =
+    ( "#win ^*" #> "#choose" &
+      ".number" #> Text(number.toString) &
+      ".count" #> Text(count.toString)
+      ).apply(xhtml) ++
+      &lt;p&gt;Counting backward:
+        {countDown(number)}
+      &lt;/p&gt;
+
+  def countDown(number: Int): Node = if (number <= 0) Text("")
+  else &lt;xml:group&gt;{number} &lt;lift:count_game.count_down from={(number - 1).toString}/&gt;&lt;/xml:group&gt;
+
+  def nextGuess(xhtml: NodeSeq): NodeSeq =
+    ("#guess ^*" #> "#choose" &
+     ".input" #> text("", guess _, "class" -> "form-control") &
+      ".last *" #> lastGuess.map(v =>
+        if (v < number) v + " is low"
+        else v + " is high").
+        openOr("Make first Guess")
+      ).apply(xhtml)
+
+  private def guess(in: String) {
+    count += 1
+    lastGuess = Full(toInt(in))
+  }
+
+  private val number = 1 + randomInt(100)
+  private var lastGuess: Box[Int] = Empty
+  private var count = 0
+}</code></pre>
+
     <br> The view code:
     <head_merge>
       <style type="text/css">

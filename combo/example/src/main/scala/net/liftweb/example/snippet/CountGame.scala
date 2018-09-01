@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
-import _root_.net.liftweb.example.model._
-import _root_.scala.xml.{NodeSeq, Text, Group, Node}
+import _root_.scala.xml.{NodeSeq, Text, Node}
 import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.S
-import _root_.net.liftweb.mapper._
 import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
 import _root_.net.liftweb.util.Helpers._
@@ -30,31 +25,36 @@ import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 
 
-class CountGameREM extends StatefulSnippet {
+class CountGame extends StatefulSnippet {
   val dispatch: DispatchIt = {
-    case "run" if lastGuess == number =>
-    xhtml => win(chooseTemplate("choose", "win", xhtml))
+    case "run" if lastGuess == number => xhtml => win(xhtml)
 
-    case "run" =>
-    xhtml => nextGuess(chooseTemplate("choose", "guess", xhtml))
+    case "run" => xhtml => nextGuess(xhtml)
 
     case "count_down" =>
     xhtml => countDown(attr("from").map(Helpers.toInt).openOr(0))
   }
 
-  def win(xhtml: NodeSeq) = bind("count", xhtml, "number" -> number,
-  "count" -> count) ++ <p>Counting backward: {countDown(number)}</p>
+  def win(xhtml: NodeSeq) =
+    ( "#win ^*" #> "#choose" &
+      ".number" #> Text(number.toString) &
+      ".count" #> Text(count.toString)
+      ).apply(xhtml) ++
+      <p>Counting backward:
+        {countDown(number)}
+      </p>
 
   def countDown(number: Int): Node = if (number <= 0) Text("")
-  else <xml:group>{number} <lift:count_game.count_down from={(number - 1).toString} /></xml:group>
+  else <xml:group>{number} <lift:count_game.count_down from={(number - 1).toString}/></xml:group>
 
-  def nextGuess(xhtml: NodeSeq) =  bind("count", xhtml,
-  "input" -> text("", guess _),
-  "last" ->
-  lastGuess.map(v =>
-  if (v < number) v+" is low"
-  else v+" is high").
-  openOr("Make first Guess"))
+  def nextGuess(xhtml: NodeSeq): NodeSeq =
+    ("#guess ^*" #> "#choose" &
+     ".input" #> text("", guess _, "class" -> "form-control") &
+      ".last *" #> lastGuess.map(v =>
+        if (v < number) v + " is low"
+        else v + " is high").
+        openOr("Make first Guess")
+      ).apply(xhtml)
 
   private def guess(in: String) {
     count += 1
@@ -65,6 +65,4 @@ class CountGameREM extends StatefulSnippet {
   private var lastGuess: Box[Int] = Empty
   private var count = 0
 }
-}
-}
-}
+
