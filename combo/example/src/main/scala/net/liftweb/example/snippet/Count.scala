@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
-import _root_.net.liftweb.example.model._
-import _root_.scala.xml.{NodeSeq, Text, Group, Node}
+import _root_.scala.xml.{Text}
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.http.S
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.http.S._
 import _root_.net.liftweb.http.SHtml._
 import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
 import _root_.scala.collection.mutable.HashMap
-
 
 /**
   * This session variable holds a set of Names and Integers, with a default value
@@ -47,7 +39,7 @@ class Count {
   /**
     * This method is invoked by the &lt;lift:Count /&gt; tag
     */
-  def render(in: NodeSeq): NodeSeq = {
+  def render = {
     // get the attribute name (the name of the thing to count)
     val attr: String = S.attr("name").openOr("N/A")
 
@@ -55,11 +47,8 @@ class Count {
     val value = CountHolder.is(attr)
 
     // Bind the incoming view data and the model data
-    bind("count", in, "value" -> value,
-    "incr" -> link("/count", () => CountHolder.is(attr) = value + 1, Text("++")),
-    "decr" -> link("/count", () => CountHolder.is(attr) = 0 max (value - 1), Text("--")))
+    ".value" #> Text(value.toString) &
+      ".incr" #> link("/count", () => CountHolder.is(attr) = value + 1, Text("++")) &
+      ".decr" #> link("/count", () => CountHolder.is(attr) = 0 max (value - 1), Text("--"))
   }
-}
-}
-}
 }

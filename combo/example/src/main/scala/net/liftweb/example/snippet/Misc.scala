@@ -138,20 +138,23 @@ class Misc {
   /**
     * Bind the appropriate XHTML to the form
     */
-  /*TODO PPE REM
-   *
-   * */
-  /*
   def upload(xhtml: Group): NodeSeq =
-  if (S.get_?) bind("ul", chooseTemplate("choose", "get", xhtml),
-                    "file_upload" -> fileUpload(ul => theUpload(Full(ul))))
-  else bind("ul", chooseTemplate("choose", "post", xhtml),
-            "file_name" -> theUpload.is.map(v => Text(v.fileName)),
-            "mime_type" -> theUpload.is.map(v => Box.legacyNullTest(v.mimeType).map(Text).openOr(Text("No mime type supplied"))), // Text(v.mimeType)),
-            "length" -> theUpload.is.map(v => Text(v.file.length.toString)),
-            "md5" -> theUpload.is.map(v => Text(hexEncode(md5(v.file))))
-  );
-   */
+    if (S.get_?)
+      (
+        "#get ^*" #> "#choose" &
+          ".file_upload" #> fileUpload(ul => theUpload(Full(ul)))
+      ) apply (xhtml)
+    else
+      ("#post ^*" #> "#choose" &
+        ".file_name" #> theUpload.is.map(v => Text(v.fileName)) &
+        ".mime_type" #> theUpload.is.map(
+          v =>
+            Box
+              .legacyNullTest(v.mimeType)
+              .map(Text.apply)
+              .openOr(Text("No mime type supplied"))) &
+        ".length" #> theUpload.is.map(v => Text(v.file.length.toString)) &
+        ".md5" #> theUpload.is.map(v => Text(hexEncode(md5(v.file))))) apply (xhtml)
 
   def lang = {
     "#lang" #> locale.getDisplayLanguage(locale) &

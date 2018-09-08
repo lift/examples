@@ -19,6 +19,7 @@ libraryDependencies ++= {
   val liftVersion = "3.3.0"
   Seq(
     "net.liftweb" %% "lift-webkit" % liftVersion,
+    "net.liftweb" %% "lift-json" % liftVersion,
     "net.liftweb" %% "lift-db" % liftVersion,
     "net.liftweb" %% "lift-mapper" % liftVersion,
     "net.liftmodules" %% "fobo_3.3" % "2.0",

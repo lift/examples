@@ -26,30 +26,66 @@
             type, the number of bytes in the file and the MD5 checksum.
         </p>
 
-
-        <lift:snippet type="misc:upload" form="post" multipart="true">
-            <choose:post>
+        <form data-lift="misc.upload?form=post&multipart=true">
+            <span id="choose">
+                <span id="post">
                 <p>
-                    File name:
-                    <ul:file_name></ul:file_name>
-                    <br> MIME Type:
-                    <ul:mime_type></ul:mime_type>
-                    <br> File length:
-                    <ul:length></ul:length>
-                    <br> MD5 Hash:
-                    <ul:md5></ul:md5>
-                    <br>
+                    File name: <span class="file_name"></span><br>
+                    MIME Type: <span class="mime_type"></span><br>
+                    File length: <span class="length"></span><br>
+                    MD5 Hash: <span class="md5"></span><br>
                 </p>
-            </choose:post>
+                </span>
 
-            <choose:get>
-                Select a file to upload:
-                <ul:file_upload></ul:file_upload>
-                <br>
-                <input type="submit" value="Upload File">
-            </choose:get>
+                <span id="get">
+                  Select a file to upload: <input class="file_upload"><br>
+                  <input type="submit" value="Upload File" class="btn btn btn-primary">
+                </span>
+            </span>
+        </form>
 
-        </lift:snippet>
+        <br>
+        <span class="badge badge-secondary">The Markup</span>
+        <pre><code>&lt;form data-lift="misc.upload?form=post&multipart=true"&gt;
+    &lt;span id="choose"&gt;
+        &lt;span id="post"&gt;
+        &lt;p&gt;
+            File name: &lt;span class="file_name"&gt;&lt;/span&gt;&lt;br&gt;
+            MIME Type: &lt;span class="mime_type"&gt;&lt;/span&gt;&lt;br&gt;
+            File length: &lt;span class="length"&gt;&lt;/span&gt;&lt;br&gt;
+            MD5 Hash: &lt;span class="md5"&gt;&lt;/span&gt;&lt;br&gt;
+        &lt;/p&gt;
+        &lt;/span&gt;
+
+        &lt;span id="get"&gt;
+          Select a file to upload: &lt;input class="file_upload"&gt;&lt;br&gt;
+          &lt;input type="submit" value="Upload File" class="btn btn btn-primary"&gt;
+        &lt;/span&gt;
+    &lt;/span&gt;
+&lt;/form&gt;</code></pre>
+
+        <span class="badge badge-secondary">The
+        <i>Lift</i> Scala code</span>
+        <pre><code class="scala">// the request-local variable that hold the file parameter
+private object theUpload extends RequestVar[Box[FileParamHolder]](Empty)
+
+def upload(xhtml: Group): NodeSeq =
+if (S.get_?)
+  (
+    "#get ^*" #> "#choose" &
+      ".file_upload" #> fileUpload(ul => theUpload(Full(ul)))
+  ) apply (xhtml)
+else
+  ("#post ^*" #> "#choose" &
+    ".file_name" #> theUpload.is.map(v => Text(v.fileName)) &
+    ".mime_type" #> theUpload.is.map(
+      v =>
+        Box
+          .legacyNullTest(v.mimeType)
+          .map(Text.apply)
+          .openOr(Text("No mime type supplied"))) &
+    ".length" #> theUpload.is.map(v => Text(v.file.length.toString)) &
+    ".md5" #> theUpload.is.map(v => Text(hexEncode(md5(v.file))))) apply (xhtml)</code></pre>
 
     </div>
 </body>
