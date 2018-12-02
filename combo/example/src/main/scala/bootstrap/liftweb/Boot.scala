@@ -26,7 +26,6 @@ import Helpers._
 
 import example._
 import net.liftmodules.widgets.autocomplete._
-// import net.liftmodules.JQueryModule
 import net.liftmodules.fobo
 import comet._
 import model._
@@ -166,8 +165,8 @@ class Boot {
     // FoBo init
     fobo.Toolkit.init = fobo.Toolkit.JQuery224
     fobo.Toolkit.init = fobo.Toolkit.HighlightJS930
-    fobo.Toolkit.init = fobo.Toolkit.FontAwesome470 //update to latest
-    fobo.Toolkit.init = fobo.Toolkit.Bootstrap400
+    fobo.Toolkit.init = fobo.Toolkit.FontAwesome550
+    fobo.Toolkit.init = fobo.Toolkit.Bootstrap413
     fobo.Toolkit.init = fobo.Toolkit.Popper1129
     fobo.Toolkit.init = fobo.Toolkit.JQueryMigrate141
 
@@ -209,8 +208,8 @@ object MenuInfo {
   lazy val noGAE = Unless(() => Props.inGAE, "Disabled for GAE")
 
   def sitemap() = SiteMap(
-    Menu("Home") / "index",
-    Menu("Interactive Stuff") / "interactive" submenus(
+    Menu.i("Home") / "index",
+    Menu.i("Interactive Stuff") / "interactive" submenus(
       Menu("Comet Chat") / "chat" >> noGAE,
       Menu("Ajax Samples") / "ajax",
       Menu("Ajax Form") / "ajax-form",
@@ -219,13 +218,13 @@ object MenuInfo {
       Menu("Stateless JSON Messaging") / "stateless_json",
       // Menu("More JSON") / "json_more",
       Menu("Ajax and Forms") / "form_ajax") ,
-    Menu("Persistence") / "persistence" >> noGAE submenus (
+    Menu.i("Persistence") / "persistence" >> noGAE submenus (
       Menu("XML Fun") / "xml_fun" >> noGAE,
       Menu("Database") / "database" >> noGAE,
       Menu(Loc("simple", Link(List("simple"), true, "/simple/index"), "Simple Forms", noGAE)) //,
       // Menu("Templates") / "template" >> noGAE
       ),
-    Menu("Templating") / "templating" / "index" submenus(
+    Menu.i("Templating") / "templating" / "index" submenus(
       Menu("Surround") / "templating" / "surround",
       Menu("Embed") / "templating" / "embed",
       Menu("Evalutation Order") / "templating" / "eval_order",
@@ -234,9 +233,9 @@ object MenuInfo {
       Menu("Lazy Loading") / "lazy",
       Menu("Parallel Snippets") / "parallel",
       Menu("<head/> tag") / "templating"/ "head"),
-    Menu("Web Services") / "ws" >> noGAE,
-    Menu("Localization") / "lang",
-    Menu("Menus") / "menu" / "index" submenus(
+    Menu.i("Web Services") / "ws" >> noGAE,
+    Menu.i("Localization") / "lang",
+    Menu.i("Menus") / "menu" / "index" submenus(
       Menu("First Submenu") / "menu" / "one",
       Menu("Second Submenu (has more)") / "menu" / "two" submenus(
         Menu("First (2) Submenu") / "menu" / "two_one",
@@ -244,7 +243,7 @@ object MenuInfo {
       Menu("Third Submenu") / "menu" / "three",
       Menu("Forth Submenu") / "menu" / "four"),
     Menu(WikiStuff),
-    Menu("Misc code") / "misc" submenus(
+    Menu.i("Misc code") / "misc" submenus(
       Menu("Long Time") / "longtime",
       Menu("Number Guessing") / "guess",
       Menu("Wizard") / "wiz",
@@ -260,9 +259,10 @@ object MenuInfo {
                <xml:group>Requiring Login<strike>SiteMap</strike> </xml:group>)),
       Menu("Counting") / "count"),
     Menu(Loc("lift", ExtLink("http://liftweb.net"),
-             <xml:group> <i>Lift</i> project home</xml:group>)),
+      S.loc( "lift", <xml:group> <i>Lift</i> project home</xml:group>))),
     Menu(Loc("src", ExtLink("https://github.com/lift/examples/tree/master/combo/example"),
-             "Source code for this site")))
+      S.loc("src", scala.xml.Text("Source code for this site"))))
+  )
 }
 
 /**

@@ -23,13 +23,12 @@ import js._
 import JsCmds._
 import util._
 import Helpers._
-
-import scala.xml.NodeSeq
+// import scala.xml.{NodeSeq, Text, Group}
 
 class FormWithAjax extends StatefulSnippet {
   private var firstName = ""
   private var lastName = ""
-  private val from = S.referer openOr "/"
+  private val to = "#wrappedNoticeAtHead"
 
   def dispatch = {
     case _ => render
@@ -44,8 +43,8 @@ class FormWithAjax extends StatefulSnippet {
         case (f, _) if f < 2 => S.error("fwaErrMsg","First name too short")
         case (_, n) if n < 2 => S.error("fwaErrMsg","Last name too short")
         case _ => {
-          S.notice("Ajax form says Thanks!")
-          S.redirectTo(from)
+          S.notice("fwaNoticeMsg", "Ajax form says Thanks!")
+          S.redirectTo(to)
         }
       }
     }
@@ -53,7 +52,7 @@ class FormWithAjax extends StatefulSnippet {
     "#first" #> textAjaxTest(firstName,
                              s => firstName = s,
                              s => {
-                               S.notice("First name " + s); Noop
+                               S.notice("fwaNoticeMsg","First name " + s); Noop
                              },
                              "class" -> "form-control",
                              "type" -> "text",
@@ -61,7 +60,7 @@ class FormWithAjax extends StatefulSnippet {
       "#last" #> textAjaxTest(lastName,
                               s => lastName = s,
                               s => {
-                                S.notice("Last name " + s); Noop
+                                S.notice("fwaNoticeMsg", "Last name " + s); Noop
                               },
                               "class" -> "form-control",
                               "type" -> "text",

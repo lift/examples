@@ -7,16 +7,9 @@
 </head>
 
 <body data-lift-content-id="main">
-  <div id="main" data-lift="surround?with=default2;at=content">
+  <div id="main" data-lift="surround?with=default;at=content">
     <h2><span data-lift="Menu.title">%*%</span></h2>
-    <nav aria-label="breadcrumb" role="navigation">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
-      </ol>
-    </nav>
+      <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
     <div id="wrappedNoticeAtHead">
       <div data-lift="Msgs"></div>
@@ -26,9 +19,9 @@
 
     <div class="bd-callout bd-callout-info">
       <h5>In the beginning there was XHTML</h5>
-      <p>The text on this page is written in the era of xhtml so it's associated examples uses xhtml namespace syntax, but don't
+      <p><i class="fas fa-quote-left fa-2x fa-pull-left"></i>The text on this page is written in the era of xhtml so it's associated examples uses xhtml namespace syntax, but don't
         worry alongside with the older examples there are
-        <strong>equivalent modern examples</strong> written in HTML5 using
+        <strong>equivalent html5 examples</strong> using
         <code>data-lift</code> and CSS-selectors for data bindings.
       </p>
     </div>
@@ -60,7 +53,7 @@
       </p>
       <p>First, I rejected using StringTemplate (or something like it) because it introduced some programming into the templating
         mechanism and it would have taken a lot of work to make it XMLTemplate (and all of Lift's templating is XHTML and
-        makes use of Scala's excellent support of XML.)
+          makes use of Scala's excellent support of XML.) <strong>Note:</strong> Nowadays most templating is based on HTML5.
       </p>
       <p>Second, I've been referring to static templates. Lift has a little known and pretty much undocumented feature that
         supports template generation from Scala code. One of these days, I'll document the feature and put up some examples.
@@ -73,26 +66,31 @@
       <p>So, the quintessential use of Lift's templates are as follows:
       </p>
       <h3 id="myForm">Simple form example</h3>
-      <form data-lift="Show?form=post" class="form-inline">
-          <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+
+      <div data-lift="Show?form=post">
+          <div class="form-group form-row">
+              <label for="name" class="col-form-label">Name</label>
+              <div class="col">
+                  <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+              </div>
+              <label for="birthyear" class="col-form-label">Birthyear</label>
+              <div class="col">
+                  <select id="birthyear" class="form-control">
+                      <option>2006</option>
+                      <option>2007</option>
+                  </select>
+              </div>
+              <div class="col">
+                  <input type="submit" class="btn btn-primary" value="Submit" />
+              </div>
           </div>
-          <div class="form-group">
-        <label for="birthyear">Birthyear</label>
-        <select id="birthyear" class="form-control">
-          <option>2006</option>
-          <option>2007</option>
-        </select>
-          </div>
-        <input type="submit" class="btn btn-primary" value="Submit" />
-      </form>
+      </div>
       <div id="selectedyear"></div>
       <div id="namevalue"></div>
       <div id="wrappedNotice">
-        <div data-lift="Msgs"></div>
+          <div data-lift="Msgs"></div>
       </div>
-
+      <br>
       <span class="badge badge-secondary">HTML syntax</span>
       <pre class="html"><code>&lt;html&gt;
   ...

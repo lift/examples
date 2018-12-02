@@ -20,6 +20,7 @@ import scala.xml.{Text, NodeSeq}
 import net.liftweb.http._
 import S._
 import net.liftweb.common._
+//import net.liftweb.example.lib.Util.{breadcrumb}
 
 class XmlFun extends LiftView {
   def dispatch = Map("index" -> render _)
@@ -36,22 +37,17 @@ class XmlFun extends LiftView {
 
     val toCount = param("country") openOr "US"
 
+    //List(("index.html", Text("Home")),("persistence.html", Text("Persistance"))),("",Text("XML Fun"))
+
     Full(<html>
           <head>
             <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
             <title>Template</title>
           </head>
           <body data-lift-content-id="main">
-            <div id="main" data-lift="surround?with=default2;at=content">
+            <div id="main" data-lift="surround?with=default;at=content">
               <h2>XML Fun</h2>
-              <nav aria-label="breadcrumb" role="navigation">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item"><a href="persistence.html">Persistence</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">XML Fun</li>
-                </ol>
-              </nav>
-
+              <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
               <span class="badge badge-secondary">The XML is</span>
               <pre><code class="xml">{addresses.map{e => Text(e.toString) :: <br/> :: Nil}}</code></pre>
               <p><b>The count for {toCount} nodes is {countryCount(toCount, addresses)}</b></p>

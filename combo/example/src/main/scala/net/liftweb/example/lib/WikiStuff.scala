@@ -60,6 +60,7 @@ object WikiStuff extends Loc[WikiLoc] {
   // the default parameters (used for generating the menu listing)
   def defaultValue = Full(WikiLoc("HomePage", false))
 
+  // def text = S.loc("Wiki HomePage")
   // no extra parameters
   def params = List(Unless(() => Props.inGAE || Props.productionMode, "Disabled for GAE"))
 
@@ -101,9 +102,9 @@ object WikiStuff extends Loc[WikiLoc] {
 
   def calcLinkText(in: WikiLoc): NodeSeq =
   if (in.edit)
-  Text("Wiki edit "+in.page)
+  S.loc("Wiki edit "+in.page, Text("Wiki edit "+in.page))
   else
-  Text("Wiki "+in.page)
+    S.loc("Wiki "+in.page, Text("Wiki "+in.page))
 
   /**
    * Rewrite the request and emit the type-safe parameter

@@ -24,6 +24,7 @@ import net.liftweb.json.JsonAST._
 import net.liftweb.http.js.JsCmds.Alert
 import net.liftweb.json.DefaultFormats
 
+// Example taken from http://cookbook.liftweb.net/book.html#id-rjCJTYFwuYtbh9
 object JsonCall {
 
   private val logger = Logger(classOf[JsonCall])

@@ -7,14 +7,10 @@
 </head>
 
 <body data-lift-content-id="main">
-    <div id="main" data-lift="surround?with=default2;at=content">
+    <div id="main" data-lift="surround?with=default;at=content">
         <h2>Welcome to the
             <i>Lift</i> Web Framework</h2>
-        <nav aria-label="breadcrumb" role="navigation">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
-            </ol>
-        </nav>
+        <span data-lift="FoBo.Bs4Comp.breadCrumb"></span>
 
         <div id="wrappedNoticeAtHead">
             <div data-lift="Msgs"></div>
@@ -22,21 +18,21 @@
 
         <div>
             <i>Lift</i> provides the best features for building interactive web applications:
-            <ul>
-                <li>
+            <ul class="fa-ul">
+                <li><span class="fa-li" ><i class="fas fa-check" style="font-size: small; color: gray;"></i></span>
                     Super simple and wicked powerful
                     <a href="/ajax">Ajax</a> and Comet coding. This lets you build more interactive, user-friendly sites.
                 </li>
-                <li>
+                <li><span class="fa-li" ><i class="fas fa-check" style="font-size: small; color: gray;"></i></span>
                     Amazingly concise code with the powerful type-safety of
                     <a href="http://scala-lang.org" target="_blank">Scala</a>. This means more time spent coding features and less time writing tests or chasing parameter
                     mis-matches.
                 </li>
-                <li>
+                <li><span class="fa-li" ><i class="fas fa-check" style="font-size: small; color: gray;"></i></span>
                     Runs on all standard JEE (Java) application servers including Jetty, Tomcat, WebLogic, etc. This means you get the performance,
                     scalability and compatibility of the best web infrastructure around.
                 </li>
-                <li>
+                <li><span class="fa-li" ><i class="fas fa-check" style="font-size: small; color: gray;"></i></span>
                     Built-in security means more time focusing on your application and less time being defensive about parameter tampering, SQL
                     injection, Cross Site Scripting and other nasty attacks.
                 </li>

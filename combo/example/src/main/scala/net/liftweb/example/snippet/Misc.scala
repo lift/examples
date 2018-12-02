@@ -33,7 +33,6 @@ import java.util.Locale
 class Misc {
   private object selectedUser extends RequestVar[Box[User]](Empty)
   private val logger = Logger(classOf[Misc])
-
   /**
     * Get the XHTML containing a list of users
     */
@@ -52,8 +51,8 @@ class Misc {
     <thead class="thead-light"><tr>{User.htmlHeaders}<th>Edit</th><th>Delete</th></tr></thead> ::
       // get and display each of the users
       User.findAll(OrderBy(User.id, Ascending)).flatMap(u => <tr>{u.htmlLine}
-        <td>{link("/simple/edit", () => selectedUser(Full(u)), Text("Edit"), "class" -> "btn btn-sm btn-outline-secondary")}</td>
-        <td>{link("/simple/delete", () => selectedUser(Full(u)), Text("Delete"), "class" -> "btn btn-sm btn-outline-secondary")}</td>
+        <td>{link("/simple/edit", () => selectedUser(Full(u)), <i class="fas fa-pencil-alt fa-fw"></i>, "class" -> "btn btn-sm btn-outline-secondary")}</td>
+        <td>{link("/simple/delete", () => selectedUser(Full(u)), <i class="fas fa-trash fa-fw"></i>, "class" -> "btn btn-sm btn-outline-secondary")}</td>
                                                            </tr>)
   }
 

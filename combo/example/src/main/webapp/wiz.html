@@ -7,19 +7,10 @@
 </head>
 
 <body data-lift-content-id="main">
-  <div id="main" data-lift="surround?with=default2;at=content">
+  <div id="main" data-lift="surround?with=default;at=content">
     <h2><span data-lift="Menu.title">%*%</span></h2>
-    <nav aria-label="breadcrumb" role="navigation">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="misc.html">Misc code</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page"><span data-lift="Menu.title">%*%</span></li>
-      </ol>
-    </nav>
+
+      <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
       <div id="wrappedNoticeAtHead">
           <div data-lift="Msgs"></div>

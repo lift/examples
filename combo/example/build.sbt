@@ -4,7 +4,7 @@ organization := "net.liftweb"
 
 name := "demo"
 
-version := "0.6.0-SNAPSHOT"
+version := "0.6.1-SNAPSHOT"
 
 scalaVersion := "2.11.11" //2.12.2
 
@@ -22,7 +22,7 @@ libraryDependencies ++= {
     "net.liftweb" %% "lift-json" % liftVersion,
     "net.liftweb" %% "lift-db" % liftVersion,
     "net.liftweb" %% "lift-mapper" % liftVersion,
-    "net.liftmodules" %% "fobo_3.3" % "2.0",
+    "net.liftmodules" %% "fobo_3.3" % "2.1.0-SNAPSHOT",
     "net.liftmodules" %% "widgets_3.1" % "1.6.0-SNAPSHOT",
     "net.liftmodules" %% "textile_3.1" % "1.4-SNAPSHOT",
     "org.eclipse.jetty" % "jetty-webapp" % "8.1.7.v20120910" % "test",
