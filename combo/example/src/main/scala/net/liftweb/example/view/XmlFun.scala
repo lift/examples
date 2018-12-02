@@ -20,7 +20,6 @@ import scala.xml.{Text, NodeSeq}
 import net.liftweb.http._
 import S._
 import net.liftweb.common._
-//import net.liftweb.example.lib.Util.{breadcrumb}
 
 class XmlFun extends LiftView {
   def dispatch = Map("index" -> render _)
@@ -36,8 +35,6 @@ class XmlFun extends LiftView {
     )
 
     val toCount = param("country") openOr "US"
-
-    //List(("index.html", Text("Home")),("persistence.html", Text("Persistance"))),("",Text("XML Fun"))
 
     Full(<html>
           <head>
