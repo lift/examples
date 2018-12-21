@@ -1,19 +1,57 @@
-enablePlugins(JettyPlugin)
+//##################################################################
+//##
+//##  Build settings
+//##
+//##############
 
-organization := "net.liftweb"
+lazy val projectSettings = Seq(
+  organization := "net.liftweb",
+  version := "0.8.0-SNAPSHOT",
+  name := "demo",
+  scalaVersion := "2.11.11",
+  scalacOptions ++= Seq("-unchecked", "-deprecation"),
+  autoAPIMappings := true
+)
 
-name := "demo"
+lazy val meta = (project in file("."))
+  .enablePlugins(JettyPlugin)
+  .enablePlugins(BuildInfoPlugin)
+  .settings(projectSettings: _*)
+  .settings(
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    buildInfoKeys ++= Seq[BuildInfoKey](
+      BuildInfoKey.action("buildTime") {
+        System.currentTimeMillis
+      } // re-computed each time at compile
+    ),
+    buildInfoPackage := "net.liftweb.example.lib"
+  )
 
-version := "0.6.1-SNAPSHOT"
+//##
+//##
+//##################################################################
 
-scalaVersion := "2.11.11" //2.12.2
+//##################################################################
+//##
+//##  Resolvers
+//##
+//##############
 
-scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 resolvers ++= Seq("snapshots"     at "https://oss.sonatype.org/content/repositories/snapshots",
                   "staging"       at "https://oss.sonatype.org/content/repositories/staging",
                   "releases"      at "https://oss.sonatype.org/content/repositories/releases"
 )
+
+//##
+//##
+//##################################################################
+
+//##################################################################
+//##
+//##  Dependencies
+//##
+//##############
 
 libraryDependencies ++= {
   val liftVersion = "3.3.0"
@@ -22,7 +60,7 @@ libraryDependencies ++= {
     "net.liftweb" %% "lift-json" % liftVersion,
     "net.liftweb" %% "lift-db" % liftVersion,
     "net.liftweb" %% "lift-mapper" % liftVersion,
-    "net.liftmodules" %% "fobo_3.3" % "2.1.0-SNAPSHOT",
+    "net.liftmodules" %% "fobo_3.3" % "2.1.0",
     "net.liftmodules" %% "widgets_3.1" % "1.6.0-SNAPSHOT",
     "net.liftmodules" %% "textile_3.1" % "1.4-SNAPSHOT",
     "org.eclipse.jetty" % "jetty-webapp" % "8.1.7.v20120910" % "test",
@@ -34,3 +72,7 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "1.3.167"
   )
 }
+
+//##
+//##
+//##################################################################
