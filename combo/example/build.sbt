@@ -8,7 +8,7 @@ lazy val projectSettings = Seq(
   organization := "net.liftweb",
   version := "0.9.0-SNAPSHOT",
   name := "demo",
-  scalaVersion := "2.11.11",
+  scalaVersion := "2.12.7",
   scalacOptions ++= Seq("-unchecked", "-deprecation"),
   autoAPIMappings := true
 )
