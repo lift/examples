@@ -32,25 +32,25 @@ import model._
 import scala.xml.{Text, NodeSeq}
 
 /**
- * A wiki location
- *
- * @param page - the name of the page
- * @param edit - are we viewing or editing the page?
- */
+  * A wiki location
+  *
+  * @param page - the name of the page
+  * @param edit - are we viewing or editing the page?
+  */
 case class WikiLoc(page: String, edit: Boolean) {
 
   /**
-   * Get the underly database record for this page
-   */
+    * Get the underly database record for this page
+    */
   lazy val record: WikiEntry =
-  WikiEntry.find(By(WikiEntry.name, page)) openOr
-  WikiEntry.create.name(page)
+    WikiEntry.find(By(WikiEntry.name, page)) openOr
+      WikiEntry.create.name(page)
 }
 
 /**
- * The WikiStuff object that provides menu, URL rewriting,
- * and snippet support for the page that displays wiki contents
- */
+  * The WikiStuff object that provides menu, URL rewriting,
+  * and snippet support for the page that displays wiki contents
+  */
 object WikiStuff extends Loc[WikiLoc] {
   object AllLoc extends WikiLoc("all", false)
 
@@ -62,74 +62,74 @@ object WikiStuff extends Loc[WikiLoc] {
 
   // def text = S.loc("Wiki HomePage")
   // no extra parameters
-  def params = List(Unless(() => Props.inGAE || Props.productionMode, "Disabled for GAE"))
+  def params =
+    List(Unless(() => Props.inGAE || Props.productionMode, "Disabled for GAE"))
 
   // is the current page an "edit" or "view"
   def currentEdit = requestValue.is.map(_.edit) openOr false
 
   /**
-   * Check for page-specific snippets and
-   * do appropriate dispatching
-   */
+    * Check for page-specific snippets and
+    * do appropriate dispatching
+    */
   override val snippets: SnippetTest = {
-    case ("wiki", Full(AllLoc)) => showAll _
-    case ("wiki", Full(wp @ WikiLoc(_ , true))) => editRecord(wp.record) _
-    case ("wiki", Full(wp @ WikiLoc(_ , false)))
-      if !wp.record.saved_? => editRecord(wp.record) _
+    case ("wiki", Full(AllLoc))                => showAll _
+    case ("wiki", Full(wp @ WikiLoc(_, true))) => editRecord(wp.record) _
+    case ("wiki", Full(wp @ WikiLoc(_, false))) if !wp.record.saved_? =>
+      editRecord(wp.record) _
 
     case ("wiki", Full(wp: WikiLoc)) => displayRecord(wp.record) _
   }
 
-
   /**
-   * Generate a link based on the current page
-   */
+    * Generate a link based on the current page
+    */
   val link =
-  new Loc.Link[WikiLoc](List("wiki"), false) {
-    override def createLink(in: WikiLoc) = {
-      if (in.edit)
-      Full(Text("/wiki/edit/"+urlEncode(in.page)))
-      else
-      Full(Text("/wiki/"+urlEncode(in.page)))
+    new Loc.Link[WikiLoc](List("wiki"), false) {
+      override def createLink(in: WikiLoc) = {
+        if (in.edit)
+          Full(Text("/wiki/edit/" + urlEncode(in.page)))
+        else
+          Full(Text("/wiki/" + urlEncode(in.page)))
+      }
     }
-  }
 
   /**
-   * What's the text of the link?
-   */
+    * What's the text of the link?
+    */
   val text = new Loc.LinkText(calcLinkText _)
 
-
   def calcLinkText(in: WikiLoc): NodeSeq =
-  if (in.edit)
-  S.loc("Wiki edit "+in.page, Text("Wiki edit "+in.page))
-  else
-    S.loc("Wiki "+in.page, Text("Wiki "+in.page))
+    if (in.edit)
+      S.loc("Wiki edit " + in.page, Text("Wiki edit " + in.page))
+    else
+      S.loc("Wiki " + in.page, Text("Wiki " + in.page))
 
   /**
-   * Rewrite the request and emit the type-safe parameter
-   */
+    * Rewrite the request and emit the type-safe parameter
+    */
   override val rewrite: LocRewrite =
-  Full(NamedPF("Wiki Rewrite") {
-      case RewriteRequest(ParsePath("wiki" :: "edit" :: page :: Nil, _, _,_),
-                          _, _) =>
+    Full(NamedPF("Wiki Rewrite") {
+      case RewriteRequest(ParsePath("wiki" :: "edit" :: page :: Nil, _, _, _),
+                          _,
+                          _) =>
         (RewriteResponse("wiki" :: Nil), Full(WikiLoc(page, true)))
 
-      case RewriteRequest(ParsePath("wiki" :: page :: Nil, _, _,_),
-                          _, _) =>
+      case RewriteRequest(ParsePath("wiki" :: page :: Nil, _, _, _), _, _) =>
         (RewriteResponse("wiki" :: Nil), Full(WikiLoc(page, false)))
 
     })
 
   def showAll(in: NodeSeq): NodeSeq =
-  WikiEntry.findAll(OrderBy(WikiEntry.name, Ascending)).flatMap(entry =>
-    <div><a href={url(entry.name.get)}>{entry.name}</a></div>)
+    WikiEntry
+      .findAll(OrderBy(WikiEntry.name, Ascending))
+      .flatMap(entry =>
+        <div><a href={url(entry.name.get)}>{entry.name}</a></div>)
 
   def url(page: String) = createLink(WikiLoc(page, false))
 
-
   def editRecord(r: WikiEntry)(in: NodeSeq): NodeSeq =
-  <span>
+    <span>
     <a href={createLink(AllLoc)}>Show All Pages</a><br />
     {
       val isNew = !r.saved_?
@@ -141,7 +141,7 @@ object WikiStuff extends Loc[WikiLoc] {
       else
       Text("Edit entry named "+pageName)
 
-      val texMarkRefLink = <span>&nbsp;<a href="https://txstyle.org/" target="_blank">Textile Markup Reference</a><br /></span>
+      val texMarkRefLink = <span>&nbsp;<a href="https://txstyle.org/" target="_blank">Textile Markup Reference</a><br/></span>
 
       val cancelLink = <a href={action} class="btn btn-secondary">Cancel</a>
       val textarea = r.entry.toForm
@@ -162,7 +162,7 @@ object WikiStuff extends Loc[WikiLoc] {
   </span>
 
   def displayRecord(entry: WikiEntry)(in: NodeSeq): NodeSeq =
-  <span>
+    <span>
     <a href={createLink(AllLoc)}>Show All Pages</a><br />
     {TextileParser.toHtml(entry.entry.get, textileWriter)}
 
@@ -175,10 +175,9 @@ object WikiStuff extends Loc[WikiLoc] {
     info match {
       case WikiURLInfo(page, _) =>
         (stringUrl(page), Text(page), None)
-    })
+  })
 
   def stringUrl(page: String): String =
-  url(page).map(_.text) getOrElse ""
+    url(page).map(_.text) getOrElse ""
 
 }
-

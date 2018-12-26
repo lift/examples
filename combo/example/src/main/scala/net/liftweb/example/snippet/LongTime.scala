@@ -15,22 +15,20 @@
  */
 
 package net.liftweb {
-package example {
-package snippet {
+  package example {
+    package snippet {
 
-import net.liftweb.util.Helpers._
+      import net.liftweb.util.Helpers._
 
-object LongTime {
-  def render = {
-    val delay = 1000L + randomLong(10000)
+      object LongTime {
+        def render = {
+          val delay = 1000L + randomLong(10000)
 
-    Thread.sleep(delay)
-    
-    <div>
-    This thread delayed {delay / 1000L} seconds
-    </div>
+          Thread.sleep(delay)
+
+          <div>This thread delayed {delay / 1000L} seconds</div>
+        }
+      }
+    }
   }
-}
-}
-}
 }

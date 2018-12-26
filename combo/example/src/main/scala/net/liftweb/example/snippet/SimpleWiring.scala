@@ -46,16 +46,6 @@ class SimpleWiring {
   def count(in: NodeSeq): NodeSeq =
     WiringUI.asText(in, count, JqWiringSupport.fade)
 
-  //def toDo = {
-  //  import SHtml._
-  //  "* *" #> List[NodeSeq](
-  //    <span>Feed Fish {ajaxCheckboxElem(feedFish)}</span>,
-  //    <span>Walk Dog {ajaxCheckboxElem(walkDog)}</span>,
-  //    <span>Do Dishes {ajaxCheckboxElem(doDishes)}</span>,
-  //    <span>Watch TV {ajaxCheckboxElem(watchTv)}</span>
-  //  )
-  //}
-
   def toDo = {
     import SHtml._
     "* *" #> List[NodeSeq](

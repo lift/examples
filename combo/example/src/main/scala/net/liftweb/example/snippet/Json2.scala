@@ -36,16 +36,16 @@ object JsonCall {
 
   def render = {
 
-    def validate(value: JValue) : JsCmd = {
+    def validate(value: JValue): JsCmd = {
       logger.info(value)
       value.extractOpt[Question].map(_.valid_?) match {
-        case Some(true) => Alert("Looks good")
+        case Some(true)  => Alert("Looks good")
         case Some(false) => Alert("That doesn't add up")
-        case None => Alert("That doesn't make sense")
+        case None        => Alert("That doesn't make sense")
       }
     }
 
     "button [onclick]" #>
-      SHtml.jsonCall( JE.Call("currentQuestion"), validate _ )
+      SHtml.jsonCall(JE.Call("currentQuestion"), validate _)
   }
 }

@@ -18,18 +18,13 @@ package net.liftweb {
   package example {
     package comet {
 
-      import _root_.net.liftweb._
       import http._
       import common._
-      import actor._
       import util._
       import Helpers._
       import _root_.scala.xml._
-      import S._
-      import SHtml._
       import js._
       import JsCmds._
-      import JE._
       import net.liftweb.http.js.jquery.JqJsCmds.{AppendHtml}
 
       class Chat extends CometActor with CometListener {

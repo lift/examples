@@ -18,14 +18,12 @@ package net.liftweb {
   package example {
     package snippet {
 
-      import net.liftweb._
       import http._
       import SHtml._
       import js._
       import JsCmds._
       import js.jquery._
       import JqJsCmds._
-      import common._
       import util._
       import Helpers._
 
@@ -36,12 +34,14 @@ package net.liftweb {
         // a dialog based on running the _jsdialog_confirm
         // template
         def button(in: NodeSeq) =
-          ajaxButton(in,
-                     () =>
-                       S.runTemplate(List("_jsdialog_confirm"))
-                        .map(ns => ModalDialog(ns)) openOr
-                         Alert("Couldn't find _jsdialog_confirm template"),
-                         "class" -> "btn btn-primary")
+          ajaxButton(
+            in,
+            () =>
+              S.runTemplate(List("_jsdialog_confirm"))
+                .map(ns => ModalDialog(ns)) openOr
+                Alert("Couldn't find _jsdialog_confirm template"),
+            "class" -> "btn btn-primary"
+          )
 
         // the template needs to bind to either server-side behavior
         // and unblock the UI

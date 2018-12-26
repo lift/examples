@@ -9,11 +9,10 @@ import net.liftweb.util._
 import net.liftweb.example.lib.BuildInfo
 
 class CacheBust {
-  lazy val info = BuildInfo.buildTime
-  lazy val date: Date = new Date(info)
-  lazy val formatter = new SimpleDateFormat("yyMMddHHmmss")
-  lazy val strDate: String = formatter.format(date)
+  private lazy val date: Date = new Date(BuildInfo.buildTime)
+  private lazy val formatter = new SimpleDateFormat("yyMMddHHmmss")
+  private lazy val strDate: String = formatter.format(date)
 
-  def usingBuildTime:CssSel = "link [href+]" #> s"?bt=$strDate" & "script [src+]" #> s"?bt=$strDate"
-
+  def usingBuildTime: CssSel =
+    "link [href+]" #> s"?bt=$strDate" & "script [src+]" #> s"?bt=$strDate"
 }

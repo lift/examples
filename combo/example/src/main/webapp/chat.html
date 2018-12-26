@@ -17,9 +17,9 @@
     </div>
 
     <div class="widget">
-      <center>
-        <b>Group Chat <i class="far fa-comment"></i></b>
-      </center>
+      
+      <h6 align="center">Group Chat <i class="far fa-comment"></i></h6>
+      
       <br>
       <div data-lift="comet?type=Chat;name=Other;ul_id=main_ul_id;li_id=main_li_id">
         Hello
@@ -36,14 +36,17 @@
       </div>
     </div>
     <p>
-      The total chat app, including the ask/answer component for soliciting a name comments, etc. is listed on this page. There
+      The total chat app, including the ask/answer component for soliciting a name comments, etc. is listed on this
+      page. There
       is no special code to support AJAX/Comet (all the wrapping is done automatically by
       <i>Lift</i>).
     </p>
 
     <p>
-      When the Chat comet widget is added to the page, it needs to solict the user for a "chat name". It asks the "AskName" comet
-      widget for the name. Until the AskName comet widget provides a name, all rendering messages are forwarded to AskName.
+      When the Chat comet widget is added to the page, it needs to solict the user for a "chat name". It asks the
+      "AskName" comet
+      widget for the name. Until the AskName comet widget provides a name, all rendering messages are forwarded to
+      AskName.
       Here's the code for the "AskName":</p>
 
     <span class="badge badge-secondary">The
@@ -134,7 +137,8 @@
 
     <p>
       This example demonstrates the power of Scala's Actors and
-      <i>Lift</i>. With very few lines of code, we've got a complete AJAX/Comet app that has Seaside style Ask/Answer for building
+      <i>Lift</i>. With very few lines of code, we've got a complete AJAX/Comet app that has Seaside style Ask/Answer
+      for building
       modal dialogs.
     </p>
   </div>

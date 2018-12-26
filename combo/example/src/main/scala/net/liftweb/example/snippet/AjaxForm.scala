@@ -55,7 +55,8 @@ class AjaxForm {
     }, "class" -> "form-control") &
       "#city" #> cityChoice(state) &
       "type=submit" #> submit(?("Save"), () => {
-        S.notice("City: " + city + ", State: " + state); redirectTo("#stateForm")
+        S.notice("City: " + city + ", State: " + state);
+        redirectTo("#stateForm")
       }, "class" -> "btn btn-primary")
   }
 }

@@ -23,7 +23,6 @@ import js._
 import JsCmds._
 import util._
 import Helpers._
-// import scala.xml.{NodeSeq, Text, Group}
 
 class FormWithAjax extends StatefulSnippet {
   private var firstName = ""
@@ -39,9 +38,9 @@ class FormWithAjax extends StatefulSnippet {
     def validate() {
       (firstName.length, lastName.length) match {
         case (f, n) if f < 2 && n < 2 =>
-          S.error("fwaErrMsg","First and last names too short")
-        case (f, _) if f < 2 => S.error("fwaErrMsg","First name too short")
-        case (_, n) if n < 2 => S.error("fwaErrMsg","Last name too short")
+          S.error("fwaErrMsg", "First and last names too short")
+        case (f, _) if f < 2 => S.error("fwaErrMsg", "First name too short")
+        case (_, n) if n < 2 => S.error("fwaErrMsg", "Last name too short")
         case _ => {
           S.notice("fwaNoticeMsg", "Ajax form says Thanks!")
           S.redirectTo(to)
@@ -52,7 +51,7 @@ class FormWithAjax extends StatefulSnippet {
     "#first" #> textAjaxTest(firstName,
                              s => firstName = s,
                              s => {
-                               S.notice("fwaNoticeMsg","First name " + s); Noop
+                               S.notice("fwaNoticeMsg", "First name " + s); Noop
                              },
                              "class" -> "form-control",
                              "type" -> "text",

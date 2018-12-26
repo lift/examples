@@ -22,7 +22,7 @@ import util._
 import Helpers._
 import js.JsCmds._
 import js.jquery._
-import _root_.scala.xml.{NodeSeq, Text}
+import _root_.scala.xml.{NodeSeq}
 
 case class Line(guid: String, name: String, price: Double, taxable: Boolean)
 

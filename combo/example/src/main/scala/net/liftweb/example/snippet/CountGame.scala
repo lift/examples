@@ -24,37 +24,42 @@ import _root_.net.liftweb.util.Helpers._
 import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 
-
 class CountGame extends StatefulSnippet {
   val dispatch: DispatchIt = {
-    case "run" if lastGuess == number => xhtml => win(xhtml)
+    case "run" if lastGuess == number =>
+      xhtml =>
+        win(xhtml)
 
-    case "run" => xhtml => nextGuess(xhtml)
+    case "run" =>
+      xhtml =>
+        nextGuess(xhtml)
 
     case "count_down" =>
-    xhtml => countDown(attr("from").map(Helpers.toInt).openOr(0))
+      xhtml =>
+        countDown(attr("from").map(Helpers.toInt).openOr(0))
   }
 
   def win(xhtml: NodeSeq) =
-    ( "#win ^*" #> "#choose" &
+    ("#win ^*" #> "#choose" &
       ".number" #> Text(number.toString) &
-      ".count" #> Text(count.toString)
-      ).apply(xhtml) ++
+      ".count" #> Text(count.toString)).apply(xhtml) ++
       <p>Counting backward:
         {countDown(number)}
       </p>
 
-  def countDown(number: Int): Node = if (number <= 0) Text("")
-  else <xml:group>{number} <lift:count_game.count_down from={(number - 1).toString}/></xml:group>
+  def countDown(number: Int): Node =
+    if (number <= 0) Text("")
+    else
+      <xml:group>{number} <lift:count_game.count_down from={(number - 1).toString}/></xml:group>
 
   def nextGuess(xhtml: NodeSeq): NodeSeq =
     ("#guess ^*" #> "#choose" &
-     ".input" #> text("", guess _, "class" -> "form-control") &
-      ".last *" #> lastGuess.map(v =>
-        if (v < number) v + " is low"
-        else v + " is high").
-        openOr("Make first Guess")
-      ).apply(xhtml)
+      ".input" #> text("", guess _, "class" -> "form-control") &
+      ".last *" #> lastGuess
+        .map(v =>
+          if (v < number) v + " is low"
+          else v + " is high")
+        .openOr("Make first Guess")).apply(xhtml)
 
   private def guess(in: String) {
     count += 1
@@ -65,4 +70,3 @@ class CountGame extends StatefulSnippet {
   private var lastGuess: Box[Int] = Empty
   private var count = 0
 }
-

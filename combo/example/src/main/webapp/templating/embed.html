@@ -17,7 +17,8 @@
     </div>
 
     <p>
-      In addition surrounding HTML with a template, you can also embed a template at the current point in the page rendering a
+      In addition surrounding HTML with a template, you can also embed a template at the current point in the page
+      rendering a
       tag with the
       <code>data-lift='embed?what=...'</code> attribute.
     </p>
@@ -32,13 +33,15 @@
     <pre><code class="html">&lt;span data-lift="embed?what=/templating/_sample_embed"&gt;&lt;/span&gt;</code></pre>
 
     <p>
-      Templates that start with the underscore ('_') or period ('.') characters will not be served directly by Lift, but may be
+      Templates that start with the underscore ('_') or period ('.') characters will not be served directly by Lift,
+      but may be
       accessed using the surround and embed tags.
     </p>
 
     <p>
       Lift will select templates based on the current localization setting for the session. Lift uses the function in
-      <code>LiftRules.localeCalculator</code> to determine the current locale for template selection. By default the function is:
+      <code>LiftRules.localeCalculator</code> to determine the current locale for template selection. By default the
+      function is:
     </p>
 
     <span class="badge badge-secondary">The
@@ -47,13 +50,15 @@
     request.flatMap(_.getLocale() match
                     {case null => Empty
                      case l: Locale => Full(l)}).openOr(Locale.getDefault())</code></pre>
-    <p>But you can customize the function to return the locale of the currently logged in user, detect the IP address of the
+    <p>But you can customize the function to return the locale of the currently logged in user, detect the IP address
+      of the
       request, etc.
     </p>
 
     <p>
       Based on the locale, Lift will look for templates based on the base template name, in this case
-      <code>'/templating/_sample_embed'</code> and then append an underscore ('_') followed by the complete locale, for example
+      <code>'/templating/_sample_embed'</code> and then append an underscore ('_') followed by the complete locale, for
+      example
       'en_US'. So, Lift will look for
       <code>'/templating/_sample_embed_en_US.html'</code>. If that resource is not available, Lift will look for
       <code>'/templating/_sample_embed_en.html'</code> and finally

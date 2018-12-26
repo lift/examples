@@ -9,7 +9,7 @@
 <body data-lift-content-id="main">
   <div id="main" data-lift="surround?with=default;at=content">
     <h2><span data-lift="Menu.title">%*%</span></h2>
-      <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
     <div id="wrappedNoticeAtHead">
       <div data-lift="Msgs"></div>
@@ -17,7 +17,8 @@
 
     <div class="bd-callout bd-callout-info">
       <h5>In the beginning there was XHTML</h5>
-      <p><i class="fas fa-quote-left fa-2x fa-pull-left"></i>The text on this page is written in the era of xhtml so it's associated examples uses xhtml namespace syntax, but don't
+      <p><i class="fas fa-quote-left fa-2x fa-pull-left"></i>The text on this page is written in the era of xhtml so
+        it's associated examples uses xhtml namespace syntax, but don't
         worry alongside with the older examples there are
         <strong>equivalent html5 examples</strong> using
         <code>data-lift</code> and CSS-selectors for data bindings.
@@ -27,40 +28,59 @@
     <p>The following is David Pollak's take on web framework view technology:</p>
 
     <div class="dpp_stuff">
-      <p>The Lift design is born out of my experience (both good and bad) with a variety of technologies including Rails.
+      <p>The Lift design is born out of my experience (both good and bad) with a variety of technologies including
+        Rails.
       </p>
       <p>I think the best paper on the subject is Terrence Parr's work on
 
         <a href="http://www.stringtemplate.org/" class="external text" title="http://www.stringtemplate.org/" rel="nofollow">StringTemplate</a>.
       </p>
-      <p>My first design goal with Lift was to make sure that no programming logic and no programming symbols make it into the
+      <p>My first design goal with Lift was to make sure that no programming logic and no programming symbols make it
+        into the
         static display templates.
       </p>
-      <p>ERB and JSP and ASP all have the fatal flaw of allowing code in the view. This is bad for a bunch of reasons. First,
-        it makes editing the templates difficult with HTML layout tools unless those tools are familiar with the syntax being
-        used. Second, there are "foreign" symbols in the layout, which tends to be less than optimal for the HTML designers.
-        (On the Rails side of things, every Rails team I've seen has a Ruby coder that also does the design. While this is
-        the norm in the Rails community, it is the exception when team sizes are more than 2 or 3.) Third, every single Rails,
-        JSP, and ASP project I've ever seen (and I've been seeing them for a very long time) has some non-trivial amount
-        of business logic creep into the display. Fourth, Scala has a very nice type system and when the type system is used
-        correctly, the compiler finds a lot of program errors, but when the code is buried in templates, one has a much more
+      <p>ERB and JSP and ASP all have the fatal flaw of allowing code in the view. This is bad for a bunch of reasons.
+        First,
+        it makes editing the templates difficult with HTML layout tools unless those tools are familiar with the syntax
+        being
+        used. Second, there are "foreign" symbols in the layout, which tends to be less than optimal for the HTML
+        designers.
+        (On the Rails side of things, every Rails team I've seen has a Ruby coder that also does the design. While this
+        is
+        the norm in the Rails community, it is the exception when team sizes are more than 2 or 3.) Third, every single
+        Rails,
+        JSP, and ASP project I've ever seen (and I've been seeing them for a very long time) has some non-trivial
+        amount
+        of business logic creep into the display. Fourth, Scala has a very nice type system and when the type system is
+        used
+        correctly, the compiler finds a lot of program errors, but when the code is buried in templates, one has a much
+        more
         difficult time using the powerful Scala compiler tools.
       </p>
-      <p>So, the static templates in Lift are strictly display only. They can be manipulated with standard design tools (e.g.,
+      <p>So, the static templates in Lift are strictly display only. They can be manipulated with standard design tools
+        (e.g.,
         Dreamweaver). They can never contain program logic.
       </p>
       <p>Some asides.
       </p>
-      <p>First, I rejected using StringTemplate (or something like it) because it introduced some programming into the templating
-        mechanism and it would have taken a lot of work to make it XMLTemplate (and all of Lift's templating is XHTML and
-          makes use of Scala's excellent support of XML.) <strong>Note:</strong> Nowadays most templating is based on HTML5.
+      <p>First, I rejected using StringTemplate (or something like it) because it introduced some programming into the
+        templating
+        mechanism and it would have taken a lot of work to make it XMLTemplate (and all of Lift's templating is XHTML
+        and
+        makes use of Scala's excellent support of XML.) <strong>Note:</strong> Nowadays most templating is based on
+        HTML5.
       </p>
-      <p>Second, I've been referring to static templates. Lift has a little known and pretty much undocumented feature that
-        supports template generation from Scala code. One of these days, I'll document the feature and put up some examples.
+      <p>Second, I've been referring to static templates. Lift has a little known and pretty much undocumented feature
+        that
+        supports template generation from Scala code. One of these days, I'll document the feature and put up some
+        examples.
       </p>
-      <p>Third, Rails' "controller first" dispatch mechanism makes the assumption that there is only one piece of "logic" on
-        the page and the rest is decoration. My experience doing web work is just the opposite. There are typically 3 or
-        more of pieces of logic on a page (dynamic menu bars, search boxes, shopping cart, real-time chat, etc.) and having
+      <p>Third, Rails' "controller first" dispatch mechanism makes the assumption that there is only one piece of
+        "logic" on
+        the page and the rest is decoration. My experience doing web work is just the opposite. There are typically 3
+        or
+        more of pieces of logic on a page (dynamic menu bars, search boxes, shopping cart, real-time chat, etc.) and
+        having
         to choose which piece of logic make the "controller" is less than optimal.
       </p>
       <p>So, the quintessential use of Lift's templates are as follows:
@@ -68,27 +88,27 @@
       <h3 id="myForm">Simple form example</h3>
 
       <div data-lift="Show?form=post">
-          <div class="form-group form-row">
-              <label for="name" class="col-form-label">Name</label>
-              <div class="col">
-                  <input type="text" name="name" id="name" placeholder="Name" class="form-control">
-              </div>
-              <label for="birthyear" class="col-form-label">Birthyear</label>
-              <div class="col">
-                  <select id="birthyear" class="form-control">
-                      <option>2006</option>
-                      <option>2007</option>
-                  </select>
-              </div>
-              <div class="col">
-                  <input type="submit" class="btn btn-primary" value="Submit" />
-              </div>
+        <div class="form-group form-row">
+          <label for="name" class="col-form-label">Name</label>
+          <div class="col">
+            <input type="text" name="name" id="name" placeholder="Name" class="form-control">
           </div>
+          <label for="birthyear" class="col-form-label">Birthyear</label>
+          <div class="col">
+            <select id="birthyear" class="form-control">
+              <option>2006</option>
+              <option>2007</option>
+            </select>
+          </div>
+          <div class="col">
+            <input type="submit" class="btn btn-primary" value="Submit" />
+          </div>
+        </div>
       </div>
       <div id="selectedyear"></div>
       <div id="namevalue"></div>
       <div id="wrappedNotice">
-          <div data-lift="Msgs"></div>
+        <div data-lift="Msgs"></div>
       </div>
       <br>
       <span class="badge badge-secondary">HTML syntax</span>
@@ -140,19 +160,27 @@
   ...
 &lt;/html&gt;</code></pre>
 
-      <p>So we've got a Lift snippet invocation with the valid HTML form and some additional tags. So far (with the proper namespace
-        declarations) this page is valid XHTML. This page can be viewed in a browser or opened and edited in Dreamweaver.
+      <p>So we've got a Lift snippet invocation with the valid HTML form and some additional tags. So far (with the
+        proper namespace
+        declarations) this page is valid XHTML. This page can be viewed in a browser or opened and edited in
+        Dreamweaver.
       </p>
-      <p>In Lift, the snippet is the equivalent of a Rails controller: it is the instantiation of a class and invocation of
-        a method on the class. Because you can have multiple snippets on a page, you can call out multiple logic streams
+      <p>In Lift, the snippet is the equivalent of a Rails controller: it is the instantiation of a class and
+        invocation of
+        a method on the class. Because you can have multiple snippets on a page, you can call out multiple logic
+        streams
         on a given page and there's no need to choose the "primary" logic stream.
       </p>
-      <p>The 'form="post"' attribute is a shortcut. It automatically wraps the enclosed XHTML in a &lt;form method='post' target={current
+      <p>The 'form="post"' attribute is a shortcut. It automatically wraps the enclosed XHTML in a &lt;form
+        method='post' target={current
         page... it's a post-back}&gt;...&lt;/form&gt; tag.
       </p>
-      <p>The &lt;f:.../&gt; tags are bind points for the business logic. They allow your snippet to easily replace the tag and
-        its children with what is supposed to be displayed. This mechanism is a little heavier than Wicket's mechanism for
-        binding display elements to logic and I've got a to-do to make Lift's mechanism work like Wickets as well... but
+      <p>The &lt;f:.../&gt; tags are bind points for the business logic. They allow your snippet to easily replace the
+        tag and
+        its children with what is supposed to be displayed. This mechanism is a little heavier than Wicket's mechanism
+        for
+        binding display elements to logic and I've got a to-do to make Lift's mechanism work like Wickets as well...
+        but
         that's a digression.
       </p>
       <p>So, your Lift code will look like:
@@ -219,11 +247,13 @@ object Show {
    }
 }</code></pre>
 
-      <p>Note that no display code has crept into the snippet. You've simply bound the HTML created by text() and select() to
+      <p>Note that no display code has crept into the snippet. You've simply bound the HTML created by text() and
+        select() to
         the &lt;f:name/&gt; and &lt;f:year/&gt; tags in the incoming XHTML.
       </p>
       <p>Also, you've bound two functions (the anonymous function
-        <code>name = _</code> and handleYear) to the HTML form elements. When the form is POSTed, these functions (which are bound
+        <code>name = _</code> and handleYear) to the HTML form elements. When the form is POSTed, these functions
+        (which are bound
         to local variables) will be statefully invoked.
       </p>
       <p>If you are displaying a table rather than a form, then the same binding logic still works. For example:
@@ -253,18 +283,23 @@ td&gt;&lt;td&gt;&lt;f:last_name&gt;Pollak&lt;/f:last_name&gt;&lt;/td&gt;&lt;/tr&
              xhtml, &quot;first_name&quot; --&gt; user.firstName, &quot;last_name&quot; --&gt; user.nameName))
 }</code></pre>
 
-      <p>If you take the time to clearly define the bind points, then you can have no display code at all in your snippets.
+      <p>If you take the time to clearly define the bind points, then you can have no display code at all in your
+        snippets.
       </p>
-      <p>Can display logic slip into a snippet? Yes, and as you've seen and pointed out, the examples are less than optimal
+      <p>Can display logic slip into a snippet? Yes, and as you've seen and pointed out, the examples are less than
+        optimal
         in this regard.
       </p>
-      <p>Has display logic ever crept into a method called from an ERB template? Yes, and very often it's a source of a potential
+      <p>Has display logic ever crept into a method called from an ERB template? Yes, and very often it's a source of a
+        potential
         Cross Site Scripting vulnerability.
       </p>
       <p>Has business logic ever crept into an ERB template? Yes.
       </p>
-      <p>In Lift, display can creep into a snippet, but business logic cannot creep into a the static display template. Yes,
-        your designers will still have to police putting display logic in the snippet code, but the coders will not have
+      <p>In Lift, display can creep into a snippet, but business logic cannot creep into a the static display template.
+        Yes,
+        your designers will still have to police putting display logic in the snippet code, but the coders will not
+        have
         to police business logic in the templates.
       </p>
     </div>

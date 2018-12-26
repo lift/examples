@@ -33,6 +33,7 @@ import java.util.Locale
 class Misc {
   private object selectedUser extends RequestVar[Box[User]](Empty)
   private val logger = Logger(classOf[Misc])
+
   /**
     * Get the XHTML containing a list of users
     */
@@ -141,7 +142,7 @@ class Misc {
     if (S.get_?)
       (
         "#get ^*" #> "#choose" &
-          ".file_upload" #> fileUpload(ul => theUpload(Full(ul)))
+          ".custom-file-input" #> fileUpload(ul => theUpload(Full(ul)))
       ) apply (xhtml)
     else
       ("#post ^*" #> "#choose" &

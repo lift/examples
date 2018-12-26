@@ -15,8 +15,6 @@
  */
 
 package net.liftweb.example.comet
-// package example
-// package comet
 
 import net.liftweb.actor._
 import scala.xml.{NodeSeq, Text}

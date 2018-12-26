@@ -26,7 +26,7 @@ import Helpers._
 
 import example._
 import net.liftmodules.widgets.autocomplete._
-import net.liftmodules.fobo
+import net.liftmodules.{fobobs4,fobofa,fobohl,fobojq,fobopop}
 import comet._
 import model._
 import lib._
@@ -80,24 +80,6 @@ class Boot {
       if !LoginStuff.is && page.head != "validate" =>
         () => Full(RedirectResponse("/login/validate"))
     })
-
-    /* TODO PPE REM
-    * to make stuff compile
-    */
-    /*
-    LiftRules.snippetDispatch.append(NamedPF("Template")
-                                     (Map("Template" -> Template,
-                                          "AllJson" -> AllJson)))
-    */
-
-    //note old rem
-    /*
-    LiftRules.snippetDispatch.append {
-      case "MyWizard" => MyWizard
-      case "WizardChallenge" => WizardChallenge
-      case "ScreenForm" => PersonScreen
-    }
-    */
 
     SessionMaster.sessionCheckFuncs = SessionMaster.sessionCheckFuncs :::
     List(SessionChecker)
@@ -163,12 +145,12 @@ class Boot {
     }
 
     // FoBo init
-    fobo.Toolkit.init = fobo.Toolkit.JQuery224
-    fobo.Toolkit.init = fobo.Toolkit.HighlightJS930
-    fobo.Toolkit.init = fobo.Toolkit.FontAwesome550
-    fobo.Toolkit.init = fobo.Toolkit.Bootstrap413
-    fobo.Toolkit.init = fobo.Toolkit.Popper1129
-    fobo.Toolkit.init = fobo.Toolkit.JQueryMigrate141
+    fobojq.Toolkit.init  = fobojq.Toolkit.JQuery224
+    fobohl.Toolkit.init  = fobohl.Toolkit.HighlightJS930
+    fobofa.Toolkit.init  = fobofa.Toolkit.FontAwesome550
+    fobobs4.Toolkit.init = fobobs4.Toolkit.Bootstrap413
+    fobopop.Toolkit.init = fobopop.Toolkit.Popper1129
+    fobojq.Toolkit.init  = fobojq.Toolkit.JQueryMigrate141
 
     ThingBuilder.boot()
 
@@ -287,8 +269,6 @@ object DBVendor extends ConnectionManager {
 
   private def createOne: Box[Connection] = try {
     val driverName: String = Props.get("db.driver") openOr chooseDriver
-
-
     val dbUrl: String = Props.get("db.url") openOr chooseURL
 
 

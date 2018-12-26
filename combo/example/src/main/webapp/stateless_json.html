@@ -52,10 +52,10 @@
 
   def handleJson(req: Req): Box[LiftResponse] =
     for {
-      json <- req.json // get the JSON
+      json &lt;- req.json // get the JSON
       JObject(
         List(JField("command", JString(cmd)),
-             JField("params", JString(params)))) <- json // extract the command
+             JField("params", JString(params)))) &lt;- json // extract the command
     } yield
       JavaScriptResponse(
         SetHtml(

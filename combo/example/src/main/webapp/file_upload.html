@@ -13,24 +13,32 @@
         <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
         <p>
-            This is the file upload sample page. You choose a file to upload and the application will tell you the file name, the mime
+            This is the file upload sample page. You choose a file to upload and the application will tell you the file
+            name, the mime
             type, the number of bytes in the file and the MD5 checksum.
         </p>
 
         <form data-lift="misc.upload?form=post&multipart=true">
             <span id="choose">
                 <span id="post">
-                <p>
-                    File name: <span class="file_name"></span><br>
-                    MIME Type: <span class="mime_type"></span><br>
-                    File length: <span class="length"></span><br>
-                    MD5 Hash: <span class="md5"></span><br>
-                </p>
+                    <p>
+                        File name: <span class="file_name"></span><br>
+                        MIME Type: <span class="mime_type"></span><br>
+                        File length: <span class="length"></span><br>
+                        MD5 Hash: <span class="md5"></span><br>
+                    </p>
                 </span>
 
                 <span id="get">
-                  Select a file to upload: <input class="file_upload"><br>
-                  <input type="submit" value="Upload File" class="btn btn btn-primary">
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Select a file to upload</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Upload File" class="btn btn btn-primary">
                 </span>
             </span>
         </form>
@@ -49,14 +57,22 @@
         &lt;/span&gt;
 
         &lt;span id="get"&gt;
-          Select a file to upload: &lt;input class="file_upload"&gt;&lt;br&gt;
-          &lt;input type="submit" value="Upload File" class="btn btn btn-primary"&gt;
+        &lt;div class="form-group row"&gt;
+          &lt;div class="col-md-8"&gt;
+             &lt;div class="custom-file"&gt;
+               &lt;input type="file" class="custom-file-input" id="customFile"&gt;
+               &lt;label class="custom-file-label" for="customFile"&gt;Select a file to upload&lt;/label&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;input type="submit" value="Upload File" class="btn btn btn-primary"&gt;
         &lt;/span&gt;
+
     &lt;/span&gt;
 &lt;/form&gt;</code></pre>
 
         <span class="badge badge-secondary">The
-        <i>Lift</i> Scala code</span>
+            <i>Lift</i> Scala code</span>
         <pre><code class="scala">// the request-local variable that hold the file parameter
 private object theUpload extends RequestVar[Box[FileParamHolder]](Empty)
 
@@ -64,7 +80,7 @@ def upload(xhtml: Group): NodeSeq =
 if (S.get_?)
   (
     "#get ^*" #> "#choose" &
-      ".file_upload" #> fileUpload(ul => theUpload(Full(ul)))
+      ".custom-file-input" #> fileUpload(ul => theUpload(Full(ul)))
   ) apply (xhtml)
 else
   ("#post ^*" #> "#choose" &

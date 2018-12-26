@@ -27,9 +27,10 @@ import _root_.scala.collection.mutable.HashMap
   * This session variable holds a set of Names and Integers, with a default value
   * of 0 (zero)
   */
-object CountHolder extends SessionVar[HashMap[String, Int]](new HashMap[String, Int] {
-  override def default(key: String): Int = 0
-})
+object CountHolder
+    extends SessionVar[HashMap[String, Int]](new HashMap[String, Int] {
+      override def default(key: String): Int = 0
+    })
 
 /**
   * This snippet handles counting
@@ -48,7 +49,11 @@ class Count {
 
     // Bind the incoming view data and the model data
     ".value" #> Text(value.toString) &
-      ".incr" #> link("/count", () => CountHolder.is(attr) = value + 1, Text("++")) &
-      ".decr" #> link("/count", () => CountHolder.is(attr) = 0 max (value - 1), Text("--"))
+      ".incr" #> link("/count",
+                      () => CountHolder.is(attr) = value + 1,
+                      Text("++")) &
+      ".decr" #> link("/count",
+                      () => CountHolder.is(attr) = 0 max (value - 1),
+                      Text("--"))
   }
 }

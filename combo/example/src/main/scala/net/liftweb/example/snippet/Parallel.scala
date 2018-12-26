@@ -15,18 +15,18 @@
  */
 
 package net.liftweb {
-package example {
-package snippet {
+  package example {
+    package snippet {
 
-object Parallel {
-  def render = {
-    <div>This snippet evaluated on 
+      object Parallel {
+        def render = {
+          <div>This snippet evaluated on 
     {
       Thread.currentThread.getName()
     } 
     </div>
+        }
+      }
+    }
   }
-}
-}
-}
 }

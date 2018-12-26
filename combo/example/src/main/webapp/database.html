@@ -17,7 +17,8 @@
         </div>
 
         <p>
-            <i>Lift</i> allows you to create model objects that map themselves to and from the database. Here's an example of
+            <i>Lift</i> allows you to create model objects that map themselves to and from the database. Here's an
+            example of
             a "User" model object.</p>
 
         <pre><code class="scala">object User extends User</code></pre>
@@ -56,9 +57,12 @@ class User extends ProtoUser[User] {
   }
 }</code></pre>
 
-        <p>For this little bit of work, we get a complete user with first name, last name, password, email, and a personal essay.
-            Each of the fields knows how to validate itself. The User (and any other "Mapped" class) knows how to Create,
-            Update, Read, and Delete itself from the database. It knows how to convert itself to a string, to XML, and even
+        <p>For this little bit of work, we get a complete user with first name, last name, password, email, and a
+            personal essay.
+            Each of the fields knows how to validate itself. The User (and any other "Mapped" class) knows how to
+            Create,
+            Update, Read, and Delete itself from the database. It knows how to convert itself to a string, to XML, and
+            even
             generate HTML forms for itself.</p>
 
     </div>

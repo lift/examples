@@ -18,7 +18,6 @@ package net.liftweb {
   package example {
     package comet {
 
-      import _root_.net.liftweb._
       import http._
       import common._
       import actor._

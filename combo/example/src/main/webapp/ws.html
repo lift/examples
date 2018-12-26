@@ -18,13 +18,17 @@
     </div>
 
     <p>Normally,
-      <i>Lift</i> will look for a "view" that satifying an HTTP request. A view is an XHTML page or segment of a page with special
-      &lt;lift:xxx&gt; processing instructions in it (e.g., an instruction to embed a controller, an instruction to surround
-      the XHTML with another template, etc.) However, in certain cases, for example, when you want to satisfy a Web Services
+      <i>Lift</i> will look for a "view" that satifying an HTTP request. A view is an XHTML page or segment of a page
+      with special
+      &lt;lift:xxx&gt; processing instructions in it (e.g., an instruction to embed a controller, an instruction to
+      surround
+      the XHTML with another template, etc.) However, in certain cases, for example, when you want to satisfy a Web
+      Services
       (REST) request, you can use Scala's pattern matching to intercept a request and service it.
     </p>
 
-    <p>It's easy to "serve" incoming HTTP requests. Using Lift's RestHelper class. For example, you can serve "/webservices/all_users"
+    <p>It's easy to "serve" incoming HTTP requests. Using Lift's RestHelper class. For example, you can serve
+      "/webservices/all_users"
       as a JSON request as:
     </p>
 
@@ -47,7 +51,8 @@
 }</code></pre>
 
     <p>
-      If you have a request (in the case of this example, servicing both a POST and a GET for /webservices/add_user), then service
+      If you have a request (in the case of this example, servicing both a POST and a GET for /webservices/add_user),
+      then service
       the request and include a function to convert the response into either JSON or XML:
     </p>
 
@@ -82,8 +87,10 @@
   }</code></pre>
 
     <p>
-      Note that if the firstname parameter is missing, a 400 response with the message "firstname parameter missing" message in
-      the body will be returned. If the lastname parameter is missing, a 404 will be returned with "lastname parameter missing"
+      Note that if the firstname parameter is missing, a 400 response with the message "firstname parameter missing"
+      message in
+      the body will be returned. If the lastname parameter is missing, a 404 will be returned with "lastname parameter
+      missing"
       message in the body.
     </p>
 

@@ -21,12 +21,14 @@
         </p>
         <section>
             <h3>Ajax</h3>
-            Lift has powerful set of Ajax features that all you to create Ajax controls with as little as 1 line of code:
+            Lift has powerful set of Ajax features that all you to create Ajax controls with as little as 1 line of
+            code:
             <pre><code class="scala">ajaxButton("", s => {println("you said: "+s); SetHtml("place", &lt;b&gt;{s}&lt;/b&gt;)})</code></pre>
         </section>
         <section>
             <h3>Comet</h3>
-            Lift supports Comet-style long polling with very little work on the part of the developer. Here's the code the implements
+            Lift supports Comet-style long polling with very little work on the part of the developer. Here's the code
+            the implements
             the clock that you see in this demo:
             <pre><code class="scala">class ExampleClock(initSession: LiftSession,
                    initType: Box[String],
