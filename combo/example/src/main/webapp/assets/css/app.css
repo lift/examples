@@ -4,9 +4,8 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
 }
 .dropdown-menu {
-  /* color: inherit; */
   background-color: inherit;
-  border: none; /*1px solid rgba(0, 0, 0, 0.15);*/
+  border: none;
 }
 
 .widget {
@@ -77,47 +76,6 @@
      -moz-border-radius: 0 0 6px 6px;
           border-radius: 0 0 6px 6px;
 }
-/* .sidebar>ul>li:last-child {
-  border-bottom: 1px solid #ccc;
-} */
-
-
-/* .sidebar > ul > li > ul > li > a,
-.sidebar > ul > li > ul > li > span {
-  margin: 0;
-  padding: 0;
-  border-style: none;
-  list-style-position: inside; 
-  padding-left: 10px;
-} */
-/* .sidebar ul li ul li {
-  margin: 0;
-  padding: 0;
-  border-style: none;
-  list-style-position: inside;
-  padding-left: 10px;
-} */
-
-/* .sidebar ul li ul li a {
-  display: inline;
-} */
-/* padding-left: 20px; */
-/* .sidebar ul li ul {
-  margin: 0;
-  border-bottom: none;
-} */
-
-/* .sidebar ul li ul li span {
-  display: inline;
-  padding: 0px;
-} */
-
-/* .sidebar ul li span {
-  display: block;
-  padding: 3px;
-  text-indent: 10px;
-  text-decoration: none;
-} */
 
 .sidebar ul li a:hover,
 .sidebar ul li span:hover {

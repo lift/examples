@@ -6,7 +6,7 @@
 
 lazy val projectSettings = Seq(
   organization := "net.liftweb",
-  version := "0.9.0-SNAPSHOT",
+  version := "0.9.1-SNAPSHOT",
   name := "demo",
   scalaVersion := "2.12.7",
   scalacOptions ++= Seq("-unchecked", "-deprecation"),
