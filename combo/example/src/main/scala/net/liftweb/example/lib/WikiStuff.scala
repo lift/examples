@@ -63,7 +63,7 @@ object WikiStuff extends Loc[WikiLoc] {
   // def text = S.loc("Wiki HomePage")
   // no extra parameters
   def params =
-    List(Unless(() => Props.inGAE || Props.productionMode, "Disabled for GAE"))
+    List(Unless(() => Props.inGAE || Props.productionMode, "Disabled for GAE"), LocGroup("topNav"))
 
   // is the current page an "edit" or "view"
   def currentEdit = requestValue.is.map(_.edit) openOr false

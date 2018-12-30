@@ -16,7 +16,7 @@
   <script data-lift="CacheBust.usingBuildTime" id="jquery" src="/classpath/fobo/jquery.js" type="text/javascript"></script>
 
   <script data-lift="CacheBust.usingBuildTime" src="/classpath/fobo/highlight/highlight.pack.js"></script>
-  <script defer data-lift="CacheBust.usingBuildTime" src="/classpath/fobo/font-awesome/all.js"></script>
+  <script data-lift="CacheBust.usingBuildTime" src="/classpath/fobo/font-awesome/all.js"></script>
   <script data-lift="FoBo.HLJS.initHighlightingOnLoad"></script>
 
   <script id="json" src="/classpath/json.js" type="text/javascript"></script>
@@ -24,23 +24,22 @@
 
 <body>
   <div class="container">
+      <span data-lift='embed?what=_embeddedTopNavbar'>Embedding the TopNavbar here</span>
     <div class="row">
-      <div class="col-10">
-        <img src="/images/lift.png" alt="Lift Web Framework" style="padding-top:10px;"></img>
-      </div>
-      <div class="col-2" style="float:right">
-        <i id="ajax-loader" style="display:none" class="fas fa-spinner fa-spin"></i>
+      <div class="col-12">
+        <img class="d-none d-lg-block" src="/images/lift.png" alt="Lift Web Framework" style="padding-top:10px;"></img>
+        <div class="d-lg-none" style="padding-top:80px;"></div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row d-none d-lg-block">
       <div class="col">
         <hr>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-3 ">
+      <div class="col-lg-3">
 
         <div class="sidebar">
           <span data-lift="menu.builder"></span>
@@ -74,8 +73,8 @@
         </div>
 
       </div>
-      <div class="col-md-9 order-first order-md-12 main-border">
-        <div id="content">The main content will get bound here</div>
+      <div class="col-lg-9 order-first order-lg-12 main-border">
+        <div id="content" style="margin-bottom:20px;">The main content will get bound here</div>
       </div>
     </div>
 
