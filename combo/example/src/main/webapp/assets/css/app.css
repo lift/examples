@@ -1,3 +1,4 @@
+
 .navbar {
   background-color: #e9ecef;
   background-image: linear-gradient( #e9ecef, #eff4fa);
@@ -6,6 +7,10 @@
 .dropdown-menu {
   background-color: inherit;
   border: none;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #fff;
 }
 
 .widget {

@@ -189,6 +189,7 @@ object RequestLogger extends Loggable {
 
 object MenuInfo {
   import Loc._
+  import net.liftmodules.fobobs4.lib.BSLocInfo
 
   private lazy val noGAE = Unless(() => Props.inGAE, "Disabled for GAE")
   private val topNavLG = LocGroup("topNav")
@@ -264,12 +265,12 @@ object MenuInfo {
       Loc("lift",
           ExtLink("http://liftweb.net"),
           S.loc("lift", <xml:group> <i>Lift</i> project home</xml:group>),
-          topNavLG)),
+          topNavLG, BSLocInfo.LinkTargetBlank)),
     Menu(
       Loc("src",
           ExtLink("https://github.com/lift/examples/tree/master/combo/example"),
           S.loc("src", Text("Source code for this site")),
-          topNavLG))
+          topNavLG, BSLocInfo.LinkTargetBlank))
   )
 
   private object TopNav {
@@ -308,6 +309,7 @@ object MenuInfo {
       Link(List("topNavAjaxAndForms"), true, "/form_ajax"),
       S.loc("topNavAjaxAndForms", Text("Ajax and Forms")))
     private val interactiveDD = Menu.i("topNavInteractiveDD") / "/dddlabel2"
+    private val interactiveDivider1 = Menu("interactiveDivider1") / "interactiveDivider1"
     private val interactive = Menu(interactiveLoc)
     private val cometChat = Menu(cometChatLoc)
     private val ajaxSamples = Menu(ajaxSamplesLoc)
@@ -338,6 +340,7 @@ object MenuInfo {
       S.loc("topNavSimple", Text("Simple Forms")),
       noGAE)
     private val persistenceDD = Menu.i("topNavPersistenceDD") / "/ddlabel3" >> noGAE
+    private val persistenceDivider1 = Menu("persistenceDivider1") / "persistenceDivider1"
     private val persistence = Menu(persistenceLoc)
     private val xMLFun = Menu(xMLFunLoc)
     private val database = Menu(databaseLoc)
@@ -391,6 +394,7 @@ object MenuInfo {
       S.loc("topNavHeadTagLoc", Text("<head/> tag"))
     )
     private val templatingDD = Menu.i("topNavTemplatingDD") / "/ddlabel4"
+    private val templatingDivider1 = Menu("templatingDivider1") / "templatingDivider1"
     private val templating = Menu(teplatingLoc)
     private val surround = Menu(surroundLoc)
     private val embed = Menu(embedLoc)
@@ -438,6 +442,7 @@ object MenuInfo {
       S.loc("topNavForthSubmenu", Text("Forth Submenu"))
     )
     private val menusDD = Menu.i("topNavMenusDD") / "/ddlabel5"
+    private val menusDivider1 = Menu("menusDivider1") / "menusDivider1"
     private val menus = Menu(menusLoc)
     private val firstSubmenu = Menu(firstSubmenuLoc)
     private val secondSubmenu = Menu(secondSubmenuLoc)
@@ -518,7 +523,9 @@ object MenuInfo {
       S.loc("topNavCounting", Text("Counting"))
     )
     private val miscDD = Menu.i("topNavMiscDD") / "/ddlabel6"
+    private val miscDivider1 =Menu("miscDivider1") / "miscDivider1"
     private val misc = Menu(miscLoc)
+
     private val longTime = Menu(longTimeLoc)
     private val numberGuessing = Menu(numberGuessingLoc)
     private val wizard = Menu(wizardLoc)
@@ -534,21 +541,26 @@ object MenuInfo {
 
     // Public stuff
     val interactiveMenuPart = interactiveDD >> topNavLG >> PlaceHolder submenus (interactive,
-    cometChat, ajaxSamples, ajaxForm, modalDialog, jSONMessaging, statelessJSONMessaging, ajaxAndForms)
+      interactiveDivider1 >> topNavLG >> BSLocInfo.Divider,
+      cometChat, ajaxSamples, ajaxForm, modalDialog, jSONMessaging, statelessJSONMessaging, ajaxAndForms)
 
     val persistenceMenuPart = persistenceDD >> topNavLG >> PlaceHolder submenus (persistence,
-    xMLFun, database, simple)
+      persistenceDivider1 >> topNavLG >> BSLocInfo.Divider,
+      xMLFun, database, simple)
 
     val templatingMenuPart = templatingDD >> topNavLG >> PlaceHolder submenus (templating,
-    surround, embed, evaluationOrder, selectDivs, simpleWizard, lazyLoading, parallelSnippets, headTag)
+      templatingDivider1 >> topNavLG >> BSLocInfo.Divider,
+      surround, embed, evaluationOrder, selectDivs, simpleWizard, lazyLoading, parallelSnippets, headTag)
 
     // Note: The bootstrap navigator dose only handle one level of sub-menus
     val menusMenuPart = menusDD >> topNavLG >> PlaceHolder submenus (menus,
-    firstSubmenu, secondSubmenu, first2Submenu, second2Submenu, thirdSubmenu, forthSubmenu)
+      menusDivider1 >> topNavLG >> BSLocInfo.Divider,
+      firstSubmenu, secondSubmenu, first2Submenu, second2Submenu, thirdSubmenu, forthSubmenu)
 
-    val miscMenuPart = miscDD >> topNavLG >> PlaceHolder submenus (misc, longTime, numberGuessing,
-    wizard, simpleScreen, variableScreen, arcChallenge, simpleWiring, wiringInvoice, fileUpload, asyncRest,
-    login, counting)
+    val miscMenuPart = miscDD >> topNavLG >> PlaceHolder submenus (misc,
+      miscDivider1 >> BSLocInfo.Divider,
+      longTime, numberGuessing, wizard, simpleScreen, variableScreen, arcChallenge, simpleWiring,
+      wiringInvoice, fileUpload, asyncRest, login, counting)
   }
 
   def sitemap() = SiteMap(siteMapList: _*)

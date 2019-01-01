@@ -6,7 +6,7 @@
 
 lazy val projectSettings = Seq(
   organization := "net.liftweb",
-  version := "0.9.1-SNAPSHOT",
+  version := "0.9.2-SNAPSHOT",
   name := "demo",
   scalaVersion := "2.12.7",
   scalacOptions ++= Seq("-unchecked", "-deprecation"),
@@ -61,7 +61,7 @@ libraryDependencies ++= {
     "net.liftweb" %% "lift-db" % liftVersion,
     "net.liftweb" %% "lift-mapper" % liftVersion,
     // "net.liftmodules" %% "fobo_3.3" % "2.1.0",
-    "net.liftmodules" %% "fobo-twbs-bootstrap4_3.3" % "2.1.0",
+    "net.liftmodules" %% "fobo-twbs-bootstrap4_3.3" % "2.1.1-SNAPSHOT",
     "net.liftmodules" %% "fobo-popper_3.3" % "2.1.0",
     "net.liftmodules" %% "fobo-font-awesome_3.3" % "2.1.0",
     "net.liftmodules" %% "fobo-highlightjs_3.3" % "2.1.0",
