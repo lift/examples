@@ -66,9 +66,9 @@ libraryDependencies ++= {
     "net.liftmodules" %% "textile_3.1" % "1.4-SNAPSHOT",
     
     "org.webjars" % "bootstrap" % "4.2.1",
-    "org.webjars" % "jquery" % "3.0.0",
+    "org.webjars" % "jquery" % "3.3.1",
     "org.webjars" % "jquery-migrate" % "1.4.1",
-    "org.webjars" % "popper.js" % "1.14.3",
+    "org.webjars" % "popper.js" % "1.14.6",
     "org.webjars" % "font-awesome" % "5.6.1",
     "org.webjars" % "highlightjs" % "9.6.0",
     
