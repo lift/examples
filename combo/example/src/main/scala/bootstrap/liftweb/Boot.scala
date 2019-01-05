@@ -25,7 +25,7 @@ import sitemap._
 import Helpers._
 import example._
 import net.liftmodules.widgets.autocomplete._
-import net.liftmodules.{fobobs4, fobofa, fobohl, fobojq, fobopop}
+import net.liftmodules.{fobobs4api => fobo}
 import comet._
 import model._
 import lib._
@@ -144,12 +144,7 @@ class Boot {
     }
 
     // FoBo init
-    fobojq.Toolkit.init = fobojq.Toolkit.JQuery224
-    fobohl.Toolkit.init = fobohl.Toolkit.HighlightJS930
-    fobofa.Toolkit.init = fobofa.Toolkit.FontAwesome550
-    fobobs4.Toolkit.init = fobobs4.Toolkit.Bootstrap413
-    fobopop.Toolkit.init = fobopop.Toolkit.Popper1129
-    fobojq.Toolkit.init = fobojq.Toolkit.JQueryMigrate141
+    fobo.API.init = fobo.API.Bootstrap4
 
     ThingBuilder.boot()
 
