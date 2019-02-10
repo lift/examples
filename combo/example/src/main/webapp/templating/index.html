@@ -67,8 +67,8 @@
         templating
         mechanism and it would have taken a lot of work to make it XMLTemplate (and all of Lift's templating is XHTML
         and
-        makes use of Scala's excellent support of XML.) <strong>Note:</strong> Nowadays most templating is based on
-        HTML5.
+        makes use of Scala's excellent support of XML.) <strong>Note:</strong> Nowadays most Lift templates is based on
+        HTML5 but the statement still hold.
       </p>
       <p>Second, I've been referring to static templates. Lift has a little known and pretty much undocumented feature
         that
@@ -261,20 +261,20 @@ object Show {
 
       <span class="badge badge-secondary">HTML syntax</span>
       <pre class="html"><code>&lt;table data-lift="show:users"&gt;
-   &lt;tr&gt;
-     &lt;td&gt;&lt;span id="first_name"&gt;David&lt;/span&gt;&lt;/td&gt;
-     &lt;td&gt;&lt;span id="last_name"&gt;Pollak&lt;/span&gt;&lt;/td&gt;
-   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;span id="first_name"&gt;David&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;span id="last_name"&gt;Pollak&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
 
       <span class="badge badge-secondary">The older XHTML syntax</span>
       <pre class="html"><code>&lt;table&gt;
-
-&lt;lift:snippet type=&quot;show:users&quot;&gt;
-&lt;tr&gt;&lt;td&gt;&lt;f:first_name&gt;David&lt;/f:first_name&gt;&lt;/ 
-td&gt;&lt;td&gt;&lt;f:last_name&gt;Pollak&lt;/f:last_name&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;/lift:snippet&gt;
-
+  &lt;lift:snippet type=&quot;show:users&quot;&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;f:first_name&gt;David&lt;/f:first_name&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;f:last_name&gt;Pollak&lt;/f:last_name&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/lift:snippet&gt;
 &lt;/table&gt;</code></pre>
 
 
