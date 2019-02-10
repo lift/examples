@@ -1,131 +1,110 @@
-<lift:surround with="default" at="content">
-  <lift:snippet type="CountGame:run" form="post">
-    <choose:guess>
-      Guess a number between 1 and 100.<br>
-      Last guess: <count:last></count:last><br >
-      Guess: <count:input></count:input><br>
-      <input type="submit" value="Guess">
-    </choose:guess>
+<!DOCTYPE html>
+<html>
 
-    <choose:win>
-      You Win!!<br >
-      You guessed <count:number></count:number> after 
-      <count:count></count:count> guesses.<br>
-    </choose:win>
-  </lift:snippet>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-  <br >
-  <br >
-  The view code:
-  <head_merge>
-    <style type="text/css">
-      <![CDATA[
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .sgml-namespace {
-        /* sgml-namespace */
-        color: #da70d6;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      ]]>
-    </style>
-  </head_merge>
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
 
-  <pre>
-&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">surround</span> <span class="variable-name">with</span>=<span class="string">"default"</span> <span class="variable-name">at</span>=<span class="string">"content"</span>&gt;
-&lt;<span class="sgml-namespace">lift</span>:<span class="function-name">snippet</span> <span class="variable-name">type</span>=<span class="string">"CountGame:run"</span> <span class="variable-name">form</span>=<span class="string">"post"</span>&gt;
-  &lt;<span class="sgml-namespace">choose</span>:<span class="function-name">guess</span>&gt;
-    Guess a number between 1 and 100.&lt;<span class="function-name">br</span>/&gt;
-    Last guess: &lt;<span class="sgml-namespace">count</span>:<span class="function-name">last</span>/&gt;&lt;<span class="function-name">br</span> /&gt;
-    Guess: &lt;<span class="sgml-namespace">count</span>:<span class="function-name">input</span>/&gt;&lt;<span class="function-name">br</span>/&gt;
-    &lt;<span class="function-name">input</span> <span class="variable-name">type</span>=<span class="string">"submit"</span> <span class="variable-name">value</span>=<span class="string">"Guess"</span>/&gt;
-  &lt;/<span class="sgml-namespace">choose</span>:<span class="function-name">guess</span>&gt;
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
-  &lt;<span class="sgml-namespace">choose</span>:<span class="function-name">win</span>&gt;
-    You Win!!&lt;<span class="function-name">br</span> /&gt;
-    You guessed &lt;<span class="sgml-namespace">count</span>:<span class="function-name">number</span>/&gt; after &lt;<span class="sgml-namespace">count</span>:<span class="function-name">count</span>/&gt; guesses.&lt;<span class="function-name">br</span>/&gt;
-  &lt;/<span class="sgml-namespace">choose</span>:<span class="function-name">win</span>&gt;
-&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">snippet</span>&gt;
-&lt;/<span class="sgml-namespace">lift</span>:<span class="function-name">surround</span>&gt;
-  </pre>
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
 
-  The Snippet:
-  <head_merge>
-  <style type="text/css">
-    <![CDATA[
+    <div data-lift="CountGame.run?form=post">
+      <span id="choose">
+        <span id="guess">
+          <span>Guess a number between 1 and 100.</span><br>
+          <span>Last guess: </span><span class="last"></span>
+          <div class="form-group row">
+            <label for="nbr" class="col-sm-1 col-form-label">Guess:</label>
+            <div class="col-sm-2">
+              <span class="input" id="nbr"></span>
+            </div>
+          </div>
+          <input class="btn btn-primary" type="submit" value="Guess">
+        </span>
 
-    .comment {
-      /* font-lock-comment-face */
-      color: #b22222;
-    }
-    .comment-delimiter {
-      /* font-lock-comment-delimiter-face */
-      color: #b22222;
-    }
-    .function-name {
-      /* font-lock-function-name-face */
-      color: #0000ff;
-    }
-    .keyword {
-      /* font-lock-keyword-face */
-      color: #a020f0;
-    }
-    .string {
-      /* font-lock-string-face */
-      color: #bc8f8f;
-    }
-    .type {
-      /* font-lock-type-face */
-      color: #228b22;
-    }
-    .variable-name {
-      /* font-lock-variable-name-face */
-      color: #b8860b;
-    }
-    ]]>
-  </style>
-  </head_merge>
-  
-  <pre>
-<span class="keyword">class</span> <span class="type">CountGame</span> <span class="keyword">extends</span> <span class="type">StatefulSnippet</span> {
-  <span class="keyword">val</span> <span class="variable-name">dispatch</span>: <span class="type">DispatchIt </span>= {
-    <span class="keyword">case</span> <span class="string">"run"</span> <span class="keyword">if</span> lastGuess == number =&gt; 
-      xhtml =&gt; win(chooseTemplate(<span class="string">"choose"</span>, <span class="string">"win"</span>, xhtml))
-    
-    <span class="keyword">case</span> <span class="string">"run"</span> =&gt; 
-      xhtml =&gt; nextGuess(chooseTemplate(<span class="string">"choose"</span>, <span class="string">"guess"</span>, xhtml))
+        <span id="win">
+          <span>You Win!!</span><br>
+          <span>You guessed <span class="number"></span> after <span class="count"></span> guesses.</span><br>
+        </span>
+      </span>
+    </div>
+
+    <br>
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code>&lt;div data-lift="CountGame.run?form=post"&gt;
+  &lt;span id="choose"&gt;
+    &lt;span id="guess"&gt;
+      &lt;span&gt;Guess a number between 1 and 100.&lt;/span&gt;&lt;br&gt;
+      &lt;span&gt;Last guess: &lt;/span&gt;&lt;span class="last"&gt;&lt;/span&gt;
+      &lt;div class="form-group row"&gt;
+        &lt;label for="nbr" class="col-sm-1 col-form-label"&gt;Guess:&lt;/label&gt;
+        &lt;div class="col-sm-2"&gt;
+          &lt;span class="input" id="nbr"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;input class="btn btn-primary" type="submit" value="Guess"&gt;
+    &lt;/span&gt;
+
+    &lt;span id="win"&gt;
+      &lt;span&gt;You Win!!&lt;/span&gt;&lt;br&gt;
+      &lt;span&gt;You guessed &lt;span class="number"&gt;&lt;/span&gt; after
+      &lt;span class="count"&gt;&lt;/span&gt; guesses.&lt;/span&gt;&lt;br&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class CountGame extends StatefulSnippet {
+  val dispatch: DispatchIt = {
+    case "run" if lastGuess == number => xhtml => win(xhtml)
+
+    case "run" => xhtml => nextGuess(xhtml)
+
+    case "count_down" =>
+    xhtml => countDown(attr("from").map(Helpers.toInt).openOr(0))
   }
-  
-  <span class="keyword">def</span> <span class="function-name">win</span>(<span class="variable-name">xhtml</span>: <span class="type">NodeSeq</span>) = bind(<span class="string">"count"</span>, xhtml, <span class="string">"number"</span> --&gt; number, 
-                                 <span class="string">"count"</span> --&gt; count)
-  
-  <span class="keyword">def</span> <span class="function-name">nextGuess</span>(<span class="variable-name">xhtml</span>: <span class="type">NodeSeq</span>) =  bind(<span class="string">"count"</span>, xhtml, 
-                                        <span class="string">"input"</span> --&gt; text(<span class="string">""</span>, guess _),
-                                        <span class="string">"last"</span> --&gt; 
-                                        lastGuess.map(v =&gt; 
-                                          <span class="keyword">if</span> (v &lt; number) v+<span class="string">" is low"</span> 
-                                          <span class="keyword">else</span> v+<span class="string">" is high"</span>).
-                                        openOr(<span class="string">"Make first Guess"</span>))
-  
-  <span class="keyword">private</span> <span class="keyword">def</span> <span class="function-name">guess</span>(<span class="variable-name">in</span>: <span class="type">String</span>) {
+
+  def win(xhtml: NodeSeq) =
+    ( "#win ^*" #> "#choose" &
+      ".number" #> Text(number.toString) &
+      ".count" #> Text(count.toString)
+      ).apply(xhtml) ++
+      &lt;p&gt;Counting backward:
+        {countDown(number)}
+      &lt;/p&gt;
+
+  def countDown(number: Int): Node = if (number &lt;= 0) Text("")
+  else &lt;xml:group&gt;{number} &lt;lift:count_game.count_down from={(number - 1).toString}/&gt;&lt;/xml:group&gt;
+
+  def nextGuess(xhtml: NodeSeq): NodeSeq =
+    ("#guess ^*" #> "#choose" &
+     ".input" #> text("", guess _, "class" -> "form-control") &
+      ".last *" #> lastGuess.map(v =>
+        if (v &lt; number) v + " is low"
+        else v + " is high").
+        openOr("Make first Guess")
+      ).apply(xhtml)
+
+  private def guess(in: String) {
     count += 1
     lastGuess = Full(toInt(in))
   }
-    
-  <span class="keyword">private</span> <span class="keyword">val</span> <span class="variable-name">number</span> = 1 + randomInt(100)
-  <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">lastGuess</span>: <span class="type">Can[Int]</span> = Empty
-  <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">count</span> = 0
-}
-  </pre>
 
+  private val number = 1 + randomInt(100)
+  private var lastGuess: Box[Int] = Empty
+  private var count = 0
+}</code></pre>
 
-</lift:surround>
+  </div>
+</body>
+
+</html>

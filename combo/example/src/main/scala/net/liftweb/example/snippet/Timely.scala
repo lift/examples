@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package net.liftweb 
-package example 
+package net.liftweb
+package example
 package snippet
 
-import net.liftweb._
 import http._
 import util._
 import js._
 import JsCmds._
-import JE._
 
 import scala.xml._
 
 /**
- * A demo of the LiftSession.addPostPageJavaScript feature.
- * This snippet sets the innerHTML of the specified ID
- * to the current time and the count of how
- * many times the message was updated.
- */
+  * A demo of the LiftSession.addPostPageJavaScript feature.
+  * This snippet sets the innerHTML of the specified ID
+  * to the current time and the count of how
+  * many times the message was updated.
+  */
 object Timely {
   def render(in: NodeSeq): NodeSeq = {
     var x = 0
+
+    def timesStr(x: Int): String = if (x == 1) "time" else "times"
 
     for {
       theId <- (in \ "@id")
@@ -43,11 +43,13 @@ object Timely {
     } {
       session.addPostPageJavaScript(() => {
         x += 1
-        SetHtml(theId.text,
-                <span>The time of the last update to
+        SetHtml(
+          theId.text,
+          <span>The time of the last update to
                 this page is <b>{Helpers.now.toString}</b>,
-                and this section was updated {x} times.
-              </span>)
+                and this section was updated <b>{x} {timesStr(x)}</b>.
+              </span>
+        )
       })
     }
 

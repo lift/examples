@@ -1,81 +1,64 @@
-<lift:surround with="default" at="content">
-  <p>
-    Lift provides powerful facilities to build highly
-    interactive web applications.
-  </p>
-  <h3>Ajax</h3>
-  <div>
-    Lift has powerful set of Ajax features that all you to
-    create Ajax controls with as little as 1 line of code:
+<!DOCTYPE html>
+<html>
 
-  <pre>
- <code>
-  ajaxButton("", s => {println("you said: "+s); SetHtml("place", &lt;b&gt;{s}&lt;/b&gt;)})
-  </code>
-  </pre>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
 
-</div>
+<body data-lift-content-id="main">
+    <div id="main" data-lift="surround?with=default;at=content">
+        <h2><span data-lift="Menu.title">%*%</span></h2>
 
-<h3>Comet</h3>
-<div>
-  Lift supports Comet-style long polling with very little work on the
-  part of the developer.  Here's the code the implements the clock
-  that you see in this demo:
+        <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
-  <head_merge>
-  <style type="text/css">
-    /* <![CDATA[ */
-    .comment {
-      /* font-lock-comment-face */
-      color: #b22222;
-    }
-    .comment-delimiter {
-      /* font-lock-comment-delimiter-face */
-      color: #b22222;
-    }
-    .function-name {
-      /* font-lock-function-name-face */
-      color: #0000ff;
-    }
-    .keyword {
-      /* font-lock-keyword-face */
-      color: #a020f0;
-    }
-    .string {
-      /* font-lock-string-face */
-      color: #bc8f8f;
-    }
-    .type {
-      /* font-lock-type-face */
-      color: #228b22;
-    }
-    .variable-name {
-      /* font-lock-variable-name-face */
-      color: #b8860b;
-    }
+        <div id="wrappedNoticeAtHead">
+            <div data-lift="Msgs"></div>
+        </div>
 
-    /* ]]> */
-  </style>
-  </head_merge>
-  
-  <pre>
-<span class="keyword">class</span> <span class="type">Clock</span> <span class="keyword">extends</span> <span class="type">CometActor</span> {
-  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">defaultPrefix</span> = Full(<span class="string">"clk"</span>)
-  <span class="comment-delimiter">// </span><span class="comment">schedule a ping every 10 seconds so we redraw
-</span>  ActorPing.schedule(<span class="keyword">this</span>, Tick, 10 seconds) 
+        <p>
+            Lift provides powerful facilities to build highly interactive web applications.
+        </p>
+        <section>
+            <h3>Ajax</h3>
+            Lift has powerful set of Ajax features that all you to create Ajax controls with as little as 1 line of
+            code:
+            <pre><code class="scala">ajaxButton("", s => {println("you said: "+s); SetHtml("place", &lt;b&gt;{s}&lt;/b&gt;)})</code></pre>
+        </section>
+        <section>
+            <h3>Comet</h3>
+            Lift supports Comet-style long polling with very little work on the part of the developer. Here's the code
+            the implements
+            the clock that you see in this demo:
+            <pre><code class="scala">class ExampleClock(initSession: LiftSession,
+                   initType: Box[String],
+                   initName: Box[String],
+                   initDefaultXml: NodeSeq,
+                   initAttributes: Map[String, String])
+    extends CometActor {
+  // schedule a ping every 10 seconds so we redraw
+  Schedule.schedule(this, Tick, 10 seconds)
 
-  <span class="keyword">private</span> <span class="keyword">lazy</span> <span class="keyword">val</span> <span class="variable-name">spanId</span> = uniqueId+<span class="string">"_timespan"</span>
+  def render = "#clock_time *" #> Text(now.toString)
 
-  <span class="keyword">def</span> <span class="function-name">render</span> = bind(<span class="string">"time"</span> -&gt; timeSpan)
-
-  <span class="keyword">def</span> <span class="function-name">timeSpan</span> = (&lt;span id={spanId}&gt;{timeNow}&lt;/span&gt;)
-
-  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">lowPriority</span> = {
-    <span class="keyword">case</span> <span class="type">Tick</span> =&gt;
-      partialUpdate(SetHtml(spanId, Text(timeNow.toString)))
-    ActorPing.schedule(<span class="keyword">this</span>, Tick, 10 seconds) 
+  override def lowPriority = {
+    case Tick =>
+      partialUpdate(SetHtml("clock_time", Text(now.toString)))
+      Schedule.schedule(this, Tick, 10 seconds)
   }
+
+  val creationInfo = new CometCreationInfo(initType.orNull,
+                                           initName,
+                                           initDefaultXml,
+                                           initAttributes,
+                                           initSession)
+
+  initCometActor(creationInfo)
 }
-  </pre>
-</div>
-</lift:surround>
+
+case object Tick</code></pre>
+        </section>
+    </div>
+</body>
+
+</html>

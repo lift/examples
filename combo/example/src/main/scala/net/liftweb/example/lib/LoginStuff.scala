@@ -15,14 +15,13 @@
  */
 
 package net.liftweb {
-package example {
-package lib {
+  package example {
+    package lib {
 
-import _root_.net.liftweb._
-import http._
+      import http._
 
-object LoginStuff extends SessionVar(false)
+      object LoginStuff extends SessionVar(false)
 
-}
-}
+    }
+  }
 }

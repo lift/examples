@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+
+<title>Embedded Topbar template</title>
+</head>
+
+<!-- This is an embedded piece of html -->
+<body class="lift:content_id=header">
+
+  <nav id="header" class="navbar navbar-expand-lg navbar-light fixed-top d-lg-none">
+      <div class="container">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+          </button>
+          <a class="navbar-brand alt" href="#">
+                <img src="/images/lift.png" alt="Lift Web Framework" width="60" hight="60"></img>
+          </a>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+                <span data-lift="FoBo.Bs4Navbar.builder?group=topNav"></span>
+          </div>
+      </div>
+  </nav>
+
+</body>

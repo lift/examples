@@ -14,41 +14,39 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
-import _root_.net.liftweb.http._
-import S._
+import net.liftweb.http._
 import js._
 import JsCmds._
 import JE._
 import net.liftmodules.textile._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
+import net.liftweb.common._
+import net.liftweb.util._
 import Helpers._
-import _root_.scala.xml._
+
+import scala.xml._
 
 class Json {
-  object json extends JsonHandler {
+  object json {
     def apply(in: Any): JsCmd =
-    SetHtml("json_result", in match {
-        case JsonCmd("show", _, p: String, _) => Text(p)
-        case JsonCmd("textile", _, p: String, _) =>
-          TextileParser.toHtml(p, Empty)
-        case JsonCmd("count", _, p: String, _) => Text(p.length+" Characters")
-        case x => <b>Problem... didn't handle JSON message {x}</b>
-      })
+      SetHtml(
+        "json_result",
+        in match {
+          case JsonCmd("show", _, p: String, _) => Text(p)
+          case JsonCmd("textile", _, p: String, _) =>
+            TextileParser.toHtml(p, Empty)
+          case JsonCmd("count", _, p: String, _) =>
+            Text(p.length.toString + " Characters")
+          case x => <b>Problem... didn't handle JSON message {x}</b>
+        }
+      )
   }
 
-  def sample(in: NodeSeq): NodeSeq =
-  bind("json", in,
-       "script" -> Script(json.jsCmd),
-       AttrBindParam("onclick",
-                     Text(json.call(ElemById("json_select")~>Value,
-                                    ElemById("json_question")~>Value).toJsCmd),
-                     "onclick"))
-}
-}
-}
+  def sample =
+    "#jsonscript" #> Script(JsRaw(json.apply()).cmd) &
+      ".json [onclick]" #> Text(
+        json(ElemById("json_select") ~> Value,
+             ElemById("json_question") ~> Value).toJsCmd)
+
 }

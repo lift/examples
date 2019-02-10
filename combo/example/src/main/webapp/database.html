@@ -1,83 +1,71 @@
-<lift:surround with="default" at="content">
-<p><i>Lift</i> allows you to create model objects that
-map themselves to and from the database.  Here's an example of
-a "User" model object.</p>
+<!DOCTYPE html>
+<html>
 
-<p>
-	<div class="lift:Database?form=post">
-	There are <database:count ></database:count> records in the "Person" table.  The first one is <database:first></database:first>.
-	Press <database:submit></database:submit> to create more records.
-	</div>
-	</p>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>Template</title>
+</head>
 
-    <style type="text/css">
-    /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
+<body data-lift-content-id="main">
+    <div id="main" data-lift="surround?with=default;at=content">
+        <h2><span data-lift="Menu.title">%*%</span></h2>
 
-    <pre>
-<span class="comment-delimiter">/**</span><span class="comment">
- * The singleton that has methods for accessing the database
- */</span>
-<span class="keyword">object</span> <span class="variable-name">User</span> <span class="keyword">extends</span> <span class="type">User</span> <span class="keyword">with</span> <span class="type">KeyedMetaMapper</span>[<span class="type">Long</span>, <span class="type">User</span>] {
-  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">dbTableName</span> = <span class="string">"users"</span> <span class="comment-delimiter">// </span><span class="comment">define the DB table name
-</span>
-  <span class="comment-delimiter">// </span><span class="comment">define the order fields will appear in forms and output
-</span>  <span class="keyword">override</span> <span class="keyword">lazy</span> <span class="keyword">val</span> <span class="variable-name">fieldOrder</span> = List(id, firstName, lastName, 
-                                      email, password, textArea)
+        <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+        <div id="wrappedNoticeAtHead">
+            <div data-lift="Msgs"></div>
+        </div>
+
+        <p>
+            <i>Lift</i> allows you to create model objects that map themselves to and from the database. Here's an
+            example of
+            a "User" model object.</p>
+
+        <pre><code class="scala">object User extends User</code></pre>
+        <div data-lift="Database?form=post">
+            There are
+            <span id="count"></span> records in the "Person" table. The first one is
+            <span id="first"></span>.
+            <p>Press <button type="submit" class="btn btn-primary"></button> to create more records.</p>
+        </div>
+        <br>
+        <span class="badge badge-secondary">The
+            <i>Lift</i> Scala code</span>
+        <pre><code class="scala">/**
+  * The singleton that has methods for accessing the database
+  */
+object User extends User with KeyedMetaMapper[Long, User] {
+  override def dbTableName = "users" // define the DB table name
+
+  // define the order fields will appear in forms and output
+  override lazy val fieldOrder =
+    List(id, firstName, lastName, email, password, textArea)
 }
 
-<span class="comment-delimiter">/**</span><span class="comment">
- * An O-R mapped "User" class that includes first name, last name,
- * password and we add a "Personal Essay" to it
- */</span>
-<span class="keyword">class</span> <span class="type">User</span> <span class="keyword">extends</span> <span class="type">ProtoUser</span>[<span class="type">User</span>] {
-  <span class="keyword">def</span> <span class="function-name">getSingleton</span> = User
+/**
+  * An O-R mapped "User" class that includes first name, last name,
+  * password and we add a "Personal Essay" to it
+  */
+class User extends ProtoUser[User] {
+  def getSingleton = User
 
-  <span class="comment-delimiter">// </span><span class="comment">define an additional field for a personal essay
-</span>  <span class="keyword">object</span> <span class="variable-name">textArea</span> <span class="keyword">extends</span> <span class="type">MappedTextarea</span>(<span class="keyword">this</span>, 2048) {
-    <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">textareaRows</span>  = 10
-    <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">textareaCols</span> = 50
-    <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">displayName</span> = <span class="string">"Personal Essay"</span>
+  // define an additional field for a personal essay
+  object textArea extends MappedTextarea(this, 2048) {
+    override def textareaRows = 10
+    override def textareaCols = 50
+    override def displayName = "Personal Essay"
   }
-}
-</pre>
+}</code></pre>
 
-<p>For this little bit of work, we get a complete user with
-first name, last name, password, email, and a personal essay.
+        <p>For this little bit of work, we get a complete user with first name, last name, password, email, and a
+            personal essay.
+            Each of the fields knows how to validate itself. The User (and any other "Mapped" class) knows how to
+            Create,
+            Update, Read, and Delete itself from the database. It knows how to convert itself to a string, to XML, and
+            even
+            generate HTML forms for itself.</p>
 
-Each of the fields knows how to validate itself.  The
-User (and any other "Mapped" class) knows how to Create,
-Update, Read, and Delete itself from the database.  It knows
-how to convert itself to a string, to XML, and even generate
-HTML forms for itself.</p>
+    </div>
+</body>
 
-</lift:surround>
+</html>

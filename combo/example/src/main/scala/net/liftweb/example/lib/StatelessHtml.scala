@@ -15,29 +15,28 @@
  */
 
 package net.liftweb {
-package example {
-package lib {
+  package example {
+    package lib {
 
-import _root_.net.liftweb._
-import http._
-import common._
+      import http._
+      import common._
 
-import scala.xml._
+      import scala.xml._
 
-/**
- * Use Lift's templating without a session and without state
- */
-object StatelessHtml {
-  private val fakeSession = new LiftSession("/", "fakeSession", Empty)
+      /**
+        * Use Lift's templating without a session and without state
+        */
+      object StatelessHtml {
+        private val fakeSession = new LiftSession("/", "fakeSession", Empty)
 
-  def render(req: Req)(): Box[LiftResponse] = {
-    val xml: Box[NodeSeq] = S.init(req, fakeSession) {
-      S.runTemplate(List("stateless"))
+        def render(req: Req)(): Box[LiftResponse] = {
+          val xml: Box[NodeSeq] = S.init(Full(req), fakeSession) {
+            S.runTemplate(List("stateless"))
+          }
+          xml.map(ns => XhtmlResponse(ns(0), Empty, Nil, Nil, 200, false))
+        }
+      }
+
     }
-    xml.map(ns => XhtmlResponse(ns(0), Empty, Nil, Nil, 200, false))
   }
-}
-
-}
-}
 }

@@ -1,84 +1,91 @@
-<lift:surround with="default" at="content">
-  <center><b>AJAX Form Update</b></center>
-  <br >
-  Choose city and state:<br>
-  <lift:snippet type="AjaxForm:show" form="post">
-    State: <select:state></select:state>
-    City: <select:city></select:city>
-    <select:submit></select:submit>
-  </lift:snippet>
+<!DOCTYPE html>
+<html>
 
-  <p>Here's the code:</p>
-    <style type="text/css">
-    /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-    <pre>
-<span class="keyword">class</span> <span class="type">AjaxForm</span> {
-  <span class="keyword">var</span> <span class="variable-name">state</span> = AjaxForm.state
-  <span class="keyword">var</span> <span class="variable-name">city</span> = <span class="string">""</span>
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
 
-  <span class="keyword">private</span> <span class="keyword">def</span> <span class="function-name">cityChoice</span>(<span class="variable-name">state</span>: <span class="type">String</span>): <span class="type">Elem </span>= {
-    <span class="keyword">val</span> <span class="variable-name">cities</span> = AjaxForm.citiesFor(state)
-    <span class="keyword">val</span> <span class="variable-name">first</span> = cities.head
-    <span class="comment-delimiter">// </span><span class="comment">make the select "untrusted" because we might put new values
-</span>    <span class="comment-delimiter">// </span><span class="comment">in the select
-</span>    untrustedSelect(cities.map(s =&gt; (s,s)), Full(first), city = _)
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="stateForm">Choose city and state:</div>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <div data-lift="AjaxForm?form=post">
+      <div class="form-group form-row">
+        <label for="state" class="col-form-label">State:</label>
+        <div class="col">
+          <select id="state"></select>
+        </div>
+        <label for="city" class="col-form-label">City:</label>
+        <div class="col">
+          <select id="city"></select>
+        </div>
+        <div class="col">
+          <input type="submit" />
+        </div>
+      </div>
+    </div>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class AjaxForm {
+  var state = AjaxForm.state
+  var city = ""
+
+  private def cityChoice(state: String): Elem = {
+    val cities = AjaxForm.citiesFor(state)
+    val first = cities.head
+    // make the select "untrusted" because we might put new values
+    // in the select
+    untrustedSelect(cities.map(s => (s, s)),
+                    Full(first),
+                    s => city = s,
+                    "class" -> "form-control")
   }
 
-  <span class="keyword">private</span> <span class="keyword">def</span> <span class="function-name">replace</span>(<span class="variable-name">state</span>: <span class="type">String</span>): <span class="type">JsCmd </span>= {
-    <span class="keyword">val</span> <span class="variable-name">cities</span> = AjaxForm.citiesFor(state)
-    <span class="keyword">val</span> <span class="variable-name">first</span> = cities.head
-    ReplaceOptions(<span class="string">"city_select"</span>, cities.map(s =&gt; (s,s)), Full(first))
+  private def replace(state: String): JsCmd = {
+    val cities = AjaxForm.citiesFor(state)
+    val first = cities.head
+    ReplaceOptions("city", cities.map(s => (s, s)), Full(first))
   }
 
-
-  <span class="comment-delimiter">// </span><span class="comment">bind the view to the dynamic HTML
-</span>  <span class="keyword">def</span> <span class="function-name">show</span>(<span class="variable-name">xhtml</span>: <span class="type">Group</span>): <span class="type">NodeSeq </span>= {
-    <span class="keyword">val</span> (<span class="variable-name">name</span>, <span class="variable-name">js</span>) = ajaxCall(JE.JsRaw(<span class="string">"this.value"</span>),
-                              s =&gt; After(200, replace(s)))
-    bind(<span class="string">"select"</span>, xhtml,
-         <span class="string">"state"</span> -&gt; select(AjaxForm.states.map(s =&gt; (s,s)),
-                           Full(state), state = _, <span class="string">"onchange"</span> -&gt; js.toJsCmd) %
-         (<span class="keyword">new</span> PrefixedAttribute(<span class="string">"lift"</span>, <span class="string">"gc"</span>, name, Null)),
-         <span class="string">"city"</span> -&gt; cityChoice(state) % (<span class="string">"id"</span> -&gt; <span class="string">"city_select"</span>),
-         <span class="string">"submit"</span> -&gt; submit(?(<span class="string">"Save"</span>),
-                            () =&gt;
-                            {S.notice(<span class="string">"City: "</span>+city+<span class="string">" State: "</span>+state);
-                             redirectTo(<span class="string">"/"</span>)}))
+  def render = {
+    "#state" #> ajaxSelect(AjaxForm.states.map(s => (s, s)), Full(state), { s =>
+      state = s; After(200, replace(state))
+    }, "class" -> "form-control") &
+      "#city" #> cityChoice(state) &
+      "type=submit" #> submit(?("Save"), () => {
+        S.notice("City: " + city + ", State: " + state); redirectTo("/")
+      }, "class" -> "btn btn-primary")
   }
 }
-</pre>
 
+object AjaxForm {
+  val citiesAndStates = List(
+    "Alabama" -> "Birmingham",
+    "Alabama" -> "Huntsville",
+          :
+          :
+    "Wisconsin" -> "Milwaukee"
+  )
 
-	
-</lift:surround>
+  val states = citiesAndStates.map(_._1).distinct
+
+  val state: String = states.head
+
+  def citiesFor(state: String): List[String] =
+    citiesAndStates.filter(_._1 == state).map(_._2)
+}</code></pre>
+
+  </div>
+</body>
+
+</html>

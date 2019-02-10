@@ -1,7 +1,27 @@
-<lift:surround with="default" at="content">
-  <h2>Persistence</h2>
-  <p>Lift comes with its own ActiveRecord-like OR mapper called
-  mapper.  It's great for small projects.
-  Lift also supports <a href="http://java.sun.com/developer/technicalArticles/J2EE/jpa/">JPA</a>.</p>
-  
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <p>Lift comes with its own ActiveRecord-like OR mapper called mapper. It's great for small projects. Lift also
+      supports
+      <a href="http://java.sun.com/developer/technicalArticles/J2EE/jpa/">JPA</a>.</p>
+
+  </div>
+</body>
+
+</html>

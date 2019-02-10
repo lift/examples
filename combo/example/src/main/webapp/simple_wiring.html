@@ -1,16 +1,96 @@
-<lift:surround with="default" at="content">
+<!DOCTYPE html>
+<html>
 
-  <div>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <p>
+      An example of using Lift's Wiring feature to update many different UI elements on the page. Todo count is
+      <span data-lift="SimpleWiring.count" id="count1">unknown</span>.
+    </p>
+    <div data-lift="SimpleWiring.toDo">to-dos here</div>
+    <br>
+    <p>
+      I say again, our Todo count is
+      <span data-lift="SimpleWiring.count" id="count2">unknown</span>.
+    </p>
+
+    <hr>
+
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code class="html">  &lt;p&gt;
     An example of using Lift's Wiring feature to update
-    many different UI elements on the page.  Todo count is 
-    <span class="lift:SimpleWiring.count" id="count1">unknown</span>.
-    <br>
-    <br>
+    many different UI elements on the page.  Todo count is
+    &lt;span data-lift="SimpleWiring.count" id="count1"&gt;unknown&lt;/span&gt;.
+  &lt;/p&gt;
+  &lt;div data-lift="SimpleWiring.toDo"&gt;to-dos here&lt;/div&gt;
+  &lt;br&gt;
+  &lt;p&gt;
+    I say again, our Todo count is &lt;span data-lift="SimpleWiring.count" id="count2"&gt;unknown&lt;/span&gt;.
+  &lt;/p&gt;</code></pre>
 
-    <div class="lift:SimpleWiring.toDo">to-dos here</div>
-    <br>
-    <br>
-    I say again, our Todo count is <span class="lift:SimpleWiring.count" id="count2">unknown</span>.
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">/**
+  * A simple example of Wiring.
+  * The count of done To-do items
+  */
+class SimpleWiring {
+  // define the cells
+  private val feedFish = ValueCell(false)
+  private val walkDog = ValueCell(false)
+  private val doDishes = ValueCell(false)
+  private val watchTv = ValueCell(false)
+
+  // Our count is the collection of cells and we sum them up
+  private val count = SeqCell(feedFish, walkDog, doDishes, watchTv).lift {
+    _.map(_.toInt).sum
+  }
+
+  private class BtoI(b: Boolean) { def toInt: Int = if (b) 1 else 0 }
+  private implicit def bToI(b: Boolean): BtoI = new BtoI(b)
+
+  // define the count transformation
+  def count(in: NodeSeq): NodeSeq =
+    WiringUI.asText(in, count, JqWiringSupport.fade)
+
+  def toDo = {
+    import SHtml._
+    "* *" #> List[NodeSeq](
+      &lt;div class="form-check"&gt;
+        {ajaxCheckboxElem(feedFish)}
+        &lt;label class="form-check-label"&gt;Feed Fish&lt;/label&gt;
+      &lt;/div&gt;,
+      &lt;div class="form-check"&gt;
+        {ajaxCheckboxElem(walkDog)}
+        &lt;label class="form-check-label"&gt;Walk Dog&lt;/label&gt;
+      &lt;/div&gt;,
+      &lt;div class="form-check"&gt;
+        {ajaxCheckboxElem(doDishes)}
+        &lt;label class="form-check-label"&gt;Do Dishes&lt;/label&gt;
+      &lt;/div&gt;,
+      &lt;div class="form-check"&gt;
+        {ajaxCheckboxElem(watchTv)}
+        &lt;label class="form-check-label"&gt;Watch TV&lt;/label&gt;
+      &lt;/div&gt;
+    )
+  }
+
+}</code></pre>
+
   </div>
+</body>
 
-</lift:surround>
+</html>

@@ -14,39 +14,31 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package snippet {
+package net.liftweb.example.snippet
 
-import _root_.net.liftweb.example.model._
-import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.S
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.http.S._
-import _root_.net.liftweb.http.SHtml._
-import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.scala.xml.{NodeSeq, Text, Group}
-
+import net.liftweb.http._
+import net.liftweb.http.SHtml._
+import net.liftweb.util.Helpers._
+import net.liftweb.common._
+import net.liftweb.util._
+import scala.xml.{NodeSeq, Text}
 
 class DivSelector extends StatefulSnippet {
-  private var whichDivs: Array[Boolean] = Array(true, true, true, true, true, true)
 
-  def dispatch: DispatchIt =
-  {
-    case "select" => selectDivs
+  private val whichDivs: Array[Boolean] =
+    Array(true, true, true, true, true, true)
+
+  def dispatch: DispatchIt = {
+    case "select"   => selectDivs
     case "populate" => populate
   }
 
-  def populate(in: NodeSeq): NodeSeq =
-  bind("div", in, "line" ->
-       (line =>
-      whichDivs.toList.zipWithIndex.flatMap{
-        case (value, num) =>
-          bind("div", line,
-               "number" -> Text(num.toString),
-               "checkbox" -> checkbox(value, v => whichDivs(num) = v))}))
+  def populate: CssSel = "#line" #> whichDivs.toList.zipWithIndex.flatMap {
+    case (value, num) =>
+      List(
+        "#number" #> Text(num.toString) &
+          "#checkbox" #> checkbox(value, v => whichDivs(num) = v))
+  }
 
   def selectDivs(in: NodeSeq): NodeSeq = {
     def calcNum(in: String): Box[Int] =
@@ -59,7 +51,4 @@ class DivSelector extends StatefulSnippet {
       num <- calcNum(id) if whichDivs(num) // filter
     } yield div
   }
-}
-}
-}
 }

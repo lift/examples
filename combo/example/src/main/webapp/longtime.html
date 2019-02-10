@@ -1,82 +1,64 @@
-<lift:surround with="default" at="content">
-  <div class="lift:comet?type=LongTime"></div>
+<!DOCTYPE html>
+<html>
 
-<p>Here's the Lift CometActor code:</p>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-    <style type="text/css">
-    /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .constant {
-        /* font-lock-constant-face */
-        color: #5f9ea0;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
 
-    </style>
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
-    <pre>
-<span class="comment-delimiter">// </span><span class="comment">A CometActor that keeps the user updated
-</span><span class="keyword">class</span> <span class="type">LongTime</span> <span class="keyword">extends</span> <span class="type">CometActor</span> {
-  <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">url</span>: <span class="type">Box[String]</span> = Empty
-  <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">progress</span>: <span class="type">Int </span>= 0
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
 
-  <span class="comment-delimiter">// </span><span class="comment">a CometActor that has not been displayed for
-</span>  <span class="comment-delimiter">// </span><span class="comment">2 minutes is destroyed
-</span>  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">lifespan</span>: <span class="type">Box[TimeSpan]</span> = Full(2 minutes)
+    <div data-lift="comet?type=LongTime"></div>
 
-  <span class="comment-delimiter">// </span><span class="comment">get messages from the ThingBuilder
-</span>  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">highPriority</span> = {
-    <span class="keyword">case</span> <span class="type">BuildStatus</span>(<span class="variable-name">p</span>, <span class="type">Empty</span>) =&gt;
-      <span class="keyword">this</span>.progress = p
-      reRender(<span class="constant">false</span>)
+    <span class="badge badge-secondary">The
+      <i>Lift</i> CometActor Scala code</span>
+    <pre><code class="scala">// A CometActor that keeps the user updated
+class LongTime extends CometActor {
+  private var url: Box[String] = Empty
+  private var progress: Int = 0
 
-    <span class="keyword">case</span> <span class="type">BuildStatus</span>(<span class="variable-name">_</span>, <span class="type">Full</span>(<span class="variable-name">u</span>)) =&gt;
+  // a CometActor that has not been displayed for
+  // 2 minutes is destroyed
+  override def lifespan: Box[TimeSpan] = Full(2 minutes)
+
+  // get messages from the ThingBuilder
+  override def highPriority = {
+    case BuildStatus(p, Empty) =>
+      this.progress = p
+      reRender(false)
+
+    case BuildStatus(_, Full(u)) =>
       url = Full(u)
       progress = 100
-      reRender(<span class="constant">false</span>)
+      reRender(false)
       partialUpdate(RedirectTo(u))
   }
 
-  <span class="comment-delimiter">// </span><span class="comment">start the job
-</span>  <span class="keyword">override</span> <span class="keyword">def</span> <span class="function-name">localSetup</span>() {
-    ThingBuilder ! <span class="keyword">this</span>
-    <span class="keyword">super</span>.localSetup()
+  // start the job
+  override def localSetup() {
+    ThingBuilder ! this
+    super.localSetup()
   }
 
-  <span class="comment-delimiter">// </span><span class="comment">display the progress or a link to the result
-</span>  <span class="keyword">def</span> <span class="function-name">render</span> =
-  url <span class="keyword">match</span> {
-    <span class="keyword">case</span> <span class="type">Full</span>(<span class="variable-name">where</span>) =&gt;
-      &lt;span&gt;Your job is complete.  &lt;a href={where}&gt;Click Me&lt;/a&gt;&lt;/span&gt;
-    <span class="keyword">case</span> <span class="variable-name">_</span> =&gt;
-      &lt;span&gt;We're working on your job... it's {progress}% complete&lt;/span&gt;
-  }  
-}
-</pre>
+  // display the progress or a link to the result
+  def render =
+  url match {
+    case Full(where) =>
+      &lt;div&gt;Your job is complete.  &lt;a href={where}&gt;Click Me&lt;/a&gt;&lt;/div&gt;
+    case _ =>
+      &lt;div&gt;We're working on your job... it's {progress}% complete&lt;/div&gt;
+  }
+}</code></pre>
 
+  </div>
+</body>
 
-  
-</lift:surround>
+</html>

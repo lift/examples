@@ -1,44 +1,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift='http://liftweb.net'>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
-    <meta name="description" content="" >
-    <meta name="keywords" content="" >
 
-    <title>Lift Web Framework</title>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-  <style class="lift:CSS.blueprint" ></style>
-  <style class="lift:CSS.fancyType" ></style>
-  <script id="jquery" src="/classpath/jquery.js" type="text/javascript"></script>
+  <title>Lift Web Framework</title>
+
+  <style class="lift:CSS.blueprint"></style>
+  <style class="lift:CSS.fancyType"></style>
+  <link rel="stylesheet" href="/classpath/fobo/bootstrap.css">
+  <link rel="stylesheet" href="/classpath/fobo/font-awesome.css">
+  <link rel="stylesheet" href="/classpath/fobo/highlight/gruvbox-dark.css">
+
+  <script id="jquery" src="/classpath/fobo/jquery.js" type="text/javascript"></script>
+  <script src="/classpath/fobo/highlight/highlight.pack.js"></script>
+  <script data-lift="FoBo.HLJS.initHighlightingOnLoad"></script>
+
   <script id="json" src="/classpath/json.js" type="text/javascript"></script>
 
   <style type="text/css">
     /* <![CDATA[ */
     .widget {
-      border:1px solid #ccc;
-      background:#f5f5f5;
-      padding:5px;
-      margin:10px 0 0 0;
-      font-size:8pt;
+      border: 1px solid #ccc;
+      background: #f5f5f5;
+      padding: 5px;
+      margin: 10px 0 0 0;
+      font-size: 8pt;
     }
 
     .sidebar ul {
       margin: 10px 0 0 0;
       padding: 5px;
-      border-bottom:1px solid #ccc;
+      border-bottom: 1px solid #ccc;
     }
 
 
     .sidebar ul li {
-      margin:0;
-      padding:0;
-      list-style:none;
-      border:1px solid #ccc;
-      border-bottom:none;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border: 1px solid #ccc;
+      border-bottom: none;
     }
 
     .sidebar ul li ul li {
-      margin:0;
-      padding:0;
+      margin: 0;
+      padding: 0;
       border-style: none;
       list-style-type: square;
       list-style-position: inside;
@@ -56,23 +64,23 @@
     }
 
     .sidebar ul li ul li span {
-      display:inline;
-      padding:0px;
+      display: inline;
+      padding: 0px;
     }
 
 
     .sidebar ul li a {
-      display:block;
-      padding:3px;
-      text-indent:10px;
-      text-decoration:none;
+      display: block;
+      padding: 3px;
+      text-indent: 10px;
+      text-decoration: none;
     }
 
     .sidebar ul li span {
-      display:block;
-      padding:3px;
-      text-indent:10px;
-      text-decoration:none;
+      display: block;
+      padding: 3px;
+      text-indent: 10px;
+      text-decoration: none;
     }
 
 
@@ -84,6 +92,7 @@
     /* ]]> */
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="column span-10">
@@ -95,30 +104,36 @@
     <hr>
     <div class="column span-6 colborder sidebar">
 
-      <hr class="space" >
+      <hr class="space">
 
-      <div><div class="<lift:Msgs"></div>
+      <div>
+        <div class="<lift:Msgs"></div>
         <hr class="space">
       </div>
     </div>
 
     <div class="column span-17 last">
-      <lift:bind name="content"></lift:bind>
+      <div id="content">The main content will get bound here</div>
     </div>
 
-    <hr >
+    <hr>
     <div class="column span-23 last" style="text-align: center">
-      <h4 class="alt"><a href='http://liftweb.net'><i>Lift</i></a> is Copyright 2007-2010 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.
+      <h6 class="alt"><a href='http://liftweb.net'><i>Lift</i></a> is Copyright 2007-2010 WorldWide Conferencing, LLC.
+        Distributed under an Apache 2.0 License.
         <br>
-        Lift version <lift:version_info.lift></lift:version_info.lift> 
-	built on <lift:version_info.date></lift:version_info.date>.
+        Lift version <span data-lift="version_info.lift"></span>
+        built on <span data-lift="version_info.date"></span>.
         <br>
-        Stats: Total Memory: <lift:runtime_stats:total_mem></lift:runtime_stats:total_mem>
-        Free Memory: <lift:runtime_stats:free_mem></lift:runtime_stats:free_mem>
-        Open Sessions: <lift:runtime_stats:sessions></lift:runtime_stats:sessions>
-        Updated At: <lift:runtime_stats:updated_at></lift:runtime_stats:updated_at>
-      </h4>
+        Stats: Total Memory: <span data-lift="runtime_stats:total_mem"></span>
+        Free Memory: <span data-lift="runtime_stats:free_mem"></span>
+        Open Sessions: <span data-lift="runtime_stats:sessions"></span>
+        Updated At: <span data-lift="runtime_stats:updated_at"></span>
+      </h6>
     </div>
   </div>
+  <script type="text/javascript" src="/classpath/fobo/lang-scala.js"></script>
+  <script src="/classpath/fobo/popper.js" type="text/javascript"></script>
+  <script type="text/javascript" src="/classpath/fobo/bootstrap.js"></script>
 </body>
+
 </html>

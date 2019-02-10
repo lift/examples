@@ -1,3 +1,20 @@
-<lift:surround with="default" at="content">
-  Main Menu page... note the submenus on the menu bar
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <p>Main Menu page... note the submenus on the menu bar</p>
+
+  </div>
+</body>
+
+</html>

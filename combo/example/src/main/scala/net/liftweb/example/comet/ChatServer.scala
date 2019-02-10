@@ -15,52 +15,51 @@
  */
 
 package net.liftweb {
-package example {
-package comet {
+  package example {
+    package comet {
 
-import _root_.net.liftweb._
-import http._
-import common._
-import actor._
-import util._
-import Helpers._
-import _root_.scala.xml.{NodeSeq, Text}
-import net.liftmodules.textile.TextileParser
-import _root_.java.util.Date
+      import http._
+      import common._
+      import actor._
+      import util._
+      import Helpers._
+      import _root_.scala.xml.{NodeSeq, Text}
+      import net.liftmodules.textile.TextileParser
+      import _root_.java.util.Date
 
-/**
- * A chat server.  It gets messages and returns them
- */
+      /**
+        * A chat server.  It gets messages and returns them
+        */
+      object ChatServer extends LiftActor with ListenerManager {
+        private var chats: List[ChatLine] = List(
+          ChatLine("System", Text("Welcome"), now))
 
-object ChatServer extends LiftActor with ListenerManager {
-  private var chats: List[ChatLine] = List(ChatLine("System", Text("Welcome"), now))
+        override def lowPriority = {
+          case ChatServerMsg(user, msg) if msg.length > 0 =>
+            chats ::= ChatLine(user, toHtml(msg), now)
+            chats = chats.take(50)
+            updateListeners()
 
-  override def lowPriority = {
-    case ChatServerMsg(user, msg) if msg.length > 0 =>
-      chats ::= ChatLine(user, toHtml(msg), timeNow)
-      chats = chats.take(50)
-      updateListeners()
+          case _ =>
+        }
 
-    case _ =>
+        def createUpdate = ChatServerUpdate(chats.take(15))
+
+        /**
+          * Convert an incoming string into XHTML using Textile Markup
+          *
+          * @param msg the incoming string
+          *
+          * @return textile markup for the incoming string
+          */
+        def toHtml(msg: String): NodeSeq =
+          TextileParser.paraFixer(TextileParser.toHtml(msg, Empty))
+
+      }
+
+      case class ChatLine(user: String, msg: NodeSeq, when: Date)
+      case class ChatServerMsg(user: String, msg: String)
+      case class ChatServerUpdate(msgs: List[ChatLine])
+    }
   }
-
-  def createUpdate = ChatServerUpdate(chats.take(15))
-
-  /**
-   * Convert an incoming string into XHTML using Textile Markup
-   *
-   * @param msg the incoming string
-   *
-   * @return textile markup for the incoming string
-   */
-  def toHtml(msg: String): NodeSeq = TextileParser.paraFixer(TextileParser.toHtml(msg, Empty))
-
 }
-
-case class ChatLine(user: String, msg: NodeSeq, when: Date)
-case class ChatServerMsg(user: String, msg: String)
-case class ChatServerUpdate(msgs: List[ChatLine])
-}
-}
-}
-

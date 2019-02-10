@@ -15,33 +15,33 @@
  */
 
 package net.liftweb {
-package example {
-package model {
+  package example {
+    package model {
 
-import _root_.net.liftweb.mapper._
+      import _root_.net.liftweb.mapper._
 
-/**
- * The singleton that has methods for accessing the database
- */
-object WikiEntry extends WikiEntry with LongKeyedMetaMapper[WikiEntry]
+      /**
+        * The singleton that has methods for accessing the database
+        */
+      object WikiEntry extends WikiEntry with LongKeyedMetaMapper[WikiEntry]
 
-/**
- * An O-R mapped wiki entry
- */
-class WikiEntry extends LongKeyedMapper[WikiEntry] with IdPK {
-  def getSingleton = WikiEntry // what's the "meta" object
+      /**
+        * An O-R mapped wiki entry
+        */
+      class WikiEntry extends LongKeyedMapper[WikiEntry] with IdPK {
+        def getSingleton = WikiEntry // what's the "meta" object
 
-  // the name of the entry
-  object name extends MappedString(this, 32) {
-    override def dbIndexed_? = true // indexed in the DB
+        // the name of the entry
+        object name extends MappedString(this, 32) {
+          override def dbIndexed_? = true // indexed in the DB
+        }
+
+        // the text of the entry
+        object entry extends MappedTextarea(this, 8192) {
+          override def textareaRows = 10
+          override def textareaCols = 50
+        }
+      }
+    }
   }
-
-  // the text of the entry
-  object entry extends MappedTextarea(this, 8192) {
-    override def textareaRows  = 10
-    override def textareaCols = 50
-  }
-}
-}
-}
 }

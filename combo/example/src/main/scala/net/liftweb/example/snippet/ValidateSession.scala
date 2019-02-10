@@ -15,41 +15,31 @@
  */
 
 package net.liftweb {
-package example {
-package snippet {
+  package example {
+    package snippet {
 
-import _root_.net.liftweb.example.model._
-import _root_.net.liftweb.example.lib._
-import _root_.scala.xml.{NodeSeq, Text, Group, Node}
-import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.S
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.http.S._
-import js._
-import JsCmds._
-import _root_.net.liftweb.util.Helpers._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.scala.collection.mutable.HashMap
+      import _root_.net.liftweb.example.lib._
+      import _root_.scala.xml.{NodeSeq}
+      import _root_.net.liftweb.http._
+      import _root_.net.liftweb.http.S
+      import js._
+      import JsCmds._
 
+      /**
+        * This snippet handles counting
+        */
+      class ValidateSession {
 
-
-/**
-  * This snippet handles counting
-  */
-class ValidateSession {
-
-   /**
-    * This method is invoked by the &lt;lift:Count /&gt; tag
-    */
-    def render(in: NodeSeq): NodeSeq =
-      SHtml.ajaxButton("Validate",
-		       () => {
-			 LoginStuff(true)
-			 S.notice("Your session is validated")
-			 RedirectTo("/login/index")
-		       })
-}
-}
-}
+        /**
+          * This method is invoked by the &lt;lift:Count /&gt; tag
+          */
+        def render(in: NodeSeq): NodeSeq =
+          SHtml.ajaxButton("Validate", () => {
+            LoginStuff(true)
+            S.notice("Your session is validated")
+            RedirectTo("/login/index")
+          }, "class" -> "btn btn-outline-primary")
+      }
+    }
+  }
 }

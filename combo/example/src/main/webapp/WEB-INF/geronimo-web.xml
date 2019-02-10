@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-1.2">
+    
+<!-- This is a deployment description file for deploying on the Geronimo application server -->    
+    
+    <environment>
+        <moduleId>
+            <groupId>net.liftweb</groupId>
+            <artifactId>demo</artifactId>
+            <version>0.9.4-SNAPSHOT</version>
+        </moduleId>
+        <dependencies>
+        
+        </dependencies>
+        <import-package> !org.apache.commons.codec*</import-package>
+    </environment>
+
+   <context-root>/demo</context-root>
+                
+</web-app>
+

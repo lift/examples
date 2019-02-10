@@ -1,75 +1,59 @@
-<html lift:content_id="main">
-  <head>
-    <title>Lift Example</title>
-  </head>
-  <body>
-    <div id="main" class="lift:surround?with=default;at=content">
-  <style>
-    /* <![CDATA[ */
-p + p {
-margin-top: 0em;
-text-indent: 0em;
-}
+<!DOCTYPE html>
+<html>
 
-.dpp_stuff p {
-  padding-left: 15px;
-}
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-/* ]]> */
-  </style>
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
 
-<p>
-  Lift keeps the page as an XML data structure throughout
-  the rendering process.  This allows Lift to rewrite the
-  web page at different rendering phases.  After the
-  rendering is complete, Lift looks for all the 
-  <code>&lt;head/&gt;</code>
-  tags in the <code>&lt;body&gt;</code> tag.  Lift
-  takes the contents of each <code>&lt;head/&gt;</code>
-  tag, removes any duplicates and places
-  the resulting tags in the top level <code>&lt;head/&gt;</code>
-  tag.
-</p>
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
-<p>
-  So, if you have the following code in your page:
-
-    <style type="text/css">
-    /* <![CDATA[ */
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
-    <pre>
-&lt;<span class="function-name">span</span>&gt;
-  &lt;<span class="function-name">head</span>&gt;
-    &lt;<span class="function-name">script</span> <span class="variable-name">type</span>=<span class="string">"text/javascript"</span> <span class="variable-name">src</span>=<span class="string">"/classpath/jquery.js"</span>/&gt;
-  &lt;/<span class="function-name">head</span>&gt;
-  do some jQuery stuff here
-&lt;/<span class="function-name">span</span>&gt;
-
-
-&lt;<span class="function-name">span</span>&gt;
-  &lt;<span class="function-name">head</span>&gt;
-    &lt;<span class="function-name">script</span> <span class="variable-name">type</span>=<span class="string">"text/javascript"</span> <span class="variable-name">src</span>=<span class="string">"/classpath/jquery.js"</span>/&gt;
-  &lt;/<span class="function-name">head</span>&gt;
-  Do some other jQuery stuff here
-&lt;/<span class="function-name">span</span>&gt;
-</pre>
-Lift will put a single     &lt;<span class="function-name">script</span> <span class="variable-name">type</span>=<span class="string">"text/javascript"</span> <span class="variable-name">src</span>=<span class="string">"/classpath/jquery.js"</span>/&gt; into the <code>&lt;head/&gt;</code> of the page.
-</p>
-
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
     </div>
-  </body>
-</html>
 
+    <p>
+      Lift keeps the page as an XML data structure throughout the rendering process. This allows Lift to rewrite the
+      web page at
+      different rendering phases. After the rendering is complete, Lift looks for all the
+      <code>&lt;head/&gt;</code>
+      tags in the
+      <code>&lt;body&gt;</code> tag. Lift takes the contents of each
+      <code>&lt;head/&gt;</code>
+      tag, removes any duplicates and places the resulting tags in the top level
+      <code>&lt;head/&gt;</code>
+      tag.
+    </p>
+
+    <p>
+      So, if you have the following code in your page:
+    </p>
+    <span class="badge badge-secondary">The Markup</span>
+    <pre><code class="html">&lt;span&gt;
+  &lt;head&gt;
+    &lt;script type="text/javascript" src="/classpath/jquery.js"/&gt;
+  &lt;/head&gt;
+  do some jQuery stuff here
+&lt;/span&gt;
+...
+&lt;span&gt;
+  &lt;head&gt;
+    &lt;script type="text/javascript" src="/classpath/jquery.js"/&gt;
+  &lt;/head&gt;
+  Do some other jQuery stuff here
+&lt;/span&gt;</code></pre>
+
+    <p>
+      Lift will put a single
+      <code>&lt;script type="text/javascript" src="/classpath/jquery.js"/&gt;</code> into the
+      <code>&lt;head/&gt;</code> of the page.
+    </p>
+
+  </div>
+</body>
+
+</html>

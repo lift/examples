@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package net.liftweb {
-package example {
-package view {
+package net.liftweb.example.view
 
-import _root_.scala.xml.{Text, Node, NodeSeq}
-import _root_.net.liftweb.http._
+import scala.xml.{Text, NodeSeq}
+import net.liftweb.http._
 import S._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
+import net.liftweb.common._
 
 class XmlFun extends LiftView {
   def dispatch = Map("index" -> render _)
@@ -30,45 +27,50 @@ class XmlFun extends LiftView {
   def render = {
     val addresses = List(
       addressNode("123 any street", null, "SF", "CA", "94122", "US"),
-        addressNode("456 other lane", "flat 3", "London", "", "NW3", "GB"),
-        addressNode("14 gordon st", "#204", "Brighton", "MA", "02135", "US"),
-        addressNode("37 foo lane", null, "Ixtapa", "MX", "ABC", "MX"),
-        addressNode("44 sheep st", "#1", "Liverpool", "", "GE1", "GB"),
-        addressNode("74 nice st", "#1801", "Chicago", "IL", "60606", "US"))
+      addressNode("456 other lane", "flat 3", "London", "", "NW3", "GB"),
+      addressNode("14 gordon st", "#204", "Brighton", "MA", "02135", "US"),
+      addressNode("37 foo lane", null, "Ixtapa", "MX", "ABC", "MX"),
+      addressNode("44 sheep st", "#1", "Liverpool", "", "GE1", "GB"),
+      addressNode("74 nice st", "#1801", "Chicago", "IL", "60606", "US")
+    )
 
     val toCount = param("country") openOr "US"
 
-    Full(
-      <lift:surround with="default" at="content">
-
-        <p>The XML is
-          <pre>{addresses.map{e => Text(e.toString) :: <br/> :: Nil}}
-          </pre></p>
-        <p>The count for {toCount} nodes is {countryCount(toCount, addresses)}</p>
-
-        <p><a href='/xml_fun'>Count US addresses.</a></p>
-        <p><a href='/xml_fun?country=GB'>Count GB addresses.</a></p>
-
-
-      </lift:surround>)
+    Full(<html>
+          <head>
+            <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+            <title>Template</title>
+          </head>
+          <body data-lift-content-id="main">
+            <div id="main" data-lift="surround?with=default;at=content">
+              <h2>XML Fun</h2>
+              <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+              <span class="badge badge-secondary">The XML is</span>
+              <pre><code class="xml">{addresses.map{e => Text(e.toString) :: <br/> :: Nil}}</code></pre>
+              <p><b>The count for {toCount} nodes is {countryCount(toCount, addresses)}</b></p>
+              <p><a href='/xml_fun'>Count US addresses.</a></p>
+              <p><a href='/xml_fun?country=GB'>Count GB addresses.</a></p>
+            </div>
+          </body>
+        </html>)
   }
 
-  private def addressNode(line1: String, line2: String, city: String,
-                          state: String, zip_pc: String, country: String) =
-  <address>
+  private def addressNode(line1: String,
+                          line2: String,
+                          city: String,
+                          state: String,
+                          zip_pc: String,
+                          country: String) =
+    <address>
     <line>{line1}</line>{
       if (line2 != null && line2.length > 0) <line>{line2}</line> else Text("")}
     <city>{city}</city>  <state>{state}</state> <country>{country}</country>
   </address>
 
-
   private def countryCount(toMatch: String, xml: NodeSeq) =
-  (for {
+    (for {
       addr <- xml \\ "address"
-      country <- addr \\ "country" if country.text == toMatch}
-   yield country).length
+      country <- addr \\ "country" if country.text == toMatch
+    } yield country).length
 
-}
-}
-}
 }

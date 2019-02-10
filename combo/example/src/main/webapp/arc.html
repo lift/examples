@@ -1,82 +1,84 @@
-<lift:surround with="default" at="content">
-  <div class="lift:ArcChallenge.ask?form=post"></div>
+<!DOCTYPE html>
+<html>
 
-  <p>The Code</p>
-  <head_merge>
-    <style type="text/css">
-      /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-      /* ]]> */
-    </style>
-  </head_merge>
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
 
-  <pre>
-<span class="comment-delimiter">/**</span><span class="comment">
- * The Arc Challenge is Paul Graham's quest for web framework concision.
- *
- * http://www.paulgraham.com/arcchallenge.html
- *
- * This is one potential lift-based solution to it using StatefulSnippets.
- * There are doubtless many other ways.
- *
- * @author: Steve Jenson
- */</span>
-<span class="keyword">class</span> <span class="type">ArcChallenge</span> <span class="keyword">extends</span> <span class="type">StatefulSnippet</span> {
-  <span class="keyword">var</span> <span class="variable-name">dispatch</span>: <span class="type">DispatchIt </span>= {<span class="keyword">case</span> <span class="variable-name">_</span> =&gt; xhtml =&gt; ask}
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
 
-  <span class="comment-delimiter">/**</span><span class="comment">
-   * Step 1: Type in a Phrase.
-   */</span>
-  <span class="keyword">def</span> <span class="function-name">ask</span> = {
-    &lt;p&gt;
-    Say Anything:
-    {text(<span class="string">""</span>, p =&gt; phrase = p)}
-    {submit(<span class="string">"Submit"</span>, () =&gt; dispatch = {<span class="keyword">case</span> <span class="variable-name">_</span> =&gt; xhtml =&gt; think})}
-    &lt;/p&gt;
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <div data-lift="ArcChallenge.ask?form=post"></div>
+
+    <hr>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">/**
+  * The Arc Challenge is Paul Graham's quest for web framework concision.
+  *
+  * http://www.paulgraham.com/arcchallenge.html
+  *
+  * This is one potential lift-based solution to it using StatefulSnippets.
+  * There are doubtless many other ways.
+  *
+  * @author: Steve Jenson
+  */
+class ArcChallenge extends StatefulSnippet {
+  var dispatch: DispatchIt = {
+    case _ =>
+      xhtml =>
+        ask
   }
 
-  <span class="comment-delimiter">/**</span><span class="comment">
-   * Step 2: Show a link that takes you to the Phrase you entered.
-   */</span>
-  <span class="keyword">def</span> <span class="function-name">think</span> = submit(<span class="string">"Click here to see what you said"</span>,
-                     () =&gt; dispatch = {<span class="keyword">case</span> <span class="variable-name">_</span> =&gt; xhtml =&gt; answer})
+  /**
+    * Step 1: Type in a Phrase.
+    */
+  def ask = {
+    &lt;form class="form-inline"&gt;
+      &lt;div class="form-group"&gt;
+        &lt;label for="answer"&gt;Say Anything:&lt;/label&gt;
+        {text("",
+              p => phrase = p,
+              "id" -> "answer",
+              "class" -> "form-control mx-sm-3")}
+      &lt;/div&gt;
+      {submit("Submit",
+              () => dispatch = {case _ => xhtml => think},
+              "class" -> "btn btn-primary")}
+    &lt;/form&gt;
+  }
 
-  <span class="comment-delimiter">/**</span><span class="comment">
-   * Step 3: Show the phrase.
-   */</span>
-  <span class="keyword">def</span> <span class="function-name">answer</span> = &lt;p&gt;You said: {phrase}&lt;/p&gt;
+  /**
+    * Step 2: Show a link that takes you to the Phrase you entered.
+    */
+  def think =
+    submit("Click here to see what you said",
+           () =>
+             dispatch = {
+               case _ =>
+                 xhtml =>
+                   answer
+           },
+           "class" -> "btn btn-primary")
 
-  <span class="keyword">private</span> <span class="keyword">var</span> <span class="variable-name">phrase</span> = <span class="string">""</span>
-}
-  </pre>
+  /**
+    * Step 3: Show the phrase.
+    */
+  def answer = &lt;p&gt;You said: {phrase}&lt;/p&gt;
 
+  private var phrase = ""
+}</code></pre>
 
-</lift:surround>
+  </div>
+</body>
+
+</html>

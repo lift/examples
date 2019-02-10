@@ -1,6 +1,28 @@
-<lift:surround with="default" at="content">
-  <a href='/simple/add'>Add a User</a>
-  <table width="90%" >
-    <tr class="lift:misc.users"><td>test</td></tr>
-  </table>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <table class="table table-responsive table-striped table-hover table-sm" width="90%">
+      <tr data-lift="misc.users">
+        <td>test</td>
+      </tr>
+    </table>
+    <a class="btn btn-outline-primary" href='/simple/add'>Add a User</a>
+  </div>
+</body>
+
+</html>

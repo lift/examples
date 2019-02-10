@@ -14,53 +14,57 @@
  * limitations under the License.
  */
 
-package net.liftweb
-package example
-package snippet
+package net.liftweb.example.snippet
 
-import model._
+import net.liftweb.example.model._
 
-import _root_.net.liftweb._
-import http._
-import mapper._
+import net.liftweb.http._
+import net.liftweb.mapper._
 import S._
 import SHtml._
 
-import common._
-import util._
+import net.liftweb.common._
+import net.liftweb.util._
 import Helpers._
 
-import _root_.scala.xml.{NodeSeq, Text, Group}
-import _root_.java.util.Locale
+import scala.xml.{NodeSeq, Text, Group}
+import java.util.Locale
 
 class Misc {
   private object selectedUser extends RequestVar[Box[User]](Empty)
+  private val logger = Logger(classOf[Misc])
 
   /**
-   * Get the XHTML containing a list of users
-   */
+    * Get the XHTML containing a list of users
+    */
   def users: NodeSeq = {
     User.find() match {
-      case Empty => User.create.firstName("Archer").lastName("Dog").email("archer@dogfood.com").password("mypassword").save
+      case Empty =>
+        User.create
+          .firstName("Archer")
+          .lastName("Dog")
+          .email("archer@dogfood.com")
+          .password("mypassword")
+          .save
       case _ =>
     }
     // the header
-    <tr>{User.htmlHeaders}<th>Edit</th><th>Delete</th></tr> ::
-    // get and display each of the users
-    User.findAll(OrderBy(User.id, Ascending)).flatMap(u => <tr>{u.htmlLine}
-        <td>{link("/simple/edit", () => selectedUser(Full(u)), Text("Edit"))}</td>
-        <td>{link("/simple/delete", () => selectedUser(Full(u)), Text("Delete"))}</td>
+    <thead class="thead-light"><tr>{User.htmlHeaders}<th>Edit</th><th>Delete</th></tr></thead> ::
+      // get and display each of the users
+      User.findAll(OrderBy(User.id, Ascending)).flatMap(u => <tr>{u.htmlLine}
+        <td>{link("/simple/edit", () => selectedUser(Full(u)), <i class="fas fa-pencil-alt fa-fw"></i>, "class" -> "btn btn-sm btn-outline-secondary")}</td>
+        <td>{link("/simple/delete", () => selectedUser(Full(u)), <i class="fas fa-trash fa-fw"></i>, "class" -> "btn btn-sm btn-outline-secondary")}</td>
                                                            </tr>)
   }
 
   /**
-   * Confirm deleting a user
-   */
+    * Confirm deleting a user
+    */
   def confirmDelete(xhtml: Group): NodeSeq = {
     (for (user <- selectedUser.is) // find the user
-     yield {
+      yield {
         def deleteUser() {
-          notice("User "+(user.firstName+" "+user.lastName)+" deleted")
+          notice("User " + (user.firstName + " " + user.lastName) + " deleted")
           user.delete_!
           redirectTo("/simple/index.html")
         }
@@ -69,12 +73,18 @@ class Misc {
         // when the delete button is pressed, call the "deleteUser"
         // function (which is a closure and bound the "user" object
         // in the current content)
-        bind("xmp", xhtml, "username" -> (user.firstName.is+" "+user.lastName.is),
-             "delete" -> submit("Delete", deleteUser _))
+        val bindDelete = {
+          "#username" #> (user.firstName.get + " " + user.lastName.get) &
+            "#delete" #> submit("Yes delete",
+                                deleteUser _,
+                                "type" -> "button",
+                                "class" -> "btn btn-danger")
+        }
+        bindDelete(xhtml)
 
         // if the was no ID or the user couldn't be found,
         // display an error and redirect
-      }) openOr {error("User not found"); redirectTo("/simple/index.html")}
+      }) openOr { error("User not found"); redirectTo("/simple/index.html") }
   }
 
   // called when the form is submitted
@@ -83,65 +93,80 @@ class Misc {
     // back to the "list" page
     case Nil => user.save; redirectTo("/simple/index.html")
 
-      // oops... validation errors
-      // display the errors and make sure our selected user is still the same
-    case x => error(x); selectedUser(Full(user))
+    // oops... validation errors
+    // display the errors and make sure our selected user is still the same
+    case x => {
+      logger.debug("SaveUser got a validation error=" + x.toString())
+      S.error(x)
+      selectedUser(Full(user))
+    }
   }
 
   /**
-   * Add a user
-   */
+    * Add a user
+    */
   def add(xhtml: Group): NodeSeq =
-  selectedUser.is.openOr(new User).toForm(Empty, saveUser _) ++ <tr>
-    <td><a href="/simple/index.html">Cancel</a></td>
-    <td><input type="submit" value="Create"/></td>
+    selectedUser.is.openOr(new User).toForm(Empty, saveUser _) ++ <tr>
+    <td><a class="btn btn-outline-secondary" href="/simple/index.html">Cancel</a></td>
+    <td><button class="btn btn-primary" type="submit">Create</button></td>
                                                                 </tr>
 
   /**
-   * Edit a user
-   */
+    * Edit a user
+    */
   def edit(xhtml: Group): NodeSeq =
-  selectedUser.map(_.
-                   // get the form data for the user and when the form
-                   // is submitted, call the passed function.
-                   // That means, when the user submits the form,
-                   // the fields that were typed into will be populated into
-                   // "user" and "saveUser" will be called.  The
-                   // form fields are bound to the model's fields by this
-                   // call.
-                   toForm(Empty, saveUser _) ++ <tr>
-      <td><a href="/simple/index.html">Cancel</a></td>
-      <td><input type="submit" value="Save"/></td>
+    selectedUser.map(
+      _.
+      // get the form data for the user and when the form
+      // is submitted, call the passed function.
+      // That means, when the user submits the form,
+      // the fields that were typed into will be populated into
+      // "user" and "saveUser" will be called.  The
+      // form fields are bound to the model's fields by this
+      // call.
+      toForm(Empty, saveUser _) ++ <tr>
+      <td><a class="btn btn-outline-secondary" href="/simple/index.html">Cancel</a></td>
+      <td><button class="btn btn-primary" type="submit">Save</button></td>
                                                 </tr>
 
-                   // bail out if the ID is not supplied or the user's not found
-  ) openOr {error("User not found"); redirectTo("/simple/index.html")}
+      // bail out if the ID is not supplied or the user's not found
+    ) openOr { error("User not found"); redirectTo("/simple/index.html") }
 
   // the request-local variable that hold the file parameter
   private object theUpload extends RequestVar[Box[FileParamHolder]](Empty)
 
   /**
-   * Bind the appropriate XHTML to the form
-   */
+    * Bind the appropriate XHTML to the form
+    */
   def upload(xhtml: Group): NodeSeq =
-  if (S.get_?) bind("ul", chooseTemplate("choose", "get", xhtml),
-                    "file_upload" -> fileUpload(ul => theUpload(Full(ul))))
-  else bind("ul", chooseTemplate("choose", "post", xhtml),
-            "file_name" -> theUpload.is.map(v => Text(v.fileName)),
-            "mime_type" -> theUpload.is.map(v => Box.legacyNullTest(v.mimeType).map(Text).openOr(Text("No mime type supplied"))), // Text(v.mimeType)),
-            "length" -> theUpload.is.map(v => Text(v.file.length.toString)),
-            "md5" -> theUpload.is.map(v => Text(hexEncode(md5(v.file))))
-  );
-
+    if (S.get_?)
+      (
+        "#get ^*" #> "#choose" &
+          ".custom-file-input" #> fileUpload(ul => theUpload(Full(ul)))
+      ) apply (xhtml)
+    else
+      ("#post ^*" #> "#choose" &
+        ".file_name" #> theUpload.is.map(v => Text(v.fileName)) &
+        ".mime_type" #> theUpload.is.map(
+          v =>
+            Box
+              .legacyNullTest(v.mimeType)
+              .map(Text.apply)
+              .openOr(Text("No mime type supplied"))) &
+        ".length" #> theUpload.is.map(v => Text(v.file.length.toString)) &
+        ".md5" #> theUpload.is.map(v => Text(hexEncode(md5(v.file))))) apply (xhtml)
 
   def lang = {
     "#lang" #> locale.getDisplayLanguage(locale) &
-    "#select" #> SHtml.selectObj(locales.map(lo => (lo, lo.getDisplayName)),
-                                 definedLocale, setLocale)
+      "#select" #> SHtml.selectObj(locales.map(lo => (lo, lo.getDisplayName)),
+                                   definedLocale,
+                                   setLocale,
+                                   "class" -> "form-control")
   }
 
   private def locales =
-  Locale.getAvailableLocales.toList.sortWith(_.getDisplayName < _.getDisplayName)
+    Locale.getAvailableLocales.toList
+      .sortWith(_.getDisplayName < _.getDisplayName)
 
   private def setLocale(loc: Locale) = definedLocale(Full(loc))
 }

@@ -1,3 +1,82 @@
-<lift:surround with="default" at="content">
-    <div class="lift:PersonScreen"></div>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <div data-lift="PersonScreen"></div>
+
+    <hr>
+
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class PersonScreen extends LiftScreen {
+  object person extends ScreenVar(Person.create)
+
+  override def formName = "PersonScreen"
+
+  override def screenTop =
+    &lt;b&gt;A single screen with some input validation&lt;/b&gt;
+
+  addFields(() => person.is)
+
+  val shouldSave = field("Save ?", false)
+
+  val likeCats = builder("Do you like cats?", "", "class" -> "form-control") ^/
+    (s => if (Helpers.toBoolean(s)) Nil else "You have to like cats") make
+
+  def finish() {
+    S.notice("Thank you for adding " + person.is)
+    if (shouldSave.is) {
+      person.is.save
+      S.notice(person.is.toString + " Saved in the database")
+    }
+  }
+}
+
+object Person extends Person with LongKeyedMetaMapper[Person]
+
+class Person extends LongKeyedMapper[Person] with IdPK {
+  val common_bs_classes = Seq("class" -> "form-control")
+  def getSingleton = Person
+
+  object firstName extends MappedString(this, 100) {
+    override def formElemAttrs = common_bs_classes
+    override def validations =
+      valMinLen(2, "First name must be 2 characters long") _ :: super.validations
+  }
+  object lastName extends MappedString(this, 100) {
+    override def formElemAttrs = common_bs_classes
+  }
+
+  object personalityType extends MappedEnum(this, Personality) {
+    override def formElemAttrs = common_bs_classes
+  }
+}
+
+object Personality extends Enumeration {
+  val TypeA = Value(1, "Type A")
+  val TypeB = Value(2, "Type B")
+  val ENTJ = Value(3, "ENTJ")
+  val INTJ = Value(4, "INTJ")
+
+  val allTypes = Array(TypeA, TypeB, ENTJ, INTJ)
+  def rand = allTypes(Helpers.randomInt(allTypes.length))
+}</code></pre>
+
+  </div>
+</body>
+
+</html>

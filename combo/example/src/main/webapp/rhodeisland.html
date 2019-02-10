@@ -1,68 +1,122 @@
-<lift:surround with="default" at="content">
-  <head_merge>
-    <script type="text/javascript" src="/scripts/jquery.blockUI.js"></script>
-  </head_merge>
-  <span class="lift:JSDialog.button">
-    Destroy Rhode Island
-  </span>
+<!DOCTYPE html>
+<html>
 
-  <p>The code:</p>
-  
-    <style type="text/css">
-    /* <![CDATA[ */
-      .comment {
-        /* font-lock-comment-face */
-        color: #b22222;
-      }
-      .comment-delimiter {
-        /* font-lock-comment-delimiter-face */
-        color: #b22222;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #bc8f8f;
-      }
-      .type {
-        /* font-lock-type-face */
-        color: #228b22;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #b8860b;
-      }
-      /* ]]> */
-    </style>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
 
-    <pre>
-<span class="keyword">class</span> <span class="type">JSDialog</span> {
-  <span class="comment-delimiter">// </span><span class="comment">build the button... when pressed, present
-</span>  <span class="comment-delimiter">// </span><span class="comment">a dialog based on running the _jsdialog_confirm
-</span>  <span class="comment-delimiter">// </span><span class="comment">template
-</span>  <span class="keyword">def</span> <span class="function-name">button</span>(<span class="variable-name">in</span>: <span class="type">NodeSeq</span>) =
-  ajaxButton(in,
-             () =&gt; S.runTemplate(List(<span class="string">"_jsdialog_confirm"</span>)).
-             map(ns =&gt; ModalDialog(ns)) openOr
-             Alert(<span class="string">"Couldn't find _jsdialog_confirm template"</span>))
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <head_merge>
+      <script type="text/javascript" src="/scripts/jquery.blockUI.js"></script>
+    </head_merge>
+    <h2><span data-lift="Menu.title">%*%</span></h2>
 
-  <span class="comment-delimiter">// </span><span class="comment">the template needs to bind to either server-side behavior
-</span>  <span class="comment-delimiter">// </span><span class="comment">and unblock the UI
-</span>  <span class="keyword">def</span> <span class="function-name">confirm</span>(<span class="variable-name">in</span>: <span class="type">NodeSeq</span>) =
-  bind(<span class="string">"confirm"</span>, in,
-       <span class="string">"yes"</span> -&gt; ((b: NodeSeq) =&gt; ajaxButton(b, () =&gt;
-        {println(<span class="string">"Rhode Island Destroyed"</span>)
-         Unblock &amp; Alert(<span class="string">"Rhode Island Destroyed"</span>)})),
-       <span class="string">"no"</span> -&gt; ((b: NodeSeq) =&gt; &lt;button onclick={Unblock.toJsCmd}&gt;{b}&lt;/button&gt;))
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <p>This section has
+      <strong>two examples</strong> showing how you could work with modal dialogs that has there template data in a
+      separate file.
+      The second example is a plain javascript dialog while the first one is taking advantage of bootstrap's javascript
+      modals.
+    </p>
+
+    <h4>Bootstrap dialog example</h4>
+    <span data-lift="BSDialog.button">Destroy Rhode Island</span>
+    <span id="modalPlaceholder"></span>
+    <br>
+    <br>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">
+class BSDialog {
+  // build the button... when pressed, present
+  // a dialog based on the _bsdialog_confirm
+  // template
+  def button(in: NodeSeq) =
+    ajaxButton(in,
+               () => injectDialogTemplate & openDialog,
+               "type" -> "button",
+               "class" -> "btn btn-primary",
+               "data-target" -> "#exampleModal")
+
+  def confirm = {
+    "#yes" #> ((b: NodeSeq) =>
+      ajaxButton(b, () => {
+        logger.debug("Rhode Island Destroyed")
+        showDestroyAlert & closeDialog
+      }, "type" -> "button", "class" -> "btn btn-primary")) &
+      "#no" #> ((b: NodeSeq) =>
+        ajaxButton(
+          b,
+          () => {
+            logger.debug("Rhode Island intact")
+            // we could have used closeDialog here but we
+            // are instead using the data-dismiss attribute.
+            Noop
+          },
+          "type" -> "button",
+          "class" -> "btn btn-primary",
+          "data-dismiss" -> "modal"
+        ))
+  }
+
+  private val logger = Logger(classOf[BSDialog])
+  private val bsDialogTemplate: Box[NodeSeq] = Templates(
+    List("_bsdialog_confirm"))
+  private val openDialog
+    : JsCmd = JsRaw("""$('#exampleModal').modal('show')""").cmd
+  private val closeDialog
+    : JsCmd = JsRaw("""$('#exampleModal').modal('hide')""").cmd
+  private val showDestroyAlert = Alert("Rhode Island Destroyed")
+  private val showTemplateNotFoundAlert = Alert(
+    "Couldn't find _bsdialog_confirm template")
+
+  private def setAtPlaceholder(ns: NodeSeq) = SetHtml("modalPlaceholder", ns)
+  private def injectDialogTemplate =
+    bsDialogTemplate map setAtPlaceholder openOr showTemplateNotFoundAlert
 }
-</pre>
+    </code></pre>
+    <br>
+    <h4>JS dialog example</h4>
+    <span data-lift="JSDialog.button">
+      Destroy Rhode Island
+    </span>
+    <br>
+    <br>
+    <span class="badge badge-secondary">The
+      <i>Lift</i> Scala code</span>
+    <pre><code class="scala">class JSDialog {
+  // build the button... when pressed, present
+  // a dialog based on running the _jsdialog_confirm
+  // template
+  def button(in: NodeSeq) =
+    ajaxButton(in,
+               () =>
+                 S.runTemplate(List("_jsdialog_confirm"))
+                   .map(ns => ModalDialog(ns)) openOr
+                   Alert("Couldn't find _jsdialog_confirm template"))
 
+  // the template needs to bind to either server-side behavior
+  // and unblock the UI
+  def confirm = {
+    "#yes" #> ((b: NodeSeq) =>
+      ajaxButton(b, () => {
+        println("Rhode Island Destroyed")
+        Unblock & Alert("Rhode Island Destroyed")
+      })) &
+      "#no" #> ((b: NodeSeq) => &lt;button onclick={Unblock.toJsCmd}&gt;
+          {b}
+        &lt;/button&gt;)
+  }
+}</code></pre>
 
-</lift:surround>
+  </div>
+</body>
 
+</html>

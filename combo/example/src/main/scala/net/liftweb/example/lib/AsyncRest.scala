@@ -18,9 +18,7 @@ package net.liftweb
 package example 
 package lib 
 
-import net.liftweb._
 import http._
-import common._
 import rest._
 
 /**

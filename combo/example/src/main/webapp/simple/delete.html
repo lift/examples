@@ -1,6 +1,31 @@
-<lift:surround with="default" at="content">
-  <form class="lift:misc.confirmDelete?form=post">
-    Do you really want to delete <xmp:username></xmp:username>
-    <a href="/simple/index">No</a> <xmp:delete></xmp:delete>
-  </form>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs"></div>
+    </div>
+
+    <form data-lift="misc.confirmDelete?form=post">
+      <p>Do you really want to delete user:
+        <strong>'
+          <span id="username"></span>'</strong>?</p>
+      <div>
+        <a class="btn btn-outline-primary" href="/simple/index">No</a>
+        <div id="delete"></div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

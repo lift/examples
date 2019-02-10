@@ -1,5 +1,27 @@
-<lift:surround with="default" at="content">
-  <table>
-    <div class="lift:misc.add?form=post"></div>
-  </table>
-</lift:surround>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Template</title>
+</head>
+
+<body data-lift-content-id="main">
+  <div id="main" data-lift="surround?with=default;at=content">
+    <h2><span data-lift="Menu.title">%*%</span></h2>
+
+    <span data-lift="FoBo.Bs4Comp.breadCrumb?prefix=Home"></span>
+
+    <div id="wrappedNoticeAtHead">
+      <div data-lift="Msgs?showAll=true"></div>
+    </div>
+    <table class="table table-responsive table-striped">
+      <tr data-lift="misc.add?form=post">
+        <td>foo</td>
+      </tr>
+    </table>
+
+  </div>
+</body>
+
+</html>

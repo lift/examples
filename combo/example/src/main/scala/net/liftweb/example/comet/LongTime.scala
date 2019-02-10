@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package net.liftweb
-package example
-package comet
+package net.liftweb.example.comet
 
 import net.liftweb.actor._
 import scala.xml.{NodeSeq, Text}
@@ -90,9 +88,9 @@ class LongTime extends CometActor {
   def render =
   url match {
     case Full(where) =>
-      <span>Your job is complete.  <a href={where}>Click Me</a></span>
+      <div>Your job is complete.  <a href={where}>Click Me</a></div>
     case _ =>
-      <span>We're working on your job... it's {progress}% complete</span>
+      <div>We're working on your job... it's {progress}% complete</div>
   }
 }
 
